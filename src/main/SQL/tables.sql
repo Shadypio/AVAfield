@@ -37,7 +37,7 @@ create table evento
         primary key,
     nome               varchar(30) not null,
     numeroPartecipanti int         not null,
-    dataEvento               date        not null,
+    dataEvento         date        not null,
     orario             datetime    not null,
     str_fk             int         null,
     constraint str_evento_fk

@@ -2,7 +2,6 @@ package model.evento;
 
 import model.struttura.Struttura;
 import model.utente.Utente;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,7 +12,7 @@ public class Evento {
         this.idEvento = idEvento;
         this.nome = nome;
         this.numeroPartecipanti = numeroPartecipanti;
-        this.data = data;
+        this.dataEvento = data;
         this.orario = orario;
         this.struttura = struttura;
         this.listaUtenti = listaUtenti;
@@ -35,9 +34,9 @@ public class Evento {
     public void setNumeroPartecipanti(int numeroPartecipanti) {
         this.numeroPartecipanti = numeroPartecipanti;
     }
-    public Date getData() { return data; }
-    public void setData(Date data) {
-        this.data = data;
+    public Date getDataEvento() { return dataEvento; }
+    public void setDataEvento(Date data) {
+        this.dataEvento = data;
     }
     public Date getOrario() {
         return orario;
@@ -60,11 +59,11 @@ public class Evento {
 
     @Override
     public String toString() {
-        return "model.Evento.Evento{" +
+        return "model.evento.Evento.Evento{" +
                 "idEvento=" + idEvento +
                 ", nome='" + nome + '\'' +
                 ", numeroPartecipanti=" + numeroPartecipanti +
-                ", data=" + data +
+                ", data=" + dataEvento +
                 ", orario=" + orario +
                 ", struttura=" + struttura +
                 ", listaUtenti=" + listaUtenti +
@@ -74,7 +73,7 @@ public class Evento {
     private int idEvento;
     private String nome;
     private int numeroPartecipanti;
-    private Date data;
+    private Date dataEvento;
     private Date orario;
     private Struttura struttura;
     private ArrayList<Utente> listaUtenti;

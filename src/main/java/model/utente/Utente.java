@@ -1,6 +1,9 @@
 package model.utente;
 
+
 import model.evento.Evento;
+
+import java.util.ArrayList;
 
 public class Utente {
     public Utente(){ }

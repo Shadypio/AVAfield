@@ -1,6 +1,6 @@
 package model.utente;
 
-import model.ResultSetExtractor;
+import model.utils.ResultSetExtractor;
 
 import java.io.IOException;
 import java.sql.ResultSet;
