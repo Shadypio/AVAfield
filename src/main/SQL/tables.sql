@@ -21,6 +21,7 @@ create table struttura
 (
     idStruttura      int         not null
         primary key,
+    nome             varchar(20) not null,
     indirizzo        varchar(40) not null,
     telefono         varchar(15) not null,
     descrizione      varchar(50) not null,
@@ -36,7 +37,7 @@ create table evento
         primary key,
     nome               varchar(30) not null,
     numeroPartecipanti int         not null,
-    data               date        not null,
+    dataEvento               date        not null,
     orario             datetime    not null,
     str_fk             int         null,
     constraint str_evento_fk

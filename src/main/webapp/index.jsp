@@ -65,7 +65,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="logo"><a href="../../../../../Downloads/eflyer-master/index.html"><img src="images/logo.png"></a></div>
+                    <div class="logo"><a href="../../../../../Downloads/eflyer-master/index.html"><img src="images/avalogo.png"></a></div>
                 </div>
             </div>
         </div>
@@ -140,24 +140,16 @@
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                                <h1 class="banner_taital">Prenota<br> una struttura</h1>
+                                <div class="buynow_bt"><a href="#">Prenota</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                                <h1 class="banner_taital">Partecipa<br> ad un evento</h1>
+                                <div class="buynow_bt"><a href="#">Esplora</a></div>
                             </div>
                         </div>
                     </div>
