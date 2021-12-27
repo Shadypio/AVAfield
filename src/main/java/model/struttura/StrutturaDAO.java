@@ -1,7 +1,7 @@
 package model.struttura;
 
 
-import model.evento.Evento;
+
 import model.utils.ConPool;
 import java.io.IOException;
 import java.sql.*;
@@ -15,7 +15,7 @@ public class StrutturaDAO {
             ps.setInt(1, s.getIdStruttura());
             ps.setString(2, s.getNome());
             ps.setString(3, s.getIndirizzo());
-            ps.setString(4, s.getNumeroTelefono());
+            ps.setString(4, s.getTelefono());
             ps.setString(5, s.getDescrizione());
             ps.setInt(6, s.getCapienza());
             ps.setString(7, s.getCategoria());
@@ -34,7 +34,7 @@ public class StrutturaDAO {
             PreparedStatement ps = con.prepareStatement("UPDATE struttura s SET s.nome = (?), s.indirizzo = (?), s.telefono =(?), s.descrizione=(?), s.capienza=(?), s.categoria=(?), s.numeroSpogliatoi=(?), s.parcheggio=(?) WHERE s.idStruttura=(?);");
             ps.setString(1,s.getNome());
             ps.setString(2,s.getIndirizzo());
-            ps.setString(3, s.getNumeroTelefono());
+            ps.setString(3, s.getTelefono());
             ps.setString(4, s.getDescrizione());
             ps.setInt(5, s.getCapienza());
             ps.setString(6,s.getCategoria());

@@ -118,4 +118,5 @@ public class Utente {
     private int autovalutazione;
     private int idUtente;
     private ArrayList<Evento> listaEventi;
+
 }

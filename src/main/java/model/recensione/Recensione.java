@@ -67,5 +67,4 @@ public class Recensione {
     private int numeroStelle;
     private Utente utente;
     private Struttura struttura;
-
 }

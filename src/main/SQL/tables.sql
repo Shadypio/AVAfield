@@ -62,5 +62,12 @@ create table recensione
             on update cascade on delete cascade
 );
 
+create table evento_utente
+(
+    eve_fk   int not null,
+    ute_fk   int not null,
+    primary key (eve_fk, ute_fk)
+);
+
 
 

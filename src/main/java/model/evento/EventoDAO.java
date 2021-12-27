@@ -28,7 +28,7 @@ public class EventoDAO {
 
     public boolean doChanges(Evento e, Struttura s){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE evento e SET e.nome = (?), e.numeroPartecipanti = (?), e.data =(?), e.orario=(?), e.struttura=(?) WHERE e.idEvento = (?);");
+            PreparedStatement ps = con.prepareStatement("UPDATE evento e SET e.nome = (?), e.numeroPartecipanti = (?), e.dataEvento =(?), e.orario=(?), e.str_fk=(?) WHERE e.idEvento = (?);");
             ps.setString(1,e.getNome());
             ps.setInt(2,e.getNumeroPartecipanti());
             ps.setDate(3, (Date) e.getDataEvento());
@@ -89,6 +89,4 @@ public class EventoDAO {
             throw new RuntimeException(ex);
         }
     }
-
-
 }
