@@ -55,6 +55,7 @@ public class AutenticazioneController extends HttpServlet {
                 email = request.getParameter("email");
                 pass = request.getParameter("password");
                 log=us.login(email,pass);
+                //System.out.println(log.toString());
                 if (log!= null)
                     request.getRequestDispatcher("/WEB-INF/interface/site/account.jsp").forward(request,response);
                 else

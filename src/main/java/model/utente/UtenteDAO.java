@@ -10,7 +10,7 @@ public class UtenteDAO {
     public void addUtente(Utente u){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) VALUES(?,?,?,?,?,?,?,?,?)");
+                    "INSERT INTO utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) VALUES(?,?,?,?,?,SHA1(?),?,?,?)");
             ps.setInt(1, u.getIdUtente());
             ps.setString(2,u.getNome());
             ps.setString(3,u.getCognome());
