@@ -48,7 +48,7 @@
                 <div class="col-sm-12">
                     <div class="custom_menu">
                         <ul>
-                            <li><a href="#">Area Riservata</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ac/secret">Area Riservata</a></li>
                             <li><a href="#">Contatti</a></li>
                             <li><a href="#">Segnalaci un problema</a></li>
                         </ul>
@@ -75,8 +75,8 @@
             <div class="containt_main">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="">Home</a>
-                    <a href="">Login</a>
+                    <a href="<%=request.getContextPath()%>/index.jsp">Home</a>
+                    <a href="<%=request.getContextPath()%>/ac/signin_signup">Login</a>
                 </div>
                 <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
                 <div class="dropdown">
@@ -291,18 +291,6 @@
 <div class="footer_section layout_padding">
     <div class="container">
         <div class="footer_logo"><a href=""><img src="images/avalogo.png"></a></div>
-        <div class="input_bt">
-            <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
-            <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-        </div>
-        <div class="footer_menu">
-            <ul>
-                <li><a href="#">Nuovo evento</a></li>
-                <li><a href="#">Visualizza strutture</a></li>
-                <li><a href="#">Contatti</a></li>
-                <li><a href="#">Segnalaci un problema</a></li>
-            </ul>
-        </div>
         <div class="location_main">I nostri social: <a href="#">Facebook </a><a href="#">Instagram</a></div>
     </div>
 </div>

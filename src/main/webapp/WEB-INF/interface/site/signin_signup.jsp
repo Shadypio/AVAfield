@@ -26,7 +26,7 @@
 
 
 <div class="content">
-    <form  action="${pageContext.request.contextPath}/ac/create"  method="post" onsubmit="return validateTelPass()">
+    <form  action="${pageContext.request.contextPath}/ac/create"  method="post" >
         <div class="imgcontainer">
             <img src="<%=request.getContextPath()%>/img/logo.png" class="avatar"/>
         </div>
@@ -65,11 +65,6 @@
             <span>Conferma  Password </span>
             <label for="confermapassword" class="field">
                 <input type="password" name="confermapassword" id="confermapassword" placeholder="Conferma Password" required><br>
-            </label>
-
-            <span> Indirizzo </span>
-            <label for="indirizzo" class="field">
-                <input type="text" name="indirizzo" id="indirizzo" placeholder="Indirizzo" required>
             </label>
 
             <span> Telefono </span>

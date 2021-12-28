@@ -6,7 +6,8 @@ public class UtenteServiceImpl implements UtenteService{
     @Override
     public Utente login(String email, String pass) {
         UtenteDAO uteDAO=new UtenteDAO();
-        return uteDAO.doRetrieveUtenteByEmailPassword(email,pass);
+        Utente x= uteDAO.doRetrieveUtenteByEmailPassword(email,pass);
+        return x;
     }
 
     @Override
