@@ -13,15 +13,12 @@ public class EventoUtente {
     public Utente getUtente() {
         return utente;
     }
-
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
-
     public Evento getEvento() {
         return evento;
     }
-
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
@@ -36,5 +33,4 @@ public class EventoUtente {
 
     private Utente utente;
     private Evento evento;
-
 }

@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class EventoDAO {
 
-    public void addEvento(Evento e, Struttura s){
+    public void addEvento(Evento e){
+        Struttura s=e.getStruttura();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, str_fk) VALUES(?,?,?,?,?,?)");
@@ -26,7 +27,8 @@ public class EventoDAO {
         }
     }
 
-    public boolean doChanges(Evento e, Struttura s){
+    public boolean doChanges(Evento e){
+        Struttura s=e.getStruttura();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE evento e SET e.nome = (?), e.numeroPartecipanti = (?), e.dataEvento =(?), e.orario=(?), e.str_fk=(?) WHERE e.idEvento = (?);");
             ps.setString(1,e.getNome());
@@ -87,6 +89,19 @@ public class EventoDAO {
             return result;
         } catch (SQLException | IOException ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+    public void deleteById(int id){
+        try (Connection con = ConPool.getConnection()) {
+            String query ="DELETE FROM evento as eve WHERE eve.idEvento = (?);";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("DELETE error.");
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
     }
 }

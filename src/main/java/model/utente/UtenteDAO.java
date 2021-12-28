@@ -58,6 +58,19 @@ public class UtenteDAO {
         return u;
     }
 
+    public void deleteById(int id){
+        try (Connection con = ConPool.getConnection()) {
+            String query ="DELETE FROM utente AS ute WHERE ute.idUtente = (?);";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("DELETE error.");
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
     public void doChanges(Utente u){
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();

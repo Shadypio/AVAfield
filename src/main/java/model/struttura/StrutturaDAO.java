@@ -79,5 +79,18 @@ public class StrutturaDAO {
         }
         return s;
     }
+
+    public void deleteById(int id){
+        try (Connection con = ConPool.getConnection()) {
+            String query ="DELETE FROM struttura as str WHERE str.idStruttura = (?);";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("DELETE error.");
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
 }
 
