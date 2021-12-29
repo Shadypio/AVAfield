@@ -9,6 +9,7 @@ public class StrutturaExtractor implements ResultSetExtractor<Struttura> {
     @Override
     public Struttura extract(ResultSet rs) throws SQLException, IOException {
         Struttura s=new Struttura();
+        s.setIdStruttura(rs.getInt("str.idStruttura"));
         s.setNome(rs.getString("str.nome"));
         s.setIndirizzo(rs.getString("str.indirizzo"));
         s.setTelefono(rs.getString("str.telefono"));

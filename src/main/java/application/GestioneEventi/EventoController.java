@@ -1,11 +1,18 @@
 package application.GestioneEventi;
 
+import model.evento.Evento;
 import model.evento.EventoServiceImpl;
+import model.struttura.Struttura;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet(name = "EventoController", value = "/ge/*")
 public class EventoController extends HttpServlet {
@@ -19,11 +26,47 @@ public class EventoController extends HttpServlet {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
         EventoServiceImpl es=new EventoServiceImpl();
+        Evento e =new Evento();//oggetto di appoggio
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/viewEvent":
                 session.setAttribute("listaEventi",es.visualizzaEventi());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/events.jsp").forward(request, response);
+                break;
+            case "/addEvento":
+                e.setIdEvento(es.visualizzaEventi().size()+1);
+                e.setNome(request.getParameter("nome"));
+                e.setNumeroPartecipanti(Integer.parseInt(request.getParameter("numero")));
+                Struttura s=new Struttura();
+                s.setIdStruttura(Integer.parseInt(request.getParameter("idStr")));
+                e.setStruttura(s);
+                String data=request.getParameter("data");
+                String orario=request.getParameter("time");
+                System.out.println(data+"    "+orario);
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat of = new SimpleDateFormat("HH:mm");
+                df.setLenient (false);
+                of.setLenient(false);
+                Date dataEvento,oraEvento;
+                try {
+                    dataEvento = df.parse (data);
+                    oraEvento= of.parse(orario);
+                    System.out.println(dataEvento+"    "+oraEvento);
+                    java.sql.Date sqlDate = new java.sql.Date(dataEvento.getTime());
+                    java.sql.Date sqlTime = new java.sql.Date(oraEvento.getTime());
+                    e.setDataEvento(sqlDate);
+                    e.setOrario(sqlTime);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+                es.creaEvento(e);
+                response.sendRedirect(address+"/ge/viewEvent");
+                break;
+            case "/deleteEvento":
+                String idDelete=request.getParameter("selezioneDelete");
+                e.setIdEvento(Integer.parseInt(idDelete));
+                es.eliminaEvento(e);
+                response.sendRedirect(address+"/ge/viewEvent");
                 break;
         }
 

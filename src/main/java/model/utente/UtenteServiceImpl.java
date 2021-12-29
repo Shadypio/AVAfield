@@ -16,6 +16,11 @@ public class UtenteServiceImpl implements UtenteService{
         uteDAO.doChanges(u);
     }
 
+    public void modificaDati2(Utente u) {
+        UtenteDAO uteDAO = new UtenteDAO();
+        uteDAO.doChangesWithPass(u);
+    }
+
     @Override
     public void cancellazioneAccount(Utente u) {
         UtenteDAO uteDAO = new UtenteDAO();

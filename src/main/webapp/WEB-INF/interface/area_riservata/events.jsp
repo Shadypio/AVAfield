@@ -1,6 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page import="model.evento.Evento" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- PAGINA PER ADMIN CONTROLLO EVENTI --%>
@@ -20,7 +25,6 @@
             <a href="<%=request.getContextPath()%>/gs/viewStructure">Gestione Strutture</a>
             <a href="<%=request.getContextPath()%>/gu/viewUser">Gestione Utenti</a>
             <a href="<%=request.getContextPath()%>/ge/viewEvent">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/gr/viewReview">Gestione Recensioni</a>
             <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
         </nav>
     </aside>
@@ -45,6 +49,7 @@
                 <tbody>
                 <%int i=0;
                 ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
+
                 <c:forEach var="evento" items="${listaEventi}">
                     <%Evento evento = eventi.get(i++);%>
                     <tr>
@@ -67,18 +72,6 @@
                         </c:forEach>
                     </select>
                     <button type="submit" class="butDel btn primary">Elimina Evento</button> <!--Button Delete-->
-                </form>
-
-                <form action="${pageContext.request.contextPath}/ge/updateEvento" method="post" name="up" >
-                    <select name="selezioneMod" id="selezioneMod">
-                        <c:forEach var="evento" items="${listaEventi}">
-                            <option>${evento.idEvento} </option>
-                        </c:forEach>
-                    </select>
-                    <button class="butMod btn primary" type="button">Modifica Evento</button> <!--Button Mod-->
-                    <div class="modEve" name="upp">
-                        <!--Al click Form Modify-->
-                    </div>
                 </form>
 
                 <form action="<%=request.getContextPath()%>/ge/addEvento" method="post">
@@ -119,18 +112,7 @@
                 $(".newEve").hide();
             });
         });
-        $(".butMod").click(function () {
-            $(".modEve").show().html("<fieldset>  <legend>Modifica Evento</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                "<span> Numero Partecipanti: <input type='number' name='numero' id='numero' placeholder='Numero Partecipanti' required> <br>" +
-                "<span> Data: </span> <input type='date' name='data' id='data' value='2021-12-25' min='2021-12-25' max='2022-12-25' required><br>" +
-                "<span> Orario: </span> <input type='time' name='time' id='time' required><br>" +
-                "<span> ID Struttura: </span> <input type='number' name='idStr' id='idStr' min='0' placeholder='ID Struttura' required> <br>" +
-                "<button class='btn primary' type='submit'>Salva</button>" +
-                "<button class='btn primary' type='button' id='annulla2'>Annulla</button> </fieldset>")
-            $("#annulla2").click(function () {
-                $(".modEve").hide();
-            });
-        });
+
     });
 </script>
 </body>

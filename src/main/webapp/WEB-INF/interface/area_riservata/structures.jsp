@@ -4,7 +4,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- PAGINA PER ADMIN CONTROLLO STRUTTURE --%>
-
 <html>
 <head>
     <title></title>
@@ -20,7 +19,6 @@
             <a href="<%=request.getContextPath()%>/gs/viewStructure">Gestione Strutture</a>
             <a href="<%=request.getContextPath()%>/gu/viewUser">Gestione Utenti</a>
             <a href="<%=request.getContextPath()%>/ge/viewEvent">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/gr/viewReview">Gestione Recensioni</a>
             <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
         </nav>
     </aside>
@@ -40,24 +38,26 @@
                     <th>telefono</th>
                     <th>Descrizione</th>
                     <th>Categoria</th>
+                    <th>Capienza</th>
                     <th>Numero Spogliatoi</th>
                     <th>Parcheggio</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%int i=0;
-                    ArrayList<Struttura> strutture = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");%>
-                <c:forEach var="struttura" items="${listaStrutture}">
-                    <%Struttura struttura = strutture.get(i++);%>
+                    ArrayList<Struttura> lista = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");%>
+                <c:forEach var="s" items="${listaStrutture}">
+                    <%Struttura s = lista.get(i++);%>
                     <tr>
-                        <td>${struttura.idStruttura}</td>
-                        <td>${struttura.nome}</td>
-                        <td>${struttura.indirizzo}</td>
-                        <td>${struttura.telefono}</td>
-                        <td>${struttura.descrizione}</td>
-                        <td>${struttura.categoria}</td>
-                        <td>${struttura.numeroSpogliatoi}</td>
-                        <td>${struttura.parcheggio}</td>
+                        <td>${s.idStruttura}</td>
+                        <td>${s.nome}</td>
+                        <td>${s.indirizzo}</td>
+                        <td>${s.telefono}</td>
+                        <td>${s.descrizione}</td>
+                        <td>${s.categoria}</td>
+                        <td>${s.capienza}</td>
+                        <td>${s.numeroSpogliatoi}</td>
+                        <td>${s.parcheggio}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -66,8 +66,8 @@
             <div class="formWrapper">
                 <form action="${pageContext.request.contextPath}/gs/deleteStruttura" method="post">
                     <select name="selezioneDelete" id="selectedDel">
-                        <c:forEach var="struttura" items="${listaStrutture}">
-                            <option>${struttura.idStruttura} </option>
+                        <c:forEach var="s" items="${listaStrutture}">
+                            <option>${s.idStruttura} </option>
                         </c:forEach>
                     </select>
                     <button type="submit" class="butDel btn primary">Elimina Struttura</button> <!--Button Delete-->
@@ -75,8 +75,8 @@
 
                 <form action="${pageContext.request.contextPath}/gs/updateStruttura" method="post" name="up" >
                     <select name="selezioneMod" id="selezioneMod">
-                        <c:forEach var="struttura" items="${listaStrutture}">
-                            <option>${struttura.idStruttura} </option>
+                        <c:forEach var="s" items="${listaStrutture}">
+                            <option>${s.idStruttura} </option>
                         </c:forEach>
                     </select>
                     <button class="butMod btn primary" type="button">Modifica Struttura</button> <!--Button Mod-->
@@ -113,7 +113,7 @@
     $(document).ready(function () {
         $(".butAdd").click(function () {
             $(".newStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +"<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
+                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
                 "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
                 "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
                 "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
@@ -128,7 +128,7 @@
         });
         $(".butMod").click(function () {
             $(".modStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +"<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
+                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
                 "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
                 "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
                 "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +

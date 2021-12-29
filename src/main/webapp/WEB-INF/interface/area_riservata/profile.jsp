@@ -20,7 +20,6 @@
             <a href="<%=request.getContextPath()%>/gs/viewStructure">Gestione Strutture</a>
             <a href="<%=request.getContextPath()%>/gu/viewUser">Gestione Utenti</a>
             <a href="<%=request.getContextPath()%>/ge/viewEvent">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/gr/viewReview">Gestione Recensioni</a>
             <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
 
         </nav>
