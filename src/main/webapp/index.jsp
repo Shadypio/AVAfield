@@ -1,3 +1,6 @@
+<%@ page import="model.struttura.Struttura" %>
+<%@ page import="model.struttura.StrutturaDAO" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -22,7 +25,7 @@
     <!-- Responsive-->
     <link rel="stylesheet" href="css/responsive.css">
     <!-- fevicon -->
-    <link rel="icon" href="images/logo_no_text.png" type="image/gif" />
+    <link rel="icon" href="images/logo_no_text.png" type="image/gif"/>
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
     <!-- Tweaks for older IEs-->
@@ -30,15 +33,23 @@
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
     <!-- font awesome -->
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--  -->
     <!-- owl stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
+          rel="stylesheet">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
 </head>
 <body>
+<%
+    StrutturaDAO strDAO = new StrutturaDAO();
+    ArrayList<Struttura> strutture = strDAO.doRetrieveAll();
+
+    int i = 0;%>
 <!-- banner bg main start -->
 <div class="banner_bg_main">
     <!-- header top section start -->
@@ -63,7 +74,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="logo"><a href="../../../../../Downloads/eflyer-master/index.html"><img src="images/avalogo.png"></a></div>
+                    <div class="logo"><a href="../../../../../Downloads/eflyer-master/index.html"><img
+                            src="images/avalogo.png"></a></div>
                 </div>
             </div>
         </div>
@@ -80,7 +92,8 @@
                 </div>
                 <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorie
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorie
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#">NON LO SO</a>
@@ -95,7 +108,8 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Cerca una struttura">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                            <button class="btn btn-secondary" type="button"
+                                    style="background-color: #f26522; border-color:#f26522 ">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -158,39 +172,29 @@
                 <div class="container">
                     <div class="fashion_section_2">
                         <div class="row">
+                            <%for (; i < 3; i++) { %>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 1</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
+
+                                    <div class="box_main">
+                                        <h4 class="shirt_text"><%=strutture.get(i).getNome() %>
+                                        </h4>
+                                        <p class="price_text"><span
+                                                style="color: #262626;"><%=strutture.get(i).getIndirizzo()%></span>
+                                        </p>
+                                        <div class="electronic_img"><img src="images/campo_img.png"></div>
+                                        <div class="btn_main">
+                                            <div class="buy_bt"><a href="#">Prenota</a></div>
+                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
+                                                <div class="seemore_bt"><a href="#">Dettagli</a></div>
+                                            </div>
+                                        </div>
                                     </div>
+
+
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 2</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 3</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -199,39 +203,29 @@
                 <div class="container">
                     <div class="fashion_section_2">
                         <div class="row">
+                            <%for (; i < 6; i++) { %>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 4</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
+
+                                    <div class="box_main">
+                                        <h4 class="shirt_text"><%=strutture.get(i).getNome() %>
+                                        </h4>
+                                        <p class="price_text"><span
+                                                style="color: #262626;"><%=strutture.get(i).getIndirizzo()%></span>
+                                        </p>
+                                        <div class="electronic_img"><img src="images/campo_img.png"></div>
+                                        <div class="btn_main">
+                                            <div class="buy_bt"><a href="#">Prenota</a></div>
+                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
+                                                <div class="seemore_bt"><a href="#">Dettagli</a></div>
+                                            </div>
+                                        </div>
                                     </div>
+
+
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 5</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 6</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -240,39 +234,28 @@
                 <div class="container">
                     <div class="fashion_section_2">
                         <div class="row">
+                            <%for (; i < 9; i++) { %>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 7</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
+                                    <div class="box_main">
+                                        <h4 class="shirt_text"><%=strutture.get(i).getNome() %>
+                                        </h4>
+                                        <p class="price_text"><span
+                                                style="color: #262626;"><%=strutture.get(i).getIndirizzo()%></span>
+                                        </p>
+                                        <div class="electronic_img"><img src="images/campo_img.png"></div>
+                                        <div class="btn_main">
+                                            <div class="buy_bt"><a href="#">Prenota</a></div>
+                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
+                                                <div class="seemore_bt"><a href="#">Dettagli</a></div>
+                                            </div>
+                                        </div>
                                     </div>
+
+
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 8</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">CAMPO 9</h4>
-                                    <p class="price_text">VIA<span style="color: #262626;">...</span></p>
-                                    <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Prenota</a></div>
-                                        <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>
