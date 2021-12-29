@@ -14,6 +14,11 @@ insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, desc
 insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (9, 'TennisHere','Via Padova, 42', '3345647568', 'Assisti a fantastiche partite di tennis!', 100, 'Tennis', 2, 1);
 insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (10, 'PaddlePad','Via Torino, 56', '3331425678', 'Le partite di paddle più spettacolari!', 90, 'Paddle', 3, 1);
 
+insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (20, 'VolleyFun', 'Via Roma, 12', '3214567635', 'Ospitiamo le migliori partite di pallavolo!', 140, 'Pallavolo', 3, 1);
+insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (21, 'SoccerEnjoy','Via Venezia, 23', '3425674567', 'Le partite a calcio più emozionanti!', 240, 'Calcio', 2, 1);
+insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (22, 'JustBasketball','Via Napoli, 34', '3987654312', 'Prenota la tua prossima partita di basket!', 170, 'Basket', 4, 1);
+insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (23, 'TennisHere','Via Padova, 42', '3345647568', 'Assisti a fantastiche partite di tennis!', 100, 'Tennis', 2, 1);
+
 /* Evento */
 insert into avafieldbase.evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, str_fk) values (11, 'Partita di pallavolo', 12, '2022-2-11','2022-2-11 13:20:00', 6);
 insert into avafieldbase.evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, str_fk) values (12, 'Partita di calcio', 22, '2022-3-12','2022-3-12 14:30:00', 7);
