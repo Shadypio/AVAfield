@@ -25,6 +25,10 @@ public class GestioneUtenti extends HttpServlet {
                 session.setAttribute("listaUtenti",us.visualizzaUtenti());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/users.jsp").forward(request, response);
                 break;
+            case "/profileAdmin":
+                request.getRequestDispatcher("/WEB-INF/interface/area_riservata/profile.jsp").forward(request, response);
+                break;
+
         }
 
     }

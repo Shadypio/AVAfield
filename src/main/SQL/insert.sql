@@ -5,7 +5,7 @@ insert into avafieldbase.utente (nome, cognome, email, username, password, isAdm
 insert into avafieldbase.utente (nome, cognome, email, username, password, isAdmin, telefono, autovalutazione, idUtente) values ('Luigi', 'Bianchi', 'luigibianchi98@gmail.com', 'LuigiBianchi98', SHA1('PasswordLuigi98'), 0, '3336677778', 2, 2);
 insert into avafieldbase.utente (nome, cognome, email, username, password, isAdmin, telefono, autovalutazione, idUtente) values ('Marco', 'Verdi', 'marcoverdi00@gmail.com', 'MarcoVerdi00', SHA1('PasswordMarco00'), 0, '3331234561', 4, 3);
 insert into avafieldbase.utente (nome, cognome, email, username, password, isAdmin, telefono, autovalutazione, idUtente) values ('Francesco', 'Neri', 'francesconeri01@gmail.com', 'FrancescoNeri01', SHA1('PasswordFrancesco01'), 0, '3225476890', 1, 4);
-insert into avafieldbase.utente (nome, cognome, email, username, password, isAdmin, telefono, autovalutazione, idUtente) values ('Mina', 'Admin', 'minaadmin80@gmail.com', 'MinaAdmin', SHA1('PasswordMina'), 1, '3456345789', 0, 5);
+insert into avafieldbase.utente (nome, cognome, email, username, password, isAdmin, telefono, autovalutazione, idUtente) values ('Mina', 'Admin', 'minaadmin80@gmail.com', 'MinaAdmin', SHA1('admin'), 1, '3456345789', 0, 5);
 
 /* Struttura */
 insert into avafieldbase.struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) values (6, 'VolleyFun', 'Via Roma, 12', '3214567635', 'Ospitiamo le migliori partite di pallavolo!', 140, 'Pallavolo', 3, 1);
