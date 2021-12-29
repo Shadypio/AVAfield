@@ -1,14 +1,14 @@
-package application.GestioneRecensioni;
+package application.GestioneUtenti;
 
-import model.recensione.RecensioneServiceImpl;
+import model.utente.UtenteServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "RecensioneController", value = "/gr/*")
-public class RecensioneController extends HttpServlet {
+@WebServlet(name = "GestioneUtenti", value = "/gu/*")
+public class GestioneUtenti extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -18,12 +18,12 @@ public class RecensioneController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
-        RecensioneServiceImpl rs=new RecensioneServiceImpl();
+        UtenteServiceImpl us=new UtenteServiceImpl();
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
-            case "/viewReview":
-                session.setAttribute("listaRecensioni",rs.visualizzaRecensioni());
-                request.getRequestDispatcher("/WEB-INF/interface/area_riservata/reviews.jsp").forward(request, response);
+            case "/viewUser":
+                session.setAttribute("listaUtenti",us.visualizzaUtenti());
+                request.getRequestDispatcher("/WEB-INF/interface/area_riservata/users.jsp").forward(request, response);
                 break;
         }
 

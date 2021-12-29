@@ -45,25 +45,33 @@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="form px-4 pt-5">
-                    <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
-                    <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
-                    <button class="btn btn-dark btn-block">Login</button> </div>
+                    <form action="${pageContext.request.contextPath}/ac/signin" method="post">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
+                        <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+                        <button class="btn btn-dark btn-block" name="login" >Login</button>
+                    </form>
+                </div>
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="form px-4">
-                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome" required>
-                    <input class="form-control" type="text" name="cognome" id="cognome" placeholder="Cognome" required>
-                    <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
-                    <input class="form-control" type="email" name="email" id="email" placeholder="Email">
-                    <input class="form-control" onfocusout="hideInfoPassword()" onfocusin="showInfoPassword()" type="password" name="password" id="password" placeholder="Password" required>
-                    <input class="form-control" type="password" name="confermapassword" id="confermapassword" placeholder="Conferma Password" required>
-                    <input class="form-control" type="text" name="telefono" id="telefono" placeholder="Telefono" required>
-                    <button class="btn btn-dark btn-block">Registrati</button>
+                    <form action="${pageContext.request.contextPath}/ac/create" method="post">
+                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome" required>
+                        <input class="form-control" type="text" name="cognome" id="cognome" placeholder="Cognome" required>
+                        <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email">
+                        <input class="form-control" onfocusout="hideInfoPassword()" onfocusin="showInfoPassword()" type="password" name="password" id="password" placeholder="Password" required>
+                        <input class="form-control" type="password" name="confermapassword" id="confermapassword" placeholder="Conferma Password" required>
+                        <input class="form-control" type="text" name="telefono" id="telefono" placeholder="Telefono" required>
+                        <label for="autovalutazione">Autovalutazione (tra 0 e 5):</label>
+                        <input class="form-control" type="range" min="0" max="5" name="autovalutazione" id="autovalutazione" required>
+                        <button class="btn btn-dark btn-block" name="registrati">Registrati</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
@@ -71,6 +79,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery-3.0.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugin.js"></script>
 <script>
+
     function showInfoPassword(){
         var x = document.getElementById("info")
         x.style.display = "block"

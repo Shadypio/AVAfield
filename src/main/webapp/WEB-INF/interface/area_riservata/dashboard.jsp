@@ -8,15 +8,15 @@
 <body>
 <main>
     <aside class="sidebar" id="sideBar">
-        <nav >
+        <nav>
             <img src="<%=request.getContextPath()%>/images/avalogo.png" width="100" height="115">
-            <a href="<%=request.getContextPath()%>/crm/dashboard">Dashboard</a>
-            <a href="<%=request.getContextPath()%>/crm/profile">Profilo</a>
-            <a href="<%=request.getContextPath()%>/crm/customer">Gestione Strutture</a>
-            <a href="<%=request.getContextPath()%>/crm/order">Gestione Utenti</a>
-            <a href="<%=request.getContextPath()%>/crm/product">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/crm/category">Gestione Recensioni</a>
-            <a href="<%=request.getContextPath()%>/crm/logout">Logout</a>
+            <a href="<%=request.getContextPath()%>/ac/dashboard">Dashboard</a>
+            <a href="<%=request.getContextPath()%>/gu/profileAdmin">Profilo</a>
+            <a href="<%=request.getContextPath()%>/gs/viewStructure">Gestione Strutture</a>
+            <a href="<%=request.getContextPath()%>/gu/viewUser">Gestione Utenti</a>
+            <a href="<%=request.getContextPath()%>/ge/viewEvent">Gestione Eventi</a>
+            <a href="<%=request.getContextPath()%>/gr/viewReview">Gestione Recensioni</a>
+            <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
         </nav>
     </aside>
     <section id="main">
@@ -26,24 +26,24 @@
                 </button>
             </div>
 
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/crm/order', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gs/viewStructure', '_self');">
                 <h4>Gestione Strutture</h4>
-                <p>N° Strutture: <%=request.getAttribute("numeroStrutture")%>
+                <p>N° Strutture: <%=session.getAttribute("numStrutture")%>
                 </p>
             </div>
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/crm/customer', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gu/viewUser', '_self');">
                 <h4>Gestione Utenti</h4>
-                <p>N° Utenti: <%=request.getAttribute("numeroUtenti")%>
+                <p>N° Utenti: <%=session.getAttribute("numUtenti")%>
                 </p>
             </div>
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/crm/category', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/ge/viewEvent', '_self');">
                 <h4>Gestione Eventi</h4>
-                <p>N° Eventi: <%=request.getAttribute("numeroEventi")%>
+                <p>N° Eventi: <%=session.getAttribute("numEventi")%>
                 </p>
             </div>
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/crm/product', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gr/viewReview', '_self');">
                 <h4>Gestione Recensioni</h4>
-                <p>N° Recensioni: <%=request.getAttribute("numeroRecensioni")%>
+                <p>N° Recensioni: <%=session.getAttribute("numRecensioni")%>
                 </p>
             </div>
         </div>

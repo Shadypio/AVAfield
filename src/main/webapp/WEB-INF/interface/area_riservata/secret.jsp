@@ -22,5 +22,6 @@
         <button class="btn primary" type="submit">Accedi</button>
     </fieldset>
 </form>
+<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 </body>
 </html>
