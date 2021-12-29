@@ -3,6 +3,7 @@ package application.GestioneEventi;
 import model.evento.Evento;
 import model.evento.EventoServiceImpl;
 import model.struttura.Struttura;
+import model.struttura.StrutturaServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,9 +27,22 @@ public class EventoController extends HttpServlet {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
         EventoServiceImpl es=new EventoServiceImpl();
+        StrutturaServiceImpl ss=new StrutturaServiceImpl();
         Evento e =new Evento();//oggetto di appoggio
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
+            case "/nuovoEvento":
+                Boolean verifica= (Boolean) session.getAttribute("loggato");
+                if (verifica==null)
+                    response.sendRedirect(address+"/ac/signin");
+                else
+                    request.getRequestDispatcher("/WEB-INF/interface/site/newEvents.jsp").forward(request, response);
+                break;
+            case "/listaPerPartecipare":
+                session.setAttribute("listaEventi",es.visualizzaEventi());
+                session.setAttribute("listaStrutture",ss.visualizzaStruttura());
+                request.getRequestDispatcher("/WEB-INF/interface/site/showEvents.jsp").forward(request, response);
+                break;
             case "/viewEvent":
                 session.setAttribute("listaEventi",es.visualizzaEventi());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/events.jsp").forward(request, response);

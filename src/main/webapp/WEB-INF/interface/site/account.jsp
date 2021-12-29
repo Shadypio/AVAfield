@@ -6,6 +6,6 @@
     <title></title>
 </head>
 <body>
-
+<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 </body>
 </html>

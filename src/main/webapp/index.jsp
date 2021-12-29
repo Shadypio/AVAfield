@@ -138,7 +138,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">Crea<br> un Evento</h1>
-                                <div class="buynow_bt"><a href="#">Crea</a></div>
+                                <div class="buynow_bt"><a href="<%=request.getContextPath()%>/ge/nuovoEvento">Crea</a></div>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">Partecipa<br> ad un evento</h1>
-                                <div class="buynow_bt"><a href="#">Esplora</a></div>
+                                <div class="buynow_bt"><a href="<%=request.getContextPath()%>/ge/listaPerPartecipare">Esplora</a></div>
                             </div>
                         </div>
                     </div>
