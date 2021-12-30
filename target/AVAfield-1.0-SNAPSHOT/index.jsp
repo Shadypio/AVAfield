@@ -60,8 +60,9 @@
                     <div class="custom_menu">
                         <ul>
                             <li><a href="<%=request.getContextPath()%>/ac/secret">Area Riservata</a></li>
-                            <li><a href="#">Contatti</a></li>
+                            <li><a href="#">About Us</a></li>
                             <li><a href="#">Segnalaci un problema</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ac/signin">Area Utente</a></li>
                         </ul>
                     </div>
                 </div>
@@ -138,7 +139,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">Crea<br> un Evento</h1>
-                                <div class="buynow_bt"><a href="#">Crea</a></div>
+                                <div class="buynow_bt"><a href="<%=request.getContextPath()%>/gs/viewStructuresUser">Crea</a></div>
                             </div>
                         </div>
                     </div>
@@ -146,7 +147,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">Partecipa<br> ad un evento</h1>
-                                <div class="buynow_bt"><a href="#">Esplora</a></div>
+                                <div class="buynow_bt"><a href="<%=request.getContextPath()%>/ge/listaPerPartecipare">Esplora</a></div>
                             </div>
                         </div>
                     </div>
@@ -184,8 +185,7 @@
                                         </p>
                                         <div class="electronic_img"><img src="images/campo_img.png"></div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Prenota</a></div>
-                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
+                                            <div onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=strutture.get(i).getIdStruttura()%>', '_self');">
                                                 <div class="seemore_bt"><a href="#">Dettagli</a></div>
                                             </div>
                                         </div>
@@ -203,38 +203,7 @@
                 <div class="container">
                     <div class="fashion_section_2">
                         <div class="row">
-                            <%for (; i < 6; i++) { %>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-
-                                    <div class="box_main">
-                                        <h4 class="shirt_text"><%=strutture.get(i).getNome() %>
-                                        </h4>
-                                        <p class="price_text"><span
-                                                style="color: #262626;"><%=strutture.get(i).getIndirizzo()%></span>
-                                        </p>
-                                        <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Prenota</a></div>
-                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
-                                                <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <%}%>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <%for (; i < 9; i++) { %>
+                            <%for (; i < 5; i++) { %>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
                                     <div class="box_main">
@@ -245,14 +214,11 @@
                                         </p>
                                         <div class="electronic_img"><img src="images/campo_img.png"></div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Prenota</a></div>
-                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
+                                            <div onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=strutture.get(i).getIdStruttura()%>', '_self');">
                                                 <div class="seemore_bt"><a href="#">Dettagli</a></div>
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                             <%}%>

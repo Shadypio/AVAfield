@@ -88,7 +88,7 @@ public class UtenteDAO {
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();
             String query = "UPDATE utente ute SET ute.nome='" + u.getNome() + "', " + "ute.cognome='"+u.getCognome() + "', ute.email='"+u.getEmail() +"'," +
-                    "ute.username='"+u.getUsername()+ "',ute.password=SHA1('"+u.getPassword()+"'), ute.autovalutazione='"+u.getAutovalutazione()+"', ute.isAdmin="+
+                    "ute.username='"+u.getUsername()+ "',ute.password='"+u.getPassword()+"', ute.autovalutazione='"+u.getAutovalutazione()+"', ute.isAdmin="+
                     u.isAdmin()+", ute.telefono='"+u.getNumeroTelefono()+"' WHERE ute.idUtente=" + u.getIdUtente() + ";";
             st.executeUpdate(query);
         }

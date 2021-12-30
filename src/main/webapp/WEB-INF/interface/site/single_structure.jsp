@@ -1,10 +1,4 @@
-<%@ page import="model.struttura.Struttura" %><%--
-  Created by IntelliJ IDEA.
-  User: Enzuc
-  Date: 30/12/2021
-  Time: 10:34
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.struttura.Struttura" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%Struttura struttura = (Struttura) request.getAttribute("struttura");%>

@@ -24,7 +24,7 @@
 
         </nav>
     </aside>
-    <section class="content grid-y" id="main">
+    <section>
         <div>
             <button class="openbtn" onclick="toggleNav()"><img src="<%=request.getContextPath()%>/images/toggle-icon.png"></button>
         </div>

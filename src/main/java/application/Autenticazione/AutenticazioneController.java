@@ -1,6 +1,8 @@
 package application.Autenticazione;
 
+import model.evento.Evento;
 import model.evento.EventoServiceImpl;
+import model.struttura.Struttura;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
 import model.utente.UtenteServiceImpl;
@@ -9,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "AutenticazioneController", value = "/ac/*")
 public class AutenticazioneController extends HttpServlet {
@@ -52,7 +55,12 @@ public class AutenticazioneController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/interface/area_riservata/secret.jsp").forward(request, response);
                 break;
             case "/signin_signup": //pagina di registrazione e login
-                request.getRequestDispatcher("/WEB-INF/interface/site/signin_signup.jsp").forward(request, response);
+                loggato = (Boolean) session.getAttribute("loggato");
+                Utente profilo = (Utente) session.getAttribute("profilo");
+                if (loggato != null || profilo!=null)
+                    request.getRequestDispatcher("/WEB-INF/interface/site/account.jsp").forward(request, response);
+                 else
+                    request.getRequestDispatcher("/WEB-INF/interface/site/signin_signup.jsp").forward(request, response);
                 break;
             case "/create": //registrazione nuovo utente
                 String nome = request.getParameter("nome");
@@ -63,7 +71,7 @@ public class AutenticazioneController extends HttpServlet {
                 pass = request.getParameter("password");
                 String val = request.getParameter("autovalutazione");
                 int auto = Integer.parseInt(val);
-                int id = us.visualizzaUtenti().size() + 1;
+                int id = us.visualizzaUtenti().size()+1;
                 Utente nuovo = new Utente(nome, cognome, email, user, pass, tel, false, auto, id);
                 us.registrazione(nuovo);
                 request.getRequestDispatcher("/WEB-INF/interface/site/registered.jsp").forward(request, response);
@@ -72,8 +80,16 @@ public class AutenticazioneController extends HttpServlet {
                 email = request.getParameter("email");
                 pass = request.getParameter("password");
                 log = us.login(email, pass);
-                if (log != null) {
-                    session.setAttribute("listaEventi", log.getListaEventi());
+                profilo = (Utente) session.getAttribute("profilo");
+                if (log != null || profilo!=null) {
+                    if (log==null)
+                        log=profilo;
+                    ArrayList<Evento> listaE= es.findAllEventi(log);
+                    for(Evento e: listaE) {
+                        Struttura s=ss.trovaStruttura(e.getStruttura().getIdStruttura());
+                        e.setStruttura(s);
+                    }
+                    session.setAttribute("listaEventi",listaE);
                     session.setAttribute("profilo", log);
                     session.setAttribute("loggato", true);
                     request.getRequestDispatcher("/WEB-INF/interface/site/account.jsp").forward(request, response);

@@ -1,22 +1,14 @@
-<%@ page import="java.util.GregorianCalendar" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="java.time.format.DateTimeFormatter" %><%--
-  Created by IntelliJ IDEA.
-  User: Enzuc
-  Date: 30/12/2021
-  Time: 11:04
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Crea un evento</title>
 </head>
 <body>
-<%
-    LocalDate currentDate = LocalDate.now();
+<%  LocalDate currentDate = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");%>
-<form action="${pageContext.request.contextPath}/ge/addEventoUtente" method="post">
+<form action="${pageContext.request.contextPath}/ge/addEvento" method="post">
     <input type="hidden" name="idStruttura" value="<%=Integer.parseInt((String) request.getAttribute("idStruttura"))%>">
     <input type="text" name="nome" id="nome" placeholder="Nome" required>
     <input type="text" name="numeroPartecipanti" id="numeroPartecipanti" placeholder="Numero Partecipanti" required>

@@ -11,9 +11,9 @@
     <title></title>
 </head>
 <body>
+<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 <section>
-    <%  int i=0;
-        ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
+    <%  int i=0;   ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
     <c:forEach items="${listaEventi}" var="evento" >
         <%Evento evento = eventi.get(i++);%>
         <div onclick="window.open('<%=request.getContextPath()%>/ge/partecipaAdEvento?idEvento=${evento.idEvento}', '_self');">

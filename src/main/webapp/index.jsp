@@ -60,8 +60,9 @@
                     <div class="custom_menu">
                         <ul>
                             <li><a href="<%=request.getContextPath()%>/ac/secret">Area Riservata</a></li>
-                            <li><a href="#">Contatti</a></li>
+                            <li><a href="#">About Us</a></li>
                             <li><a href="#">Segnalaci un problema</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ac/signin">Area Utente</a></li>
                         </ul>
                     </div>
                 </div>
@@ -184,7 +185,6 @@
                                         </p>
                                         <div class="electronic_img"><img src="images/campo_img.png"></div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Prenota</a></div>
                                             <div onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=strutture.get(i).getIdStruttura()%>', '_self');">
                                                 <div class="seemore_bt"><a href="#">Dettagli</a></div>
                                             </div>
@@ -214,7 +214,6 @@
                                         </p>
                                         <div class="electronic_img"><img src="images/campo_img.png"></div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Prenota</a></div>
                                             <div onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=strutture.get(i).getIdStruttura()%>', '_self');">
                                                 <div class="seemore_bt"><a href="#">Dettagli</a></div>
                                             </div>

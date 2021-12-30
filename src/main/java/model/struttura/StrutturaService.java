@@ -7,4 +7,5 @@ public interface StrutturaService {
     void eliminaStruttura(Struttura s);
     void modificaStruttura(Struttura s);
     ArrayList<Struttura> visualizzaStrutture();
+    Struttura trovaStruttura(int id);
 }

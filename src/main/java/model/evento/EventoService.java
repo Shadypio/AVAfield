@@ -11,4 +11,6 @@ public interface EventoService {
     void partecipaEvento(Evento e, Utente u);
     ArrayList<Evento> visualizzaEventi();
     ArrayList<Utente> findAllUtenti(Evento e);
+    ArrayList<Evento> findAllEventi(Utente u);
+
 }

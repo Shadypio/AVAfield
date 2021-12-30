@@ -13,6 +13,6 @@ public class GattoTest {
     @Test
     public void testMiagolare2() {
         Gatto gatto = new Gatto();
-        assertEquals("not Miaow", "MIAOW", gatto.miagolare(1));
+        assertEquals("not Miaow", "Miaow", gatto.miagolare(1));
     }
 }

@@ -8,4 +8,5 @@ public interface UtenteService {
     void cancellazioneAccount(Utente u);
     ArrayList<Utente> visualizzaUtenti();
     void registrazione(Utente u);
+    Utente trovaUtente (int id);
 }
