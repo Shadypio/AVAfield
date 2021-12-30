@@ -76,6 +76,10 @@ public class StrutturaController extends HttpServlet {
                 request.setAttribute("struttura", s);
                 request.getRequestDispatcher("/WEB-INF/interface/site/single_structure.jsp").forward(request, response);
                 break;
+            case "/viewStructuresUser":
+                session.setAttribute("listaStrutture",ss.visualizzaStrutture());
+                request.getRequestDispatcher("/WEB-INF/interface/site/showStructures.jsp").forward(request, response);
+                break;
 
         }
     }

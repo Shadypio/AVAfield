@@ -13,12 +13,12 @@
         ArrayList<Struttura> strutture = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");%>
     <c:forEach items="${listaStrutture}" var="evento" >
         <%Struttura struttura = strutture.get(i++);%>
-        <div onclick="window.open('<%=request.getContextPath()%>/ge/addEventoUtente?idStruttura=${struttura.idStruttura}', '_self');">
+        <div onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=struttura.getIdStruttura()%>', '_self');">
             <div>
                 <h4><%=struttura.getNome() %>
                 </h4><p><span style="color: #262626;"><%=struttura.getIndirizzo()%></span>
                 </p>
-                <div class="electronic_img"><img src="images/campo_img.png" width="100px" height="100px"></div>
+                <div class="electronic_img"><img src="../images/campo_img.png" width="100px" height="100px"></div>
             </div>
         </div>
     </c:forEach>
