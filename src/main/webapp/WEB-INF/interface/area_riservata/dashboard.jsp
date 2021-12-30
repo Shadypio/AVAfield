@@ -24,18 +24,17 @@
                 <button class="openbtn" onclick="toggleNav()"><img src="<%=request.getContextPath()%>/images/toggle-icon.png">
                 </button>
             </div>
-
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gs/viewStructure', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gs/viewStructures', '_self');">
                 <h4>Gestione Strutture</h4>
                 <p>N° Strutture: <%=session.getAttribute("numStrutture")%>
                 </p>
             </div>
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gu/viewUser', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/gu/viewUsers', '_self');">
                 <h4>Gestione Utenti</h4>
                 <p>N° Utenti: <%=session.getAttribute("numUtenti")%>
                 </p>
             </div>
-            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/ge/viewEvent', '_self');">
+            <div class="dash" onclick="window.open('<%=request.getContextPath()%>/ge/viewEvents', '_self');">
                 <h4>Gestione Eventi</h4>
                 <p>N° Eventi: <%=session.getAttribute("numEventi")%>
                 </p>
