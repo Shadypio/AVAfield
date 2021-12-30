@@ -2,8 +2,12 @@ package application.GestioneEventi;
 
 import model.evento.Evento;
 import model.evento.EventoServiceImpl;
+import model.evento_utente.EventoUtente;
+import model.evento_utente.EventoUtenteDAO;
 import model.struttura.Struttura;
+import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
+import model.utente.Utente;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -34,8 +38,10 @@ public class EventoController extends HttpServlet {
                 Boolean verifica= (Boolean) session.getAttribute("loggato");
                 if (verifica==null)
                     response.sendRedirect(address+"/ac/signin");
-                else
+                else {
+                    request.setAttribute("idStruttura", request.getParameter("idStruttura"));
                     request.getRequestDispatcher("/WEB-INF/interface/site/new_event.jsp").forward(request, response);
+                }
                 break;
             case "/listaPerPartecipare":
                 session.setAttribute("listaEventi",es.visualizzaEventi());
@@ -85,10 +91,8 @@ public class EventoController extends HttpServlet {
                 e.setIdEvento(es.visualizzaEventi().size()+1);
                 e.setNome(request.getParameter("nome"));
                 e.setNumeroPartecipanti(Integer.parseInt(request.getParameter("numeroPartecipanti")));
-                Struttura struttura = new Struttura();
-                // Da vedere
-                struttura.setIdStruttura(1);
-                e.setStruttura(struttura);
+                StrutturaDAO strutturaDAO = new StrutturaDAO();
+                e.setStruttura(strutturaDAO.doRetrieveById(Integer.parseInt(request.getParameter("idStruttura"))));
                 String dataEvento2=request.getParameter("dataEvento");
                 String orarioEvento=request.getParameter("time");
                 DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -106,9 +110,12 @@ public class EventoController extends HttpServlet {
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
+
+                Utente utente = (Utente) session.getAttribute("profilo");
+                EventoUtenteDAO eventoUtenteDAO = new EventoUtenteDAO();
+                eventoUtenteDAO.addEventoUtente(e, utente);
                 es.creaEvento(e);
-                //Decidere un send redirect
-                //response.sendRedirect(address+"/ge/viewEvents");
+                request.getRequestDispatcher("/WEB-INF/interface/site/event_created.jsp").forward(request, response);
                 break;
 
         }

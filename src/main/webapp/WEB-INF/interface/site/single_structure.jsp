@@ -18,7 +18,7 @@
 <form action="${pageContext.request.contextPath}/ge/nuovoEvento" method="post">
     <div>
         <div>
-            <input type="hidden" name="id" value="<%=struttura.getIdStruttura()%>">
+            <input type="hidden" name="idStruttura" value="<%=struttura.getIdStruttura()%>">
             <div>
                 <div class="electronic_img"><img src="../images/campo_img.png" width="100px" height="100px"></div>
             </div>
