@@ -35,7 +35,7 @@ public class EventoController extends HttpServlet {
                 if (verifica==null)
                     response.sendRedirect(address+"/ac/signin");
                 else
-                    request.getRequestDispatcher("/WEB-INF/interface/site/newEvents.jsp").forward(request, response);
+                    request.getRequestDispatcher("/WEB-INF/interface/site/new_event.jsp").forward(request, response);
                 break;
             case "/listaPerPartecipare":
                 session.setAttribute("listaEventi",es.visualizzaEventi());
@@ -81,6 +81,36 @@ public class EventoController extends HttpServlet {
                 es.eliminaEvento(e);
                 response.sendRedirect(address+"/ge/viewEvents");
                 break;
+            case "/addEventoUtente":
+                e.setIdEvento(es.visualizzaEventi().size()+1);
+                e.setNome(request.getParameter("nome"));
+                e.setNumeroPartecipanti(Integer.parseInt(request.getParameter("numeroPartecipanti")));
+                Struttura struttura = new Struttura();
+                // Da vedere
+                struttura.setIdStruttura(1);
+                e.setStruttura(struttura);
+                String dataEvento2=request.getParameter("dataEvento");
+                String orarioEvento=request.getParameter("time");
+                DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat of2 = new SimpleDateFormat("HH:mm");
+                df2.setLenient (false);
+                of2.setLenient(false);
+                Date dataEventoUtente,oraEventoUtente;
+                try {
+                    dataEventoUtente = df2.parse(dataEvento2);
+                    oraEventoUtente= of2.parse(orarioEvento);
+                    java.sql.Date sqlDate = new java.sql.Date(dataEventoUtente.getTime());
+                    java.sql.Date sqlTime = new java.sql.Date(oraEventoUtente.getTime());
+                    e.setDataEvento(sqlDate);
+                    e.setOrario(sqlTime);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+                es.creaEvento(e);
+                //Decidere un send redirect
+                //response.sendRedirect(address+"/ge/viewEvents");
+                break;
+
         }
 
     }

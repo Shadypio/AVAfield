@@ -54,7 +54,7 @@
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="form px-4">
-                    <form action="${pageContext.request.contextPath}/ac/create" method="post">
+                    <form action="${pageContext.request.contextPath}/ge/addEventoUtente" method="post">
                         <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome" required>
                         <input class="form-control" type="text" name="cognome" id="cognome" placeholder="Cognome" required>
                         <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>

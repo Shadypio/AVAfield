@@ -15,7 +15,7 @@
 <body>
 
 
-<form action="${pageContext.request.contextPath}/cliente/inputcarrello" method="post">
+<form action="${pageContext.request.contextPath}/ge/nuovoEvento" method="post">
     <div>
         <div>
             <input type="hidden" name="id" value="<%=struttura.getIdStruttura()%>">
