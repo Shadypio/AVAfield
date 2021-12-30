@@ -6,6 +6,15 @@
     <title></title>
 </head>
 <body>
-<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
+<body>
+<div class="bg">
+</div>
+<div>
+    <h1>Bentornato!</h1>
+    <h3>Login effettuato con successo.</h3>
+    <br>
+    <a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
+</div>
+</body>
 </body>
 </html>
