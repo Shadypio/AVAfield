@@ -203,38 +203,7 @@
                 <div class="container">
                     <div class="fashion_section_2">
                         <div class="row">
-                            <%for (; i < 6; i++) { %>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-
-                                    <div class="box_main">
-                                        <h4 class="shirt_text"><%=strutture.get(i).getNome() %>
-                                        </h4>
-                                        <p class="price_text"><span
-                                                style="color: #262626;"><%=strutture.get(i).getIndirizzo()%></span>
-                                        </p>
-                                        <div class="electronic_img"><img src="images/campo_img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Prenota</a></div>
-                                            <div onclick="window.open('<%=request.getContextPath()%>/cliente/singleStructure?id=<%=strutture.get(i).getIdStruttura()%>', '_self');">
-                                                <div class="seemore_bt"><a href="#">Dettagli</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <%}%>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <%for (; i < 9; i++) { %>
+                            <%for (; i < 5; i++) { %>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
                                     <div class="box_main">
@@ -251,8 +220,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                             <%}%>
