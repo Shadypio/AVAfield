@@ -23,15 +23,15 @@ public class StrutturaController extends HttpServlet {
         Struttura s=new Struttura(); // oggetto di appoggio;
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
-            case "/viewStructure":
-                session.setAttribute("listaStrutture",ss.visualizzaStruttura());
+            case "/viewStructures":
+                session.setAttribute("listaStrutture",ss.visualizzaStrutture());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/structures.jsp").forward(request, response);
                 break;
             case "/deleteStruttura":
                 String idDelete=request.getParameter("selezioneDelete");
                 s.setIdStruttura(Integer.parseInt(idDelete));
                 ss.eliminaStruttura(s);
-                response.sendRedirect(address+"/gs/viewStructure");
+                response.sendRedirect(address+"/gs/viewStructures");
                 break;
             case "/updateStruttura":
                 String idUpdate=request.getParameter("selezioneMod");
@@ -49,10 +49,10 @@ public class StrutturaController extends HttpServlet {
                 else
                     s.setParcheggio(false);
                 ss.modificaStruttura(s);
-                response.sendRedirect(address+"/gs/viewStructure");
+                response.sendRedirect(address+"/gs/viewStructures");
                 break;
             case "/addStruttura":
-                s.setIdStruttura(ss.visualizzaStruttura().size()+1);
+                s.setIdStruttura(ss.visualizzaStrutture().size()+1);
                 s.setNome(request.getParameter("nome"));
                 s.setCategoria(request.getParameter("cat"));
                 s.setDescrizione(request.getParameter("desc"));
@@ -66,9 +66,11 @@ public class StrutturaController extends HttpServlet {
                 else
                     s.setParcheggio(false);
                 ss.inserisciStruttura(s);
-                response.sendRedirect(address+"/gs/viewStructure");
+                response.sendRedirect(address+"/gs/viewStructures");
                 break;
-        }
+            case "/singleStructure":
 
+
+        }
     }
 }

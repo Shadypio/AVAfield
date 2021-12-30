@@ -1,8 +1,6 @@
 package application.Autenticazione;
 
-import model.evento.Evento;
 import model.evento.EventoServiceImpl;
-import model.recensione.RecensioneServiceImpl;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
 import model.utente.UtenteServiceImpl;
@@ -11,8 +9,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 @WebServlet(name = "AutenticazioneController", value = "/ac/*")
 public class AutenticazioneController extends HttpServlet {
@@ -46,7 +42,7 @@ public class AutenticazioneController extends HttpServlet {
                 if (loggato)
                     log=(Utente) session.getAttribute("profilo");
                 if (log.isAdmin()) {
-                    session.setAttribute("numStrutture", ss.visualizzaStruttura().size());
+                    session.setAttribute("numStrutture", ss.visualizzaStrutture().size());
                     session.setAttribute("numEventi", es.visualizzaEventi().size());
                     session.setAttribute("numUtenti", us.visualizzaUtenti().size());
                     session.setAttribute("profilo", log);

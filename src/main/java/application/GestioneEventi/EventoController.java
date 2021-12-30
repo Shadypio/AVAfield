@@ -9,7 +9,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,10 +39,10 @@ public class EventoController extends HttpServlet {
                 break;
             case "/listaPerPartecipare":
                 session.setAttribute("listaEventi",es.visualizzaEventi());
-                session.setAttribute("listaStrutture",ss.visualizzaStruttura());
+                session.setAttribute("listaStrutture",ss.visualizzaStrutture());
                 request.getRequestDispatcher("/WEB-INF/interface/site/showEvents.jsp").forward(request, response);
                 break;
-            case "/viewEvent":
+            case "/viewEvents":
                 session.setAttribute("listaEventi",es.visualizzaEventi());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/events.jsp").forward(request, response);
                 break;
@@ -74,13 +73,13 @@ public class EventoController extends HttpServlet {
                     ex.printStackTrace();
                 }
                 es.creaEvento(e);
-                response.sendRedirect(address+"/ge/viewEvent");
+                response.sendRedirect(address+"/ge/viewEvents");
                 break;
             case "/deleteEvento":
                 String idDelete=request.getParameter("selezioneDelete");
                 e.setIdEvento(Integer.parseInt(idDelete));
                 es.eliminaEvento(e);
-                response.sendRedirect(address+"/ge/viewEvent");
+                response.sendRedirect(address+"/ge/viewEvents");
                 break;
         }
 

@@ -22,7 +22,7 @@ public class StrutturaServiceImpl implements StrutturaService{
     }
 
     @Override
-    public ArrayList<Struttura> visualizzaStruttura() {
+    public ArrayList<Struttura> visualizzaStrutture() {
         StrutturaDAO strDAO=new StrutturaDAO();
         return strDAO.doRetrieveAll();
     }

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "GestioneUtenti", value = "/gu/*")
-public class GestioneUtenti extends HttpServlet {
+public class UtenteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -24,7 +24,7 @@ public class GestioneUtenti extends HttpServlet {
         Utente u=new Utente();//oggetto di apppoggio
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
-            case "/viewUser":
+            case "/viewUsers":
                 session.setAttribute("listaUtenti",us.visualizzaUtenti());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/users.jsp").forward(request, response);
                 break;
@@ -63,13 +63,13 @@ public class GestioneUtenti extends HttpServlet {
                     u.setAdmin(false);
                 u.setAutovalutazione(Integer.parseInt(request.getParameter("auto")));
                 us.registrazione(u);
-                response.sendRedirect(address+"/gu/viewUser");
+                response.sendRedirect(address+"/gu/viewUsers");
                 break;
             case "/deleteUtente":
                 String idDelete=request.getParameter("selezioneDelete");
                 u.setIdUtente(Integer.parseInt(idDelete));
                 us.cancellazioneAccount(u);
-                response.sendRedirect(address+"/gu/viewUser");
+                response.sendRedirect(address+"/gu/viewUsers");
                 break;
         }
 
