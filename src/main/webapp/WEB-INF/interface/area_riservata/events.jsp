@@ -22,9 +22,9 @@
             <img src="<%=request.getContextPath()%>/images/avalogo.png" width="100" height="115">
             <a href="<%=request.getContextPath()%>/ac/dashboard">Dashboard</a>
             <a href="<%=request.getContextPath()%>/gu/profileAdmin">Profilo</a>
-            <a href="<%=request.getContextPath()%>/gs/viewStructure">Gestione Strutture</a>
-            <a href="<%=request.getContextPath()%>/gu/viewUser">Gestione Utenti</a>
-            <a href="<%=request.getContextPath()%>/ge/viewEvent">Gestione Eventi</a>
+            <a href="<%=request.getContextPath()%>/gs/viewStructures">Gestione Strutture</a>
+            <a href="<%=request.getContextPath()%>/gu/viewUsers">Gestione Utenti</a>
+            <a href="<%=request.getContextPath()%>/ge/viewEvents">Gestione Eventi</a>
             <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
         </nav>
     </aside>
