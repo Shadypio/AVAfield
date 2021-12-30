@@ -138,7 +138,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">Crea<br> un Evento</h1>
-                                <div class="buynow_bt"><a href="<%=request.getContextPath()%>/ge/nuovoEvento">Crea</a></div>
+                                <div class="buynow_bt"><a href="<%=request.getContextPath()%>/gs/viewStructures">Crea</a></div>
                             </div>
                         </div>
                     </div>

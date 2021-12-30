@@ -28,14 +28,17 @@ public class EventoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
+        Boolean verifica;
         String address=getServletContext().getContextPath();
         EventoServiceImpl es=new EventoServiceImpl();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
         Evento e =new Evento();//oggetto di appoggio
+        Utente utente = new Utente();
+        EventoUtenteDAO eventoUtenteDAO = new EventoUtenteDAO();
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/nuovoEvento":
-                Boolean verifica= (Boolean) session.getAttribute("loggato");
+                verifica= (Boolean) session.getAttribute("loggato");
                 if (verifica==null)
                     response.sendRedirect(address+"/ac/signin");
                 else {
@@ -111,12 +114,21 @@ public class EventoController extends HttpServlet {
                     ex.printStackTrace();
                 }
 
-                Utente utente = (Utente) session.getAttribute("profilo");
-                EventoUtenteDAO eventoUtenteDAO = new EventoUtenteDAO();
+                utente = (Utente) session.getAttribute("profilo");
                 eventoUtenteDAO.addEventoUtente(e, utente);
                 es.creaEvento(e);
                 request.getRequestDispatcher("/WEB-INF/interface/site/event_created.jsp").forward(request, response);
                 break;
+            case "/partecipaAdEvento":
+                verifica= (Boolean) session.getAttribute("loggato");
+                if (verifica==null)
+                    response.sendRedirect(address+"/ac/signin");
+                else {
+                    utente = (Utente) session.getAttribute("profilo");
+                    eventoUtenteDAO.addEventoUtente(e, utente);
+                    request.getRequestDispatcher("/WEB-INF/interface/site/participated_to_event.jsp").forward(request, response);
+                    break;
+                }
 
         }
 

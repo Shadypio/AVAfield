@@ -16,7 +16,7 @@
         ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
     <c:forEach items="${listaEventi}" var="evento" >
         <%Evento evento = eventi.get(i++);%>
-        <div onclick="window.open('<%=request.getContextPath()%>/ge/event?id=${evento.idEvento}', '_self');">
+        <div onclick="window.open('<%=request.getContextPath()%>/ge/partecipaAdEvento?idEvento=${evento.idEvento}', '_self');">
             <div>
                 <h5>Nome:${evento.nome}</h5>
                 <h6>Partecipanti Max:${evento.numeroPartecipanti}</h6>
