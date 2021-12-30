@@ -1,6 +1,7 @@
 package application.GestioneStrutture;
 
 import model.struttura.Struttura;
+import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
 
 import javax.servlet.*;
@@ -21,6 +22,7 @@ public class StrutturaController extends HttpServlet {
         String address=getServletContext().getContextPath();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
         Struttura s=new Struttura(); // oggetto di appoggio;
+        StrutturaDAO strutturaDAO = new StrutturaDAO();
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/viewStructures":
@@ -69,7 +71,11 @@ public class StrutturaController extends HttpServlet {
                 response.sendRedirect(address+"/gs/viewStructures");
                 break;
             case "/singleStructure":
-
+                int idStruttura=Integer.parseInt(request.getParameter("idStruttura"));
+                s =strutturaDAO.doRetrieveById(idStruttura);
+                request.setAttribute("struttura", s);
+                request.getRequestDispatcher("/WEB-INF/interface/site/single_structure.jsp").forward(request, response);
+                break;
 
         }
     }
