@@ -1,5 +1,7 @@
 package application.GestioneStrutture;
 
+import model.recensione.Recensione;
+import model.recensione.RecensioneServiceImpl;
 import model.struttura.Struttura;
 import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
@@ -8,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "StrutturaController", value = "/gs/*")
 public class StrutturaController extends HttpServlet {
@@ -21,8 +24,8 @@ public class StrutturaController extends HttpServlet {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
+        RecensioneServiceImpl rs=new RecensioneServiceImpl();
         Struttura s=new Struttura(); // oggetto di appoggio;
-        StrutturaDAO strutturaDAO = new StrutturaDAO();
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/viewStructures":
@@ -72,8 +75,10 @@ public class StrutturaController extends HttpServlet {
                 break;
             case "/singleStructure":
                 int idStruttura=Integer.parseInt(request.getParameter("idStruttura"));
-                s =strutturaDAO.doRetrieveById(idStruttura);
-                request.setAttribute("struttura", s);
+                s=ss.trovaStruttura(idStruttura);
+                ArrayList<Recensione> listaRecensioni=rs.visualizzaRecensioniByIdStruttura(s);
+                session.setAttribute("struttura", s);
+                session.setAttribute("listaRecensioni",listaRecensioni);
                 request.getRequestDispatcher("/WEB-INF/interface/site/single_structure.jsp").forward(request, response);
                 break;
             case "/viewStructuresUser":
