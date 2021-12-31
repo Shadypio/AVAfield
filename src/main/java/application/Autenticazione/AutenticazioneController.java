@@ -57,9 +57,15 @@ public class AutenticazioneController extends HttpServlet {
             case "/signin_signup": //pagina di registrazione e login
                 loggato = (Boolean) session.getAttribute("loggato");
                 Utente profilo = (Utente) session.getAttribute("profilo");
-                if (loggato != null || profilo!=null)
+                if (loggato != null || profilo!=null) {
+                    ArrayList<Evento> listaE= es.findAllEventi(profilo);
+                    for(Evento e: listaE) {
+                        Struttura s=ss.trovaStruttura(e.getStruttura().getIdStruttura());
+                        e.setStruttura(s);
+                    }
+                    session.setAttribute("listaEventi",listaE);
                     request.getRequestDispatcher("/WEB-INF/interface/site/account.jsp").forward(request, response);
-                 else
+                }else
                     request.getRequestDispatcher("/WEB-INF/interface/site/signin_signup.jsp").forward(request, response);
                 break;
             case "/create": //registrazione nuovo utente
