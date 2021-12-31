@@ -12,7 +12,7 @@
 </head>
 <body>
 
-
+<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 <form action="${pageContext.request.contextPath}/ge/nuovoEvento" method="post">
     <div>
         <input type="hidden" name="idStruttura" value="<%=struttura.getIdStruttura()%>">
@@ -52,7 +52,7 @@
                 <td>${recensione.titolo}</td>
                 <td>${recensione.numeroStelle}</td>
                 <td>${recensione.testo}</td>
-                <td>${(recensione.utente).idUtente}</td>
+                <td>${(recensione.utente).username}</td>
             </tr>
         </c:forEach>
         </tbody>

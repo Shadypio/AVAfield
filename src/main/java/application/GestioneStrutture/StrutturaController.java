@@ -5,6 +5,8 @@ import model.recensione.RecensioneServiceImpl;
 import model.struttura.Struttura;
 import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
+import model.utente.Utente;
+import model.utente.UtenteServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -25,6 +27,7 @@ public class StrutturaController extends HttpServlet {
         String address=getServletContext().getContextPath();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
         RecensioneServiceImpl rs=new RecensioneServiceImpl();
+        UtenteServiceImpl us=new UtenteServiceImpl();
         Struttura s=new Struttura(); // oggetto di appoggio;
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
@@ -77,13 +80,29 @@ public class StrutturaController extends HttpServlet {
                 int idStruttura=Integer.parseInt(request.getParameter("idStruttura"));
                 s=ss.trovaStruttura(idStruttura);
                 ArrayList<Recensione> listaRecensioni=rs.visualizzaRecensioniByIdStruttura(s);
+                for (Recensione r:listaRecensioni){
+                    Utente x=r.getUtente();
+                    r.setUtente(us.trovaUtente(x.getIdUtente()));
+                }
                 session.setAttribute("struttura", s);
                 session.setAttribute("listaRecensioni",listaRecensioni);
                 request.getRequestDispatcher("/WEB-INF/interface/site/single_structure.jsp").forward(request, response);
                 break;
             case "/viewStructuresUser":
-                session.setAttribute("listaStrutture",ss.visualizzaStrutture());
-                request.getRequestDispatcher("/WEB-INF/interface/site/showStructures.jsp").forward(request, response);
+                String categoria=request.getParameter("categoria");
+                if (categoria==null) {
+                    session.setAttribute("listaStrutture", ss.visualizzaStrutture());
+                    request.getRequestDispatcher("/WEB-INF/interface/site/showStructures.jsp").forward(request, response);
+                } else{
+                    ArrayList<Struttura> listaStrutture=ss.visualizzaStrutture();
+                    ArrayList<Struttura> result=new ArrayList<>();
+                    for (Struttura x: listaStrutture){
+                        if (x.getCategoria().equals(categoria))
+                            result.add(x);
+                    }
+                    session.setAttribute("listaStrutture", result);
+                    request.getRequestDispatcher("/WEB-INF/interface/site/showStructures.jsp").forward(request, response);
+                }
                 break;
 
         }

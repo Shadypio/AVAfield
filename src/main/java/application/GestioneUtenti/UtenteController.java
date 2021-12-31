@@ -32,21 +32,22 @@ public class UtenteController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/profile.jsp").forward(request, response);
                 break;
             case "/updateAdmin":
-                u.setIdUtente(Integer.parseInt(request.getParameter("idAdmin")));
+                u.setIdUtente(Integer.parseInt(request.getParameter("id")));
                 u.setNome(request.getParameter("nome"));
                 u.setCognome(request.getParameter("cognome"));
                 u.setEmail(request.getParameter("email"));
                 u.setUsername(request.getParameter("username"));
-                u.setPassword(request.getParameter("password"));
+                String nuovaPass=request.getParameter("password");
                 u.setNumeroTelefono(request.getParameter("telefono"));
                 u.setAdmin(true);
-                Utente x= (Utente) session.getAttribute("profilo");
-                System.out.println("Vecchia:"+x.getPassword()+"   \nNuova  :"+u.getPassword());
-                if (x.getPassword().equals(u.getPassword()))
+                Utente x= us.trovaUtente(u.getIdUtente());
+                String vecchiaPass=x.getPassword();
+                if (vecchiaPass.equals(nuovaPass)) {
                     us.modificaDati(u);
-                else
+                }else{
+                    u.setPassword(nuovaPass);
                     us.modificaDati2(u);
-                System.out.println("Vecchia:"+x.getPassword()+"   \nNuova  :"+u.getPassword());
+                }
                 session.setAttribute("profilo",u);
                 response.sendRedirect(address+"/gu/profileAdmin");
                 break;
@@ -79,18 +80,17 @@ public class UtenteController extends HttpServlet {
                 u.setCognome(request.getParameter("cognome"));
                 u.setEmail(request.getParameter("email"));
                 u.setUsername(request.getParameter("username"));
-                String nuovaPass=request.getParameter("password");
+                nuovaPass=request.getParameter("password");
                 u.setNumeroTelefono(request.getParameter("telefono"));
                 u.setAdmin(false);
                 x= us.trovaUtente(u.getIdUtente());
-                String vecchiaPass=x.getPassword();
+                vecchiaPass=x.getPassword();
                 if (vecchiaPass.equals(nuovaPass)) {
                     us.modificaDati(u);
                 }else{
                     u.setPassword(nuovaPass);
                     us.modificaDati2(u);
                 }
-                System.out.println("Vecchia:"+vecchiaPass+"\nNuova  :"+nuovaPass+"\nProfilo:"+u.getPassword());
                 session.setAttribute("profilo",u);
                 request.getRequestDispatcher("/WEB-INF/interface/site/account.jsp").forward(request, response);
                 break;

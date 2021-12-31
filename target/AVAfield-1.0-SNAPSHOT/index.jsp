@@ -1,6 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.struttura.Struttura" %>
 <%@ page import="model.struttura.StrutturaDAO" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="model.struttura.StrutturaServiceImpl" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -96,12 +98,27 @@
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorie
                     </button>
+                    <%StrutturaServiceImpl ss=new StrutturaServiceImpl();
+                      ArrayList<Struttura> listaStrutture=ss.visualizzaStrutture();
+                      ArrayList<String> listaCategorie=new ArrayList<>();
+                      for (Struttura s: listaStrutture){
+                          String cat=s.getCategoria();
+                          int count=0;
+                          for (String c: listaCategorie){
+                              if (c.equals(cat))
+                                  count++;
+                          }
+                          if (count==0)
+                              listaCategorie.add(cat);
+                      }
+                      session.setAttribute("listaCategorie",listaCategorie);
+                      int j=0;
+                    %>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">NON LO SO</a>
-                        <a class="dropdown-item" href="#">DOBBIAMO</a>
-                        <a class="dropdown-item" href="#">PENSARCI</a>
-                        <a class="dropdown-item" href="#">NON LO VOGLIO TOGLIERE</a>
-                        <a class="dropdown-item" href="#">MI PIACE</a>
+                        <c:forEach var="categoria" items="${listaCategorie}">
+                            <%String categoria = listaCategorie.get(j++);%>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/gs/viewStructuresUser?categoria=${categoria}">${categoria}</a>
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="main">
