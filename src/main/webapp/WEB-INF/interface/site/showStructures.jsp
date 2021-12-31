@@ -7,24 +7,88 @@
 
 <html>
 <head>
-    <title>Strutture</title>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>AVAField</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/structure.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/logo_no_text.png" type="image/gif"/>
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- owl stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
-<section>
-    <%  int i=0;
-        ArrayList<Struttura> strutture = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");%>
-    <c:forEach items="${listaStrutture}" var="evento" >
-        <%Struttura struttura = strutture.get(i++);%>
-        <div onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=struttura.getIdStruttura()%>', '_self');">
-            <div>
-                <h4><%=struttura.getNome() %>
-                </h4><p><span style="color: #262626;"><%=struttura.getIndirizzo()%></span>
-                </p>
-                <div class="electronic_img"><img src="../images/campo_img.png" width="100px" height="100px"></div>
+<section class="section-products">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="header">
+                    <h3>Featured Product</h3>
+                    <h2>Popular Products</h2>
+                </div>
             </div>
         </div>
-    </c:forEach>
+        <div class="row">
+            <!-- Single Product -->
+            <% int i = 0;
+                ArrayList<Struttura> strutture = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");%>
+            <c:forEach items="${listaStrutture}" var="evento">
+                <%Struttura struttura = strutture.get(i++);%>
+                <div class="col-md-6 col-lg-4 col-xl-3"
+                     onclick="window.open('<%=request.getContextPath()%>/gs/singleStructure?idStruttura=<%=struttura.getIdStruttura()%>', '_self');">
+                    <div id="product-1" class="single-product">
+                        <div class="part-1">
+                            <ul>
+                                <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                                <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i></a></li>
+                                <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="part-2">
+                            <h4 class="product-title"><%=struttura.getNome() %>
+                            </h4>
+                            <p class="product-price"><span><%=struttura.getIndirizzo()%></span></p>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    </div>
 </section>
+<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
+
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.0.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugin.js"></script>
 </body>
 </html>
