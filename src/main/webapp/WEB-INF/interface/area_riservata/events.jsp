@@ -12,108 +12,145 @@
 
 <html>
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/single_page_dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
-<main>
-    <aside class="sidebar" id="sideBar">
-        <nav>
-            <img src="<%=request.getContextPath()%>/images/avalogo.png" width="100" height="115">
-            <a href="<%=request.getContextPath()%>/ac/dashboard">Dashboard</a>
-            <a href="<%=request.getContextPath()%>/gu/profileAdmin">Profilo</a>
-            <a href="<%=request.getContextPath()%>/gs/viewStructures">Gestione Strutture</a>
-            <a href="<%=request.getContextPath()%>/gu/viewUsers">Gestione Utenti</a>
-            <a href="<%=request.getContextPath()%>/ge/viewEvents">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
-        </nav>
-    </aside>
+<div id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <section class="content grid-y" id="main">
-        <div>
-            <div>
-                <button class="openbtn" onclick="toggleNav()"><img src="<%=request.getContextPath()%>/images/toggle-icon.png">
-                </button>
-            </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID Evento</th>
-                    <th>Nome</th>
-                    <th>Numero Partecipanti</th>
-                    <th>Data</th>
-                    <th>Orario</th>
-                    <th>ID Struttura</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%int i=0;
-                ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="<%=request.getContextPath()%>/images/avalogo.png" width="55" height="55">
+                </div>
+            </a>
 
-                <c:forEach var="evento" items="${listaEventi}">
-                    <%Evento evento = eventi.get(i++);%>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ac/dashboard">
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gu/profileAdmin">
+                    <span>Profilo</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gs/viewStructures">
+                    <span>Gestione Strutture</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gu/viewUsers">
+                    <span>Gestione Utenti</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ge/viewEvents">
+                    <span>Gestione Eventi</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ac/logout">
+                    <span>Logout</span></a>
+            </li>
+        </ul>
+
+        <div class="container-fluid" style="padding-top: 30px">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>${evento.idEvento}</td>
-                        <td>${evento.nome}</td>
-                        <td>${evento.numeroPartecipanti}</td>
-                        <td>${evento.dataEvento}</td>
-                        <td>${evento.orario}</td>
-                        <td>${(evento.struttura).idStruttura}</td>
+                        <th scope="col">ID Evento</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Numero Partecipanti</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Orario</th>
+                        <th scope="col">ID Struttura</th>
+                        <th scope="col"></th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-
-            <div class="formWrapper">
-                <form action="${pageContext.request.contextPath}/ge/deleteEvento" method="post">
-                    <select name="selezioneDelete" id="selectedDel">
-                        <c:forEach var="evento" items="${listaEventi}">
-                            <option>${evento.idEvento} </option>
-                        </c:forEach>
-                    </select>
-                    <button type="submit" class="butDel btn primary">Elimina Evento</button> <!--Button Delete-->
-                </form>
-
-                <form action="<%=request.getContextPath()%>/ge/addEvento" method="post">
-                    <button class="butAdd btn primary" type="button">Aggiungi Evento</button> <!--Button Add-->
-                    <div class="newEve">
-                        <!--Al click Form Add-->
-                    </div>
-                </form>
+                    </thead>
+                    <tbody>
+                    <%
+                        int i = 0;
+                        ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");
+                    %>
+                    <c:forEach var="evento" items="${listaEventi}">
+                        <%Evento evento = eventi.get(i++);%>
+                        <tr>
+                            <th scope="row">${evento.idEvento}</th>
+                            <td>${evento.nome}</td>
+                            <td>${evento.numeroPartecipanti}</td>
+                            <td>${evento.dataEvento}</td>
+                            <td>${evento.orario}</td>
+                            <td>${(evento.struttura).idStruttura}</td>
+                            <td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
+            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
         </div>
-    </section>
-</main>
-<script>
-    let status = false;
+    </div>
 
-    function toggleNav() {
-        if (status) {
-            document.getElementById("sideBar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-            status = false;
-        } else {
-            document.getElementById("sideBar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            status = true;
-        }
-    }
 
-    $(document).ready(function () {
-        $(".butAdd").click(function () {
-            $(".newEve").show().html("<fieldset>  <legend>Aggiungi Evento</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                "<span> Numero Partecipanti: <input type='number' name='numero' id='numero' placeholder='Numero Partecipanti' required> <br>" +
-                "<span> Data: </span> <input type='date' name='data' id='data' value='2021-12-25' min='2021-12-25' max='2022-12-25' required><br>" +
-                "<span> Orario: </span> <input type='time' name='time' id='time' required><br>" +
-                "<span> ID Struttura: </span> <input type='number' name='idStr' id='idStr' placeholder='ID Struttura' required> <br>" +
-                "<button class='btn primary' type='submit'>Salva</button> " +
-                "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
-            $("#annulla").click(function () {
-                $(".newEve").hide();
+    <script>
+        $(function () {
+
+            // Start counting from the third row
+            var counter = 3;
+
+            $("#insertRow").on("click", function (event) {
+                event.preventDefault();
+
+                var newRow = $("<tr>");
+                var cols = '';
+
+                // Table columns
+                cols += '<th scrope="row">' + counter + '</th>';
+                cols += '<td><input class="form-control rounded-0" type="text" name="firstname" placeholder="Nome"></td>';
+                cols += '<td><input class="form-control rounded-0" type="text" name="lastname" placeholder="Numero Partecipanti"></td>';
+                cols += '<td><input class="form-control rounded-0" type="date" name="data" id="data" placeholder="Data evento" value="2021-12-25" min="2021-12-25" max="2022-12-25" required"></td>';
+                cols += '<td><input class="form-control rounded-0" type="time" name="time" id="time" placeholder="Orario" required></td>';
+                cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>';
+
+                // Insert the columns inside a row
+                newRow.append(cols);
+
+                // Insert the row inside a table
+                $("table").append(newRow);
+
+                // Increase counter after each row insertion
+                counter++;
+            });
+
+            // Remove row when delete btn is clicked
+            $("table").on("click", "#deleteRow", function (event) {
+                $(this).closest("tr").remove();
+                counter -= 1
             });
         });
-
-    });
-</script>
-</body>
+    </script>
+    </body>
 </html>
