@@ -88,12 +88,6 @@
     <div class="header_section">
         <div class="container">
             <div class="containt_main">
-                <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="<%=request.getContextPath()%>/index.jsp">Home</a>
-                    <a href="<%=request.getContextPath()%>/ac/signin_signup">Login</a>
-                </div>
-                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorie
