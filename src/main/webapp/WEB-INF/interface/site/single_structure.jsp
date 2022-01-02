@@ -62,6 +62,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="product p-4">
+                            <input type="hidden" name="idStruttura" value=<%=struttura.getIdStruttura()%>>
                             <div class="mt-4 mb-3"><span
                                     class="text-uppercase text-muted brand"><%=struttura.getCategoria()%></span>
                                 <h5 class="text-uppercase"><%=struttura.getNome()%>
