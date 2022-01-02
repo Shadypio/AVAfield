@@ -6,140 +6,167 @@
 <%-- PAGINA PER ADMIN CONTROLLO STRUTTURE --%>
 <html>
 <head>
-    <title>Gestione Strutture</title>
+    <style>
+        div.table {
+            display: table;
+        }
+
+        form.tr, div.tr {
+            display: table-row;
+        }
+
+        span.td {
+            display: table-cell;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/single_page_dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<main>
-    <aside class="sidebar" id="sideBar">
-        <nav>
-            <img src="<%=request.getContextPath()%>/images/avalogo.png" width="100" height="115">
-            <a href="<%=request.getContextPath()%>/ac/dashboard">Dashboard</a>
-            <a href="<%=request.getContextPath()%>/gu/profileAdmin">Profilo</a>
-            <a href="<%=request.getContextPath()%>/gs/viewStructures">Gestione Strutture</a>
-            <a href="<%=request.getContextPath()%>/gu/viewUsers">Gestione Utenti</a>
-            <a href="<%=request.getContextPath()%>/ge/viewEvents">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
-        </nav>
-    </aside>
+<div id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <section class="content grid-y" id="main">
-        <div>
-            <div>
-                <button class="openbtn" onclick="toggleNav()"><img src="<%=request.getContextPath()%>/images/toggle-icon.png">
-                </button>
-            </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID Struttura</th>
-                    <th>Nome</th>
-                    <th>Indirizzo</th>
-                    <th>telefono</th>
-                    <th>Descrizione</th>
-                    <th>Categoria</th>
-                    <th>Capienza</th>
-                    <th>Numero Spogliatoi</th>
-                    <th>Parcheggio</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%int i=0;
-                    ArrayList<Struttura> lista = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");%>
-                <c:forEach var="s" items="${listaStrutture}">
-                    <%Struttura s = lista.get(i++);%>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="<%=request.getContextPath()%>/images/avalogo.png" width="55" height="55">
+                </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ac/dashboard">
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gu/profileAdmin">
+                    <span>Profilo</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gs/viewStructures">
+                    <span>Gestione Strutture</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gu/viewUsers">
+                    <span>Gestione Utenti</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ge/viewEvents">
+                    <span>Gestione Eventi</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ac/logout">
+                    <span>Logout</span></a>
+            </li>
+        </ul>
+
+        <div class="container-fluid" style="padding-top: 30px">
+            <div class="table-responsive">
+                <table class="table">
                     <tr>
-                        <td>${s.idStruttura}</td>
-                        <td>${s.nome}</td>
-                        <td>${s.indirizzo}</td>
-                        <td>${s.telefono}</td>
-                        <td>${s.descrizione}</td>
-                        <td>${s.categoria}</td>
-                        <td>${s.capienza}</td>
-                        <td>${s.numeroSpogliatoi}</td>
-                        <td>${s.parcheggio}</td>
+                        <th scope="col">ID Struttura</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Indirizzo</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Descrizione</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Capienza</th>
+                        <th scope="col">Numero Spogliatoi</th>
+                        <th scope="col">Parcheggio</th>
+                        <th scope="col"></th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                    <tbody>
+                        <%
+                        int i = 0;
+                        ArrayList<Struttura> lista = (ArrayList<Struttura>) request.getSession().getAttribute("listaStrutture");
+                    %>
+                    <c:forEach var="s" items="${listaStrutture}">
+                            <%Struttura s = lista.get(i++);%>
+                    <form action="${pageContext.request.contextPath}/ge/deleteStruttura" method="post">
+                        <tr>
+                            <input type="hidden" name="selezioneDelete" value="${s.idStruttura}">
+                            <th scope="row">${s.idStruttura}</th>
+                            <td>${s.nome}</td>
+                            <td>${s.indirizzo}</td>
+                            <td>${s.telefono}</td>
+                            <td>${s.descrizione}</td>
+                            <td>${s.categoria}</td>
+                            <td>${s.capienza}</td>
+                            <td>${s.numeroSpogliatoi}</td>
+                            <td>${s.parcheggio}</td>
+                            <td>
+                                <button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i>
 
-            <div class="formWrapper">
-                <form action="${pageContext.request.contextPath}/gs/deleteStruttura" method="post">
-                    <select name="selezioneDelete" id="selectedDel">
-                        <c:forEach var="s" items="${listaStrutture}">
-                            <option>${s.idStruttura} </option>
-                        </c:forEach>
-                    </select>
-                    <button type="submit" class="butDel btn primary">Elimina Struttura</button> <!--Button Delete-->
-                </form>
-
-                <form action="${pageContext.request.contextPath}/gs/updateStruttura" method="post" name="up" >
-                    <select name="selezioneMod" id="selezioneMod">
-                        <c:forEach var="s" items="${listaStrutture}">
-                            <option>${s.idStruttura} </option>
-                        </c:forEach>
-                    </select>
-                    <button class="butMod btn primary" type="button">Modifica Struttura</button> <!--Button Mod-->
-                    <div class="modStr" name="upp">
-                        <!--Al click Form Modify-->
-                    </div>
-                </form>
-
-                <form action="<%=request.getContextPath()%>/gs/addStruttura" method="post">
-                    <button class="butAdd btn primary" type="button">Aggiungi Struttura</button> <!--Button Add-->
-                    <div class="newStr">
-                        <!--Al click Form Add-->
-                    </div>
-                </form>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+                    </c:forEach>
+                </table>
             </div>
+            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
         </div>
-    </section>
-</main>
+    </div>
+</div>
+
 <script>
-    let status = false;
+    $(function () {
 
-    function toggleNav() {
-        if (status) {
-            document.getElementById("sideBar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-            status = false;
-        } else {
-            document.getElementById("sideBar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            status = true;
-        }
-    }
 
-    $(document).ready(function () {
-        $(".butAdd").click(function () {
-            $(".newStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
-                "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
-                "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
-                "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
-                "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
-                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
-                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
-                "<button class='btn primary' type='submit'>Salva</button> " +
-                "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
-            $("#annulla").click(function () {
-                $(".newStr").hide();
-            });
+        $("#insertRow").on("click", function (event) {
+            event.preventDefault();
+
+            var newForm = $("<form>").attr('action', '<%=request.getContextPath()%>/gs/addStruttura').attr('method', 'post').attr('class', 'tr');
+            var cols = '';
+
+            // Table columns
+            cols += '<span class="td" scope="row"><%=lista.size()+1%></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="nome" id="nome "placeholder="Nome"></span>'
+            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="indirizzo" id="indirizzo" placeholder="Indirizzo" required"></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="tel" id="tel" placeholder="Telefono" required></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="desc" id="desc" placeholder="Descrizione" required"></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="number" name="capienza" id="capienza" placeholder="Capienza" required></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="cat" id="cat" placeholder="Categoria" required></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="number" name="numSpo" id="numSpo" placeholder="Numero Spogliatoi" required></span>';
+            cols += '<span class="td"><input class="form-control rounded-0" type="checkbox" name="park" id="park" placeholder="Parcheggio" required></span>';
+            cols += '<span class="td"><button class="btn btn-dark rounded-0" type="submit" id ="addRow"><i class="fa fa-trash"></i></button></span>';
+
+            // Insert the columns inside a row
+            newForm.append(cols);
+
+            // Insert the row inside a table
+            $("table").append(newForm);
+
         });
-        $(".butMod").click(function () {
-            $(".modStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
-                "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
-                "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
-                "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
-                "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
-                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
-                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
-                "<button class='btn primary' type='submit'>Salva</button> " +
-                "<button class='btn primary' type='button' id='annulla2'>Annulla</button> </fieldset>")
-            $("#annulla2").click(function () {
-                $(".modStr").hide();
-            });
+
+        // Remove row when delete btn is clicked
+        $("table").on("click", "#deleteRow", function (event) {
+            $(this).closest("form").remove();
+            $(this).closest("tr").remove();
         });
     });
 </script>

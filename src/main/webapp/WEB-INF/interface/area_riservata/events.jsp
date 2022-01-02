@@ -2,16 +2,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page import="model.evento.Evento" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.text.DateFormat" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- PAGINA PER ADMIN CONTROLLO EVENTI --%>
 
 <html>
 <head>
+    <style>
+        div.table
+        {
+            display:table;
+        }
+        form.tr, div.tr
+        {
+            display:table-row;
+        }
+        span.td
+        {
+            display:table-cell;
+        }
+    </style>x
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,6 +40,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/single_page_dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <div id="page-top">
     <div id="wrapper">
         <!-- Sidebar -->
@@ -79,7 +90,6 @@
         <div class="container-fluid" style="padding-top: 30px">
             <div class="table-responsive">
                 <table class="table">
-                    <thead>
                     <tr>
                         <th scope="col">ID Evento</th>
                         <th scope="col">Nome</th>
@@ -89,28 +99,31 @@
                         <th scope="col">ID Struttura</th>
                         <th scope="col"></th>
                     </tr>
-                    </thead>
-                    <tbody>
                     <%
                         int i = 0;
                         ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");
                     %>
                     <c:forEach var="evento" items="${listaEventi}">
                         <%Evento evento = eventi.get(i++);%>
-                        <tr>
-                            <th scope="row">${evento.idEvento}</th>
-                            <td>${evento.nome}</td>
-                            <td>${evento.numeroPartecipanti}</td>
-                            <td>${evento.dataEvento}</td>
-                            <td>${evento.orario}</td>
-                            <td>${(evento.struttura).idStruttura}</td>
-                            <td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>
-                        </tr>
+                        <form action="${pageContext.request.contextPath}/ge/deleteEvento" method="post">
+                            <tr>
+                                <input type="hidden" name="selezioneDelete" value="${evento.idEvento}">
+                                <th scope="row">${evento.idEvento}</th>
+                                <td>${evento.nome}</td>
+                                <td>${evento.numeroPartecipanti}</td>
+                                <td>${evento.dataEvento}</td>
+                                <td>${evento.orario}</td>
+                                <td>${(evento.struttura).idStruttura}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
                     </c:forEach>
-                    </tbody>
                 </table>
             </div>
-            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+                <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
         </div>
     </div>
 
@@ -118,28 +131,27 @@
     <script>
         $(function () {
 
-            // Start counting from the third row
-            var counter = 3;
 
             $("#insertRow").on("click", function (event) {
                 event.preventDefault();
 
-                var newRow = $("<tr>");
+                var newForm = $("<form>").attr('action', '<%=request.getContextPath()%>/ge/addEvento').attr('method', 'post').attr('class', 'tr');
                 var cols = '';
 
                 // Table columns
-                cols += '<th scrope="row">' + counter + '</th>';
-                cols += '<td><input class="form-control rounded-0" type="text" name="firstname" placeholder="Nome"></td>';
-                cols += '<td><input class="form-control rounded-0" type="text" name="lastname" placeholder="Numero Partecipanti"></td>';
-                cols += '<td><input class="form-control rounded-0" type="date" name="data" id="data" placeholder="Data evento" value="2021-12-25" min="2021-12-25" max="2022-12-25" required"></td>';
-                cols += '<td><input class="form-control rounded-0" type="time" name="time" id="time" placeholder="Orario" required></td>';
-                cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>';
+                cols += '<span class="td" scope="row"><%=eventi.size()+1%></span>';
+                cols += '<span class="td"><input class="form-control rounded-0" type="text" name="nome" placeholder="Nome"></span>';
+                cols += '<span class="td"><input class="form-control rounded-0" type="text" name="numeroPartecipanti" placeholder="Numero Partecipanti"></span>';
+                cols += '<span class="td"><input class="form-control rounded-0" type="date" name="dataEvento" id="data" placeholder="Data evento" value="2021-12-25" min="2021-12-25" max="2022-12-25" required"></span>';
+                cols += '<span class="td"><input class="form-control rounded-0" type="time" name="time" id="time" placeholder="Orario" required></span>';
+                cols += '<span class="td"><input class="form-control rounded-0" type="number" name="idStruttura" id="idStruttura" placeholder="ID Struttura" required></span>';
+                cols += '<span class="td"><button class="btn btn-dark rounded-0" type="submit" id ="addRow"><i class="fa fa-trash"></i></button></span>';
 
                 // Insert the columns inside a row
-                newRow.append(cols);
+                newForm.append(cols);
 
                 // Insert the row inside a table
-                $("table").append(newRow);
+                $("table").append(newForm);
 
                 // Increase counter after each row insertion
                 counter++;
@@ -147,6 +159,7 @@
 
             // Remove row when delete btn is clicked
             $("table").on("click", "#deleteRow", function (event) {
+                $(this).closest("form").remove();
                 $(this).closest("tr").remove();
                 counter -= 1
             });

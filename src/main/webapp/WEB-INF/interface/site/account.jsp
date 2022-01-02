@@ -40,7 +40,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<body>
+
 <%Utente u = (Utente) session.getAttribute("profilo");%>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">

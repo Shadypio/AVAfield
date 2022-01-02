@@ -6,108 +6,144 @@
 <%-- PAGINA PER ADMIN CONTROLLO UTENTI --%>
 <html>
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/single_page_dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<main>
-    <aside class="sidebar" id="sideBar">
-        <nav>
-            <img src="<%=request.getContextPath()%>/images/avalogo.png" width="100" height="115">
-            <a href="<%=request.getContextPath()%>/ac/dashboard">Dashboard</a>
-            <a href="<%=request.getContextPath()%>/gu/profileAdmin">Profilo</a>
-            <a href="<%=request.getContextPath()%>/gs/viewStructures">Gestione Strutture</a>
-            <a href="<%=request.getContextPath()%>/gu/viewUsers">Gestione Utenti</a>
-            <a href="<%=request.getContextPath()%>/ge/viewEvents">Gestione Eventi</a>
-            <a href="<%=request.getContextPath()%>/ac/logout">Logout</a>
-        </nav>
-    </aside>
-    <section class="content grid-y" id="main">
-        <div>
-            <div>
-                <button class="openbtn" onclick="toggleNav()"><img src="<%=request.getContextPath()%>/images/toggle-icon.png">
-                </button>
-            </div>
-            <table>
-                <thead>
+<div id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="<%=request.getContextPath()%>/images/avalogo.png" width="55" height="55">
+                </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ac/dashboard">
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gu/profileAdmin">
+                    <span>Profilo</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gs/viewStructures">
+                    <span>Gestione Strutture</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/gu/viewUsers">
+                    <span>Gestione Utenti</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ge/viewEvents">
+                    <span>Gestione Eventi</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/ac/logout">
+                    <span>Logout</span></a>
+            </li>
+        </ul>
+
+        <div class="container-fluid" style="padding-top: 30px">
+            <div class="table-responsive">
+                <table class="table">
                     <tr>
-                        <th>ID Utente</th>
-                        <th>Nome</th>
-                        <th>Cognome</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Autovalutazione</th>
+                        <th scope="col">ID Utente</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Cognome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Autovalutazione</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <% int i=0; ArrayList<Utente> lista = (ArrayList<Utente>) request.getSession().getAttribute("listaUtenti");%>
+                    <%
+                        int i = 0;
+                        ArrayList<Utente> lista = (ArrayList<Utente>) request.getSession().getAttribute("listaUtenti");
+                    %>
                     <c:forEach var="u" items="${listaUtenti}">
                         <%Utente u = lista.get(i++);%>
-                        <tr>
-                            <td>${u.idUtente}</td>
-                            <td>${u.nome}</td>
-                            <td>${u.cognome}</td>
-                            <td>${u.email}</td>
-                            <td>${u.username}</td>
-                            <td>${u.autovalutazione}</td>
-                        </tr>
+                        <form action="${pageContext.request.contextPath}/gu/deleteUtente" method="post">
+                            <tr>
+                                <input type="hidden" name="selezioneDelete" value="${u.idUtente}">
+                                <th scope="row">${u.idUtente}</th>
+                                <td>${u.nome}</td>
+                                <td>${u.cognome}</td>
+                                <td>${u.email}</td>
+                                <td>${u.username}</td>
+                                <td>${u.autovalutazione}</td>
+                            </tr>
+                        </form>
                     </c:forEach>
-                </tbody>
-            </table>
-            <div>
-                <form action="${pageContext.request.contextPath}/gu/deleteUtente" method="post">
-                    <select name="selezioneDelete" id="selectedDel">
-                        <c:forEach var="u" items="${listaUtenti}">
-                            <option>${u.idUtente}</option>
-                        </c:forEach>
-                    </select>
-                    <button type="submit" class="butDel btn primary">Elimina Utente</button> <!--Button Delete-->
-                </form>
-
-                <form action="<%=request.getContextPath()%>/gu/addUtente" method="post">
-                    <button class="butAdd btn primary" type="button">Aggiungi Utente</button> <!--Button Add-->
-                    <div class="newUte">
-                        <!--Al click Form Add-->
-                    </div>
-                </form>
+                </table>
             </div>
+            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
         </div>
-    </section>
+    </div>
+    <div>
 
 
-    <script>
-        let status = false;
+        <script>
+            $(function () {
 
-        function toggleNav() {
-            if (status) {
-                document.getElementById("sideBar").style.width = "0";
-                document.getElementById("main").style.marginLeft = "0";
-                status = false;
-            } else {
-                document.getElementById("sideBar").style.width = "250px";
-                document.getElementById("main").style.marginLeft = "250px";
-                status = true;
-            }
-        }
+                $("#insertRow").on("click", function (event) {
+                    event.preventDefault();
 
-        $(document).ready(function () {
-            $(".butAdd").click(function () {
-                $(".newUte").show().html("<fieldset>  <legend>Aggiungi Utente</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
-                    "<span> Cognome: </span> <input type='text' name='cognome' id='cognome' placeholder='Cognome' required> <br>" +
-                    "<span> Email: </span> <input type='text' name='email' id='email' placeholder='Email' required> <br>" +
-                    "<span> Username: </span> <input type='text' name='username' id='username' placeholder='Username' required> <br>" +
-                    "<span> Password: <input type='password' name='password' id='password' placeholder='Password' required> <br>" +
-                    "<span> Is Admin: </span> <input type='checkbox' name='admin' id='admin' placeholder='Admin' required> <br>" +
-                    "<span> Telefono: <input type='number' name='telefono' id='telefono' placeholder='Telefono' required> <br>" +
-                    "<span> Autovalutazione: <input type='range' min='0' max='5' name='auto' id='auto' placeholder='Autovalutazione' required> <br>" +
-                    "<button class='btn primary' type='submit'>Salva</button> " +
-                    "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
-                $("#annulla").click(function () {
-                    $(".newUte").hide();
+                    var newForm = $("<form>").attr('action', '<%=request.getContextPath()%>/ge/addEvento').attr('method', 'post').attr('class', 'tr');
+                    var cols = '';
+
+                    // Table columns
+                    cols += '<span class="td" scope="row"><%=lista.size()+1%></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="text" name="nome" id="nome" placeholder="Nome"></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="text" name="cognome" id="cognome" placeholder="Cognome" required></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="text" name="email" id="Email" placeholder="Email" required"></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="password" name="password" id="password" placeholder="Password" required></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="checkbox" name="admin" id="admin" placeholder="Admin" required></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="number" name="telefono" id="telefono" placeholder="Telefono" required></span>';
+                    cols += '<span class="td"><input class="form-control rounded-0" type="range" min="0" max="5" name="auto" id="auto" placeholder="Autovalutazione" required></span>';
+                    cols += '<span class="td"><button class="btn btn-dark rounded-0" type="submit" id ="addRow"><i class="fa fa-trash"></i></button></span>';
+
+                    // Insert the columns inside a row
+                    newForm.append(cols);
+
+                    // Insert the row inside a table
+                    $("table").append(newForm);
+
+                });
+
+                // Remove row when delete btn is clicked
+                $("table").on("click", "#deleteRow", function (event) {
+                    $(this).closest("form").remove();
+                    $(this).closest("tr").remove();
                 });
             });
-        });
-    </script>
-</main>
+
+        </script>
+        </main>
 </body>
 </html>
