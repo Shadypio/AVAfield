@@ -9,19 +9,19 @@
 <html>
 <head>
     <style>
-        div.table
-        {
-            display:table;
+        div.table {
+            display: table;
         }
-        form.tr, div.tr
-        {
-            display:table-row;
+
+        form.tr, div.tr {
+            display: table-row;
         }
-        span.td
-        {
-            display:table-cell;
+
+        span.td {
+            display: table-cell;
         }
-    </style>x
+    </style>
+    x
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -123,7 +123,7 @@
                     </c:forEach>
                 </table>
             </div>
-                <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
         </div>
     </div>
 
@@ -166,4 +166,5 @@
         });
     </script>
     </body>
+</div>
 </html>
