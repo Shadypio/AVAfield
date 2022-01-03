@@ -97,49 +97,48 @@
                                 <td>${u.email}</td>
                                 <td>${u.username}</td>
                                 <td>${u.autovalutazione}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </form>
                     </c:forEach>
                 </table>
             </div>
-            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+            <form action="<%=request.getContextPath()%>/gu/addUtente" method="post">
+                <button class="butAdd btn primary" type="button">Aggiungi Utente</button> <!--Button Add-->
+                <div class="newUte">
+                    <!--Al click Form Add-->
+                </div>
+            </form>
         </div>
     </div>
     <div>
 
-
         <script>
-            $(function () {
-
-                $("#insertRow").on("click", function (event) {
-                    event.preventDefault();
-
-                    var newForm = $("<form>").attr('action', '<%=request.getContextPath()%>/ge/addEvento').attr('method', 'post').attr('class', 'tr');
-                    var cols = '';
-
-                    // Table columns
-                    cols += '<span class="td" scope="row"><%=lista.size()+1%></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="text" name="nome" id="nome" placeholder="Nome"></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="text" name="cognome" id="cognome" placeholder="Cognome" required></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="text" name="email" id="Email" placeholder="Email" required"></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="password" name="password" id="password" placeholder="Password" required></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="checkbox" name="admin" id="admin" placeholder="Admin" required></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="number" name="telefono" id="telefono" placeholder="Telefono" required></span>';
-                    cols += '<span class="td"><input class="form-control rounded-0" type="range" min="0" max="5" name="auto" id="auto" placeholder="Autovalutazione" required></span>';
-                    cols += '<span class="td"><button class="btn btn-dark rounded-0" type="submit" id ="addRow"><i class="fa fa-trash"></i></button></span>';
-
-                    // Insert the columns inside a row
-                    newForm.append(cols);
-
-                    // Insert the row inside a table
-                    $("table").append(newForm);
-
+            $(document).ready(function () {
+                $(".butAdd").click(function () {
+                    $(".newUte").show().html("<fieldset>  <legend>Aggiungi Utente</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
+                        "<span> Cognome: </span> <input type='text' name='cognome' id='cognome' placeholder='Cognome' required> <br>" +
+                        "<span> Email: </span> <input type='text' name='email' id='email' placeholder='Email' required> <br>" +
+                        "<span> Username: </span> <input type='text' name='username' id='username' placeholder='Username' required> <br>" +
+                        "<span> Password: <input type='password' name='password' id='password' placeholder='Password' required> <br>" +
+                        "<span> Is Admin: </span> <input type='checkbox' name='admin' id='admin' placeholder='Admin' required> <br>" +
+                        "<span> Telefono: <input type='number' name='telefono' id='telefono' placeholder='Telefono' required> <br>" +
+                        "<span> Autovalutazione: <input type='range' min='0' max='5' name='auto' id='auto' placeholder='Autovalutazione' required> <br>" +
+                        "<button class='btn primary' type='submit'>Salva</button> " +
+                        "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
+                    $("#annulla").click(function () {
+                        $(".newUte").hide();
+                    });
                 });
 
                 // Remove row when delete btn is clicked
                 $("table").on("click", "#deleteRow", function (event) {
                     $(this).closest("form").remove();
                     $(this).closest("tr").remove();
+                    counter -= 1
                 });
             });
 

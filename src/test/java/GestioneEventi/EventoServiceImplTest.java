@@ -26,8 +26,6 @@ public class EventoServiceImplTest {
     @Mock
     private EventoDAO eventoDAO = new EventoDAO();
 
-    @Mock
-    private UtenteDAO utenteDAO;
 
     @BeforeAll
     public void preparaMock() {

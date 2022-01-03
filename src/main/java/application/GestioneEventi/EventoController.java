@@ -9,6 +9,7 @@ import model.struttura.Struttura;
 import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
+import model.utente.UtenteDAO;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -48,8 +49,12 @@ public class EventoController extends HttpServlet {
                 }
                 break;
             case "/listaPerPartecipare":
+                Utente u= (Utente) session.getAttribute("profilo");
                 session.setAttribute("listaEventi",es.visualizzaEventi());
                 session.setAttribute("listaStrutture",ss.visualizzaStrutture());
+                if (u.isAdmin())
+                    request.getRequestDispatcher("/WEB-INF/interface/area_riservata/events.jsp").forward(request, response);
+                else
                 request.getRequestDispatcher("/WEB-INF/interface/site/showEvents.jsp").forward(request, response);
                 break;
             case "/viewEvents":
@@ -59,11 +64,11 @@ public class EventoController extends HttpServlet {
             case "/addEvento":
                 e.setIdEvento(es.visualizzaEventi().size()+1);
                 e.setNome(request.getParameter("nome"));
-                e.setNumeroPartecipanti(Integer.parseInt(request.getParameter("numeroPartecipanti")));
+                e.setNumeroPartecipanti(Integer.parseInt(request.getParameter("numero")));
                 Struttura s=new Struttura();
-                s.setIdStruttura(Integer.parseInt(request.getParameter("idStruttura")));
+                s.setIdStruttura(Integer.parseInt(request.getParameter("idStr")));
                 e.setStruttura(s);
-                String data=request.getParameter("dataEvento");
+                String data=request.getParameter("data");
                 String orario=request.getParameter("time");
                 System.out.println(data+"    "+orario);
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

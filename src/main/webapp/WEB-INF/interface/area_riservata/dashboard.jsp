@@ -100,7 +100,7 @@
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2"
-                     onclick="window.open('<%=request.getContextPath()%>/gs/viewUser', '_self');">
+                     onclick="window.open('<%=request.getContextPath()%>/gu/viewUsers', '_self');">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -117,7 +117,7 @@
 
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2"
-                     onclick="window.open('<%=request.getContextPath()%>/gs/viewEvent', '_self');">
+                     onclick="window.open('<%=request.getContextPath()%>/ge/viewEvents', '_self');">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
