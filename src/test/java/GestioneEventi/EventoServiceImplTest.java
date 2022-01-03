@@ -21,10 +21,10 @@ import static org.junit.Assert.assertTrue;
 public class EventoServiceImplTest {
 
     @InjectMocks
-    private EventoServiceImpl gestioneEventi;
+    private EventoServiceImpl gestioneEventi = new EventoServiceImpl();
 
     @Mock
-    private EventoDAO eventoDAO;
+    private EventoDAO eventoDAO = new EventoDAO();
 
     @Mock
     private UtenteDAO utenteDAO;
