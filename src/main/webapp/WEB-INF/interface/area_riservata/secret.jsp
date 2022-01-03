@@ -47,12 +47,12 @@
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
                         <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
                         <button class="btn btn-dark btn-block" name="login" >Login</button>
+                        <a class="btn btn-block btn-dark" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 </body>
 </html>
