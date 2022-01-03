@@ -126,7 +126,7 @@
             <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
         </div>
     </div>
-
+</div>
 
     <script>
         $(function () {
@@ -166,5 +166,4 @@
         });
     </script>
     </body>
-</div>
 </html>
