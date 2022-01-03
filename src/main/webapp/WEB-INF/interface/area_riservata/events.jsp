@@ -3,9 +3,7 @@
 <%@ page import="model.evento.Evento" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%-- PAGINA PER ADMIN CONTROLLO EVENTI --%>
-
 <html>
 <head>
     <style>
@@ -122,38 +120,29 @@
                     </c:forEach>
                 </table>
             </div>
-            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+            <form action="<%=request.getContextPath()%>/ge/addEvento" method="post">
+                <button class="butAdd btn primary" type="button">Aggiungi Evento</button> <!--Button Add-->
+                <div class="newEve">
+                    <!--Al click Form Add-->
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
     <script>
-        $(function () {
-
-
-            $("#insertRow").on("click", function (event) {
-                event.preventDefault();
-
-                var newForm = $("<form>").attr('action', '<%=request.getContextPath()%>/ge/addEvento').attr('method', 'post').attr('class', 'tr');
-                var cols = '';
-
-                // Table columns
-                cols += '<span class="td" scope="row"><%=eventi.size()+1%></span>';
-                cols += '<span class="td"><input class="form-control rounded-0" type="text" name="nome" placeholder="Nome"></span>';
-                cols += '<span class="td"><input class="form-control rounded-0" type="text" name="numeroPartecipanti" placeholder="Numero Partecipanti"></span>';
-                cols += '<span class="td"><input class="form-control rounded-0" type="date" name="dataEvento" id="data" placeholder="Data evento" value="2021-12-25" min="2021-12-25" max="2022-12-25" required"></span>';
-                cols += '<span class="td"><input class="form-control rounded-0" type="time" name="time" id="time" placeholder="Orario" required></span>';
-                cols += '<span class="td"><input class="form-control rounded-0" type="number" name="idStruttura" id="idStruttura" placeholder="ID Struttura" required></span>';
-                cols += '<span class="td"><button class="btn btn-dark rounded-0" type="submit" id ="addRow"><i class="fa fa-trash"></i></button></span>';
-
-                // Insert the columns inside a row
-                newForm.append(cols);
-
-                // Insert the row inside a table
-                $("table").append(newForm);
-
-                // Increase counter after each row insertion
-                counter++;
+        $(document).ready(function () {
+            $(".butAdd").click(function () {
+                $(".newEve").show().html("<fieldset>  <legend>Aggiungi Evento</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
+                    "<span> Numero Partecipanti: <input type='number' name='numero' id='numero' placeholder='Numero Partecipanti' required> <br>" +
+                    "<span> Data: </span> <input type='date' name='data' id='data' value='2021-12-25' min='2021-12-25' max='2022-12-25' required><br>" +
+                    "<span> Orario: </span> <input type='time' name='time' id='time' required><br>" +
+                    "<span> ID Struttura: </span> <input type='number' name='idStr' id='idStr' placeholder='ID Struttura' required> <br>" +
+                    "<button class='btn primary' type='submit'>Salva</button> " +
+                    "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
+                $("#annulla").click(function () {
+                    $(".newEve").hide();
+                });
             });
 
             // Remove row when delete btn is clicked
