@@ -49,21 +49,20 @@
                 <h4 style="text-align: center">CREA UN EVENTO</h4>
             </div>
             <div class="row mt-3">
-                <input type="hidden" name="idStruttura"
-                       value="<%=Integer.parseInt((String) request.getAttribute("idStruttura"))%>">
+                <input type="hidden" name="idStr" value="<%=Integer.parseInt((String) request.getAttribute("idStruttura"))%>">
                 <div class="col-md-6"><label class="labels">Nome evento</label><input type="text" class="form-control"
                                                                                       name="nome" id="nome"
                                                                                       placeholder="Nome"></div>
                 <div class="col-md-6"><label class="labels">Numero partecipanti</label><input type="text"
                                                                                               class="form-control"
-                                                                                              name="numeroPartecipanti"
+                                                                                              name="numero"
                                                                                               id="numeroPartecipanti"
                                                                                               placeholder="Numero Partecipanti"
                                                                                               required></div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12"><label class="labels">Data evento</label><input type="date" class="form-control"
-                                                                                       name="dataEvento" id="dataEvento"
+                                                                                       name="data" id="data"
                                                                                        placeholder="Data"
                                                                                        value='<%=""+currentDate.format(formatter)%>'
                                                                                        min='<%=""+currentDate.format(formatter)%>'

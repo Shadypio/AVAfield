@@ -128,39 +128,60 @@
                     </c:forEach>
                 </table>
             </div>
-            <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+            <form action="${pageContext.request.contextPath}/gs/updateStruttura" method="post" name="up" >
+                <select name="selezioneMod" id="selezioneMod">
+                    <c:forEach var="s" items="${listaStrutture}">
+                        <option>${s.idStruttura} </option>
+                    </c:forEach>
+                </select>
+                <button class="butMod btn primary" type="button">Modifica Struttura</button> <!--Button Mod-->
+                <div class="modStr" name="upp">
+                    <!--Al click Form Modify-->
+                </div>
+            </form>
+
+            <form action="<%=request.getContextPath()%>/gs/addStruttura" method="post">
+                <button class="butAdd btn primary" type="button">Aggiungi Struttura</button> <!--Button Add-->
+                <div class="newStr">
+                    <!--Al click Form Add-->
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
 
 <script>
-    $(function () {
-
-
-        $("#insertRow").on("click", function (event) {
-            event.preventDefault();
-
-            var newForm = $("<form>").attr('action', '<%=request.getContextPath()%>/gs/addStruttura').attr('method', 'post').attr('class', 'tr');
-            var cols = '';
-
-            // Table columns
-            cols += '<span class="td" scope="row"><%=lista.size()+1%></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="nome" id="nome "placeholder="Nome"></span>'
-            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="indirizzo" id="indirizzo" placeholder="Indirizzo" required"></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="tel" id="tel" placeholder="Telefono" required></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="desc" id="desc" placeholder="Descrizione" required"></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="number" name="capienza" id="capienza" placeholder="Capienza" required></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="text" name="cat" id="cat" placeholder="Categoria" required></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="number" name="numSpo" id="numSpo" placeholder="Numero Spogliatoi" required></span>';
-            cols += '<span class="td"><input class="form-control rounded-0" type="checkbox" name="park" id="park" placeholder="Parcheggio" required></span>';
-            cols += '<span class="td"><button class="btn btn-dark rounded-0" type="submit" id ="addRow"><i class="fa fa-trash"></i></button></span>';
-
-            // Insert the columns inside a row
-            newForm.append(cols);
-
-            // Insert the row inside a table
-            $("table").append(newForm);
-
+    $(document).ready(function () {
+        $(".butAdd").click(function () {
+            $(".newStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
+                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
+                "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
+                "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
+                "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
+                "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
+                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
+                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
+                "<button class='btn primary' type='submit'>Salva</button> " +
+                "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
+            $("#annulla").click(function () {
+                $(".newStr").hide();
+            });
+        });
+        $(".butMod").click(function () {
+            $(".modStr").show().html("<fieldset>  <legend>Modifica Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
+                "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
+                "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
+                "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
+                "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
+                "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
+                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
+                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
+                "<button class='btn primary' type='submit'>Salva</button> " +
+                "<button class='btn primary' type='button' id='annulla2'>Annulla</button> </fieldset>")
+            $("#annulla2").click(function () {
+                $(".modStr").hide();
+            });
         });
 
         // Remove row when delete btn is clicked

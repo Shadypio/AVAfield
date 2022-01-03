@@ -49,6 +49,7 @@
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
                         <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
                         <button class="btn btn-dark btn-block" name="login" >Login</button>
+                        <a class="btn btn-dark btn-block" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
                     </form>
                 </div>
             </div>
@@ -65,13 +66,14 @@
                         <label for="autovalutazione">Autovalutazione (tra 0 e 5):</label>
                         <input class="form-control" type="range" min="0" max="5" name="autovalutazione" id="autovalutazione" required>
                         <button class="btn btn-dark btn-block" name="registrati">Registrati</button>
+                        <a class="btn btn-dark btn-block" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
+
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>

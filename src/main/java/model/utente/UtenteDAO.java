@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UtenteDAO {
-    public void addUtente(Utente u){
+    public boolean addUtente(Utente u){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) VALUES(?,?,?,?,?,SHA1(?),?,?,?)");
@@ -23,6 +23,7 @@ public class UtenteDAO {
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
+            return true;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
