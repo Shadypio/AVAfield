@@ -106,7 +106,7 @@
                     %>
                     <c:forEach var="s" items="${listaStrutture}">
                             <%Struttura s = lista.get(i++);%>
-                    <form action="${pageContext.request.contextPath}/ge/deleteStruttura" method="post">
+                    <form action="${pageContext.request.contextPath}/gs/deleteStruttura" method="post">
                         <tr>
                             <input type="hidden" name="selezioneDelete" value="${s.idStruttura}">
                             <th scope="row">${s.idStruttura}</th>
