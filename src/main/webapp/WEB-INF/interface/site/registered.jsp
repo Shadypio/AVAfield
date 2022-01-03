@@ -1,19 +1,18 @@
-<%-- PAGINA DI AVVENUTA REGISTRAZIONE E BENVENUTO CON LINK A HOME LOGGATO --%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <link href="<c:url value="/css/success.css"/>" rel="stylesheet">
+    <title>Registrazione Effettuata</title>
 </head>
-<body>
 <body>
 <div class="bg">
 </div>
-<div>
+<div class="registeredtext">
     <h1>Ti diamo il benvenuto!</h1>
     <h3>Registrazione effettuata con successo.</h3>
     <br>
     <a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 </div>
-</body>
 </body>
 </html>
