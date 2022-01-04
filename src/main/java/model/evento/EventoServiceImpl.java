@@ -7,9 +7,34 @@ import model.utente.UtenteDAO;
 import java.util.ArrayList;
 
 public class EventoServiceImpl implements EventoService{
-    private EventoUtenteDAO euDAO=new EventoUtenteDAO();
-    private UtenteDAO uteDAO=new UtenteDAO();
-    private EventoDAO eveDAO= new EventoDAO();
+    private EventoUtenteDAO euDAO;
+    private UtenteDAO uteDAO;
+    private EventoDAO eveDAO;
+
+    public EventoServiceImpl(){
+        euDAO=new EventoUtenteDAO();
+        uteDAO=new UtenteDAO();
+        eveDAO=new EventoDAO();
+    }
+
+    public EventoServiceImpl(EventoDAO eveDAO){
+        this.eveDAO=eveDAO;
+        euDAO=new EventoUtenteDAO();
+        uteDAO=new UtenteDAO();
+    }
+
+    public EventoServiceImpl(EventoDAO eveDAO, UtenteDAO uteDAO){
+        this.eveDAO=eveDAO;
+        euDAO=new EventoUtenteDAO();
+        this.uteDAO=uteDAO;
+    }
+
+    public EventoServiceImpl(EventoDAO eveDAO, UtenteDAO uteDAO, EventoUtenteDAO euDAO){
+        this.eveDAO=eveDAO;
+        this.euDAO=euDAO;
+        this.uteDAO=uteDAO;
+    }
+
     @Override
     public void creaEvento(Evento e) {
         eveDAO.addEvento(e);
@@ -54,6 +79,11 @@ public class EventoServiceImpl implements EventoService{
             result.add(eveDAO.doRetrieveById(eu.getEvento().getIdEvento()));
         }
         return result;
+    }
+
+    @Override
+    public Evento trovaEvento(int id){
+        return eveDAO.doRetrieveById(id);
     }
 
 }

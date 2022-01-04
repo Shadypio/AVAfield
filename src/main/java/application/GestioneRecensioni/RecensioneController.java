@@ -16,6 +16,33 @@ import java.util.ArrayList;
 
 @WebServlet(name = "RecensioneController", value = "/gr/*")
 public class RecensioneController extends HttpServlet {
+    private StrutturaServiceImpl ss;
+    private RecensioneServiceImpl rs;
+    private UtenteServiceImpl us;
+    public RecensioneController(){
+        us=new UtenteServiceImpl();
+        ss=new StrutturaServiceImpl();
+        rs=new RecensioneServiceImpl();
+    }
+
+    public RecensioneController(RecensioneServiceImpl rs){
+        this.rs=rs;
+        us=new UtenteServiceImpl();
+        ss=new StrutturaServiceImpl();
+    }
+
+    public RecensioneController(RecensioneServiceImpl rs,StrutturaServiceImpl ss){
+        this.rs=rs;
+        us=new UtenteServiceImpl();
+        this.ss=ss;
+    }
+
+    public RecensioneController(RecensioneServiceImpl rs,StrutturaServiceImpl ss,UtenteServiceImpl us){
+        this.rs=rs;
+        this.us=us;
+        this.ss=ss;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -25,9 +52,6 @@ public class RecensioneController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
-        RecensioneServiceImpl rs=new RecensioneServiceImpl();
-        StrutturaServiceImpl ss=new StrutturaServiceImpl();
-        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/addRecensione":
@@ -46,6 +70,7 @@ public class RecensioneController extends HttpServlet {
                     nuova.setTitolo(titolo);
                     nuova.setNumeroStelle(stelle);
                     nuova.setIdRecensione(rs.visualizzaRecensioni().size()+1);
+
                     rs.inserisciRecensione(nuova);
                     Struttura s=ss.trovaStruttura(idStr);
                     ArrayList<Recensione> listaRecensioni=rs.visualizzaRecensioniByIdStruttura(s);

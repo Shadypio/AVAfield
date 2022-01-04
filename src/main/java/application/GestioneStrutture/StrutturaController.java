@@ -3,12 +3,9 @@ package application.GestioneStrutture;
 import model.recensione.Recensione;
 import model.recensione.RecensioneServiceImpl;
 import model.struttura.Struttura;
-import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
-import model.utente.UtenteDAO;
 import model.utente.UtenteServiceImpl;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -17,6 +14,33 @@ import java.util.ArrayList;
 
 @WebServlet(name = "StrutturaController", value = "/gs/*")
 public class StrutturaController extends HttpServlet {
+    private StrutturaServiceImpl ss;
+    private RecensioneServiceImpl rs;
+    private UtenteServiceImpl us;
+    public StrutturaController(){
+        us=new UtenteServiceImpl();
+        ss=new StrutturaServiceImpl();
+        rs=new RecensioneServiceImpl();
+    }
+
+    public StrutturaController(StrutturaServiceImpl ss){
+        this.ss=ss;
+        us=new UtenteServiceImpl();
+        rs=new RecensioneServiceImpl();
+    }
+
+    public StrutturaController(StrutturaServiceImpl ss,UtenteServiceImpl us){
+        this.ss=ss;
+        this.us=us;
+        rs=new RecensioneServiceImpl();
+    }
+
+    public StrutturaController(StrutturaServiceImpl ss,UtenteServiceImpl us,RecensioneServiceImpl rs){
+        this.ss=ss;
+        this.us=us;
+        this.rs=rs;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -26,9 +50,6 @@ public class StrutturaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
-        StrutturaServiceImpl ss=new StrutturaServiceImpl();
-        RecensioneServiceImpl rs=new RecensioneServiceImpl();
-        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
         Struttura s=new Struttura(); // oggetto di appoggio;
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {

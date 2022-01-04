@@ -16,6 +16,34 @@ import java.util.ArrayList;
 
 @WebServlet(name = "AutenticazioneController", value = "/ac/*")
 public class AutenticazioneController extends HttpServlet {
+    UtenteServiceImpl us;
+    EventoServiceImpl es;
+    StrutturaServiceImpl ss;
+
+    public AutenticazioneController(){
+        this.us=new UtenteServiceImpl(new UtenteDAO());
+        this.es=new EventoServiceImpl();
+        this.ss=new StrutturaServiceImpl();
+    }
+
+    public AutenticazioneController(UtenteServiceImpl us){
+        this.us=us;
+        this.es=new EventoServiceImpl();
+        this.ss=new StrutturaServiceImpl();
+    }
+
+    public AutenticazioneController(UtenteServiceImpl us,EventoServiceImpl es){
+        this.us=us;
+        this.es=es;
+        this.ss=new StrutturaServiceImpl();
+    }
+
+    public AutenticazioneController(UtenteServiceImpl us,EventoServiceImpl es, StrutturaServiceImpl ss){
+        this.us=us;
+        this.es=es;
+        this.ss=ss;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -25,9 +53,6 @@ public class AutenticazioneController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
-        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
-        EventoServiceImpl es=new EventoServiceImpl();
-        StrutturaServiceImpl ss=new StrutturaServiceImpl();
         String email,pass;
         Utente log=new Utente(); //Utente che prova a loggarsi
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";

@@ -1,10 +1,10 @@
 import application.GestioneEventi.EventoController;
 import model.evento.EventoServiceImpl;
 import model.struttura.StrutturaServiceImpl;
+import model.utente.Utente;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -51,4 +51,45 @@ public class EventoControllerTest {
         verify(request,atLeastOnce()).setAttribute("idStruttura","ciao");
         verify(dispatcher,atLeastOnce()).forward(request,response);
     }
+
+    @Test
+    public void listaEventiPerUserTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/listaPerPartecipare");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+        Utente utente=new Utente();
+        utente.setAdmin(false);
+        when(session.getAttribute("profilo")).thenReturn(utente);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ec.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    public void listaEventiPerAdminTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/listaPerPartecipare");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+        Utente utente=new Utente();
+        utente.setAdmin(true);
+        when(session.getAttribute("profilo")).thenReturn(utente);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ec.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    public void viewEventiTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/viewEvents");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ec.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+
 }

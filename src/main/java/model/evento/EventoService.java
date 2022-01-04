@@ -12,5 +12,6 @@ public interface EventoService {
     ArrayList<Evento> visualizzaEventi();
     ArrayList<Utente> findAllUtenti(Evento e);
     ArrayList<Evento> findAllEventi(Utente u);
+    Evento trovaEvento(int id);
 
 }

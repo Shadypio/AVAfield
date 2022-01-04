@@ -5,7 +5,16 @@ import model.struttura.Struttura;
 import java.util.ArrayList;
 
 public class RecensioneServiceImpl implements RecensioneService{
-    private RecensioneDAO recDAO=new RecensioneDAO();
+    private RecensioneDAO recDAO;
+
+    public RecensioneServiceImpl(){
+        this.recDAO=new RecensioneDAO();
+    }
+
+    public RecensioneServiceImpl(RecensioneDAO recDAO){
+        this.recDAO=recDAO;
+    }
+
     @Override
     public void inserisciRecensione(Recensione r) {
         recDAO.addRecensione(r);

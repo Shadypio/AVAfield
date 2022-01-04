@@ -12,16 +12,25 @@ import java.util.ArrayList;
 
 @WebServlet(name = "GestioneUtenti", value = "/gu/*")
 public class UtenteController extends HttpServlet {
+    private UtenteServiceImpl us;
+
+    public UtenteController(){
+        us=new UtenteServiceImpl();
+    }
+
+    public UtenteController(UtenteServiceImpl us){
+        this.us=us;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
-        String address=getServletContext().getContextPath();
-        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
+        String address=request.getServletContext().getContextPath();
         Utente u=new Utente();//oggetto di apppoggio
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {

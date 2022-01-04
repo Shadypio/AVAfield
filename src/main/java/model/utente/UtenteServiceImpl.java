@@ -3,10 +3,13 @@ package model.utente;
 import java.util.ArrayList;
 
 public class UtenteServiceImpl implements UtenteService{
-    private UtenteDAO uteDAO = new UtenteDAO();
+    private UtenteDAO uteDAO;
 
     public UtenteServiceImpl(UtenteDAO uteDAO) {
         this.uteDAO = uteDAO;
+    }
+    public UtenteServiceImpl(){
+        this.uteDAO=new UtenteDAO();
     }
 
     @Override

@@ -3,7 +3,16 @@ package model.struttura;
 import java.util.ArrayList;
 
 public class StrutturaServiceImpl implements StrutturaService{
-    private StrutturaDAO strDAO=new StrutturaDAO();
+    private StrutturaDAO strDAO;
+
+    public StrutturaServiceImpl() {
+        this.strDAO = new StrutturaDAO();
+    }
+
+    public StrutturaServiceImpl(StrutturaDAO strDAO){
+        this.strDAO=strDAO;
+    }
+
     @Override
     public void inserisciStruttura(Struttura s) {
         strDAO.addStruttura(s);

@@ -45,9 +45,8 @@ public class EventoController extends HttpServlet {
         HttpSession session=request.getSession();
         Boolean verifica;
         String address=request.getServletContext().getContextPath();
-        Evento e =new Evento();//oggetto di appoggio
+        Evento e=new Evento();//oggetto di appoggio
         Utente utente;
-        EventoDAO eveDAO=new EventoDAO();
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/nuovoEvento":
@@ -55,7 +54,6 @@ public class EventoController extends HttpServlet {
                 if (verifica==null)
                     response.sendRedirect(address+"/ac/signin");
                 else {
-                    System.out.println(request.getParameter("idStruttura"));
                     request.setAttribute("idStruttura", request.getParameter("idStruttura"));
                     request.getRequestDispatcher("/WEB-INF/interface/site/new_event.jsp").forward(request, response);
                 }
@@ -113,7 +111,7 @@ public class EventoController extends HttpServlet {
                 if (verifica==null)
                     response.sendRedirect(address+"/ac/signin");
                 else {
-                    e=eveDAO.doRetrieveById(Integer.parseInt(request.getParameter("idEvento")));
+                    e=es.trovaEvento(Integer.parseInt(request.getParameter("idEvento")));
                     utente = (Utente) session.getAttribute("profilo");
                     es.partecipaEvento(e,utente);
                     request.getRequestDispatcher("/WEB-INF/interface/site/participated_to_event.jsp").forward(request, response);
