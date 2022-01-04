@@ -22,18 +22,29 @@ import java.util.Date;
 
 @WebServlet(name = "EventoController", value = "/ge/*")
 public class EventoController extends HttpServlet {
+    private EventoServiceImpl es;
+    private StrutturaServiceImpl ss;
+
+    public EventoController() {
+        es=new EventoServiceImpl();
+        ss=new StrutturaServiceImpl();
+    }
+
+    public EventoController(EventoServiceImpl es,StrutturaServiceImpl ss) {
+        this.es=es;
+        this.ss=ss;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         Boolean verifica;
-        String address=getServletContext().getContextPath();
-        EventoServiceImpl es=new EventoServiceImpl();
-        StrutturaServiceImpl ss=new StrutturaServiceImpl();
+        String address=request.getServletContext().getContextPath();
         Evento e =new Evento();//oggetto di appoggio
         Utente utente;
         EventoDAO eveDAO=new EventoDAO();
@@ -44,6 +55,7 @@ public class EventoController extends HttpServlet {
                 if (verifica==null)
                     response.sendRedirect(address+"/ac/signin");
                 else {
+                    System.out.println(request.getParameter("idStruttura"));
                     request.setAttribute("idStruttura", request.getParameter("idStruttura"));
                     request.getRequestDispatcher("/WEB-INF/interface/site/new_event.jsp").forward(request, response);
                 }
@@ -107,7 +119,6 @@ public class EventoController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/interface/site/participated_to_event.jsp").forward(request, response);
                     break;
                 }
-
         }
 
     }

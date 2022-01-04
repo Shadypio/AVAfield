@@ -5,6 +5,7 @@ import model.evento.EventoServiceImpl;
 import model.struttura.Struttura;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
+import model.utente.UtenteDAO;
 import model.utente.UtenteServiceImpl;
 
 import javax.servlet.*;
@@ -24,7 +25,7 @@ public class AutenticazioneController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
-        UtenteServiceImpl us=new UtenteServiceImpl();
+        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
         EventoServiceImpl es=new EventoServiceImpl();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
         String email,pass;

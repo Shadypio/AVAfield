@@ -208,7 +208,6 @@ $(function () {
 	
 	$('.deal-slider').slick({
         dots: false,
-        infinite: false,
 		prevArrow: '.previous-deal',
 		nextArrow: '.next-deal',
         speed: 500,
@@ -243,7 +242,7 @@ $(function () {
 	
 	$('#news-slider').slick({
         dots: false,
-        infinite: false,
+		infinite: false,
 		prevArrow: '.previous',
 		nextArrow: '.next',
         speed: 500,

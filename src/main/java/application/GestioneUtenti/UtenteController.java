@@ -1,6 +1,7 @@
 package application.GestioneUtenti;
 
 import model.utente.Utente;
+import model.utente.UtenteDAO;
 import model.utente.UtenteServiceImpl;
 
 import javax.servlet.*;
@@ -20,7 +21,7 @@ public class UtenteController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String address=getServletContext().getContextPath();
-        UtenteServiceImpl us=new UtenteServiceImpl();
+        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
         Utente u=new Utente();//oggetto di apppoggio
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {

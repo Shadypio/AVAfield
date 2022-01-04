@@ -5,6 +5,7 @@ import model.recensione.RecensioneServiceImpl;
 import model.struttura.Struttura;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
+import model.utente.UtenteDAO;
 import model.utente.UtenteServiceImpl;
 
 import javax.servlet.*;
@@ -26,7 +27,7 @@ public class RecensioneController extends HttpServlet {
         String address=getServletContext().getContextPath();
         RecensioneServiceImpl rs=new RecensioneServiceImpl();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
-        UtenteServiceImpl us=new UtenteServiceImpl();
+        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
             case "/addRecensione":

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class UtenteServiceImpl implements UtenteService{
     private UtenteDAO uteDAO = new UtenteDAO();
+
+    public UtenteServiceImpl(UtenteDAO uteDAO) {
+        this.uteDAO = uteDAO;
+    }
+
     @Override
     public Utente login(String email, String pass) {
         Utente x= uteDAO.doRetrieveUtenteByEmailPassword(email,pass);

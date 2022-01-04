@@ -6,6 +6,7 @@ import model.struttura.Struttura;
 import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
+import model.utente.UtenteDAO;
 import model.utente.UtenteServiceImpl;
 
 import javax.servlet.*;
@@ -27,7 +28,7 @@ public class StrutturaController extends HttpServlet {
         String address=getServletContext().getContextPath();
         StrutturaServiceImpl ss=new StrutturaServiceImpl();
         RecensioneServiceImpl rs=new RecensioneServiceImpl();
-        UtenteServiceImpl us=new UtenteServiceImpl();
+        UtenteServiceImpl us=new UtenteServiceImpl(new UtenteDAO());
         Struttura s=new Struttura(); // oggetto di appoggio;
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
