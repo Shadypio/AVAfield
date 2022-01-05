@@ -18,6 +18,9 @@
           <element id="library" level="project" name="Maven: net.bytebuddy:byte-buddy:1.12.4" />
           <element id="library" level="project" name="Maven: net.bytebuddy:byte-buddy-agent:1.12.4" />
           <element id="library" level="project" name="Maven: org.objenesis:objenesis:3.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.27" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jdbc:9.0.43" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.43" />
         </element>
       </element>
       <element id="directory" name="META-INF">
