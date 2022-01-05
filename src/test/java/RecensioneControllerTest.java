@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
 
@@ -34,6 +35,8 @@ public class RecensioneControllerTest {
     private HttpSession session;
     private RequestDispatcher dispatcher;
     private ServletContext context;
+    private Recensione r;
+    private Utente utente;
 
     @Before
     public void setUp() {
@@ -46,21 +49,54 @@ public class RecensioneControllerTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
+        r = Mockito.mock(Recensione.class);
+        utente = Mockito.mock(Utente.class);
     }
 
     @Test
-    public void addRecensioneTest() throws ServletException, IOException {
+    public void addRecensioneEmptyTest() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
-        when(request.getPathInfo()).thenReturn("/nuovoEvento");
+        when(request.getPathInfo()).thenReturn("/addRecensione");
         when(request.getServletContext()).thenReturn(context);
         when(context.getContextPath()).thenReturn("ciao2");
-        when(session.getAttribute("profilo")).thenReturn(any(Utente.class));
-        when(request.getParameter("idStruttura")).thenReturn("ciao");
+        Utente u = new Utente();
+        when(session.getAttribute("profilo")).thenReturn(u);
+        when(request.getParameter("idStruttura")).thenReturn("1");
         when(request.getParameter("titolo")).thenReturn("ciao");
-        when(request.getParameter("testo")).thenReturn("ciao");
+        when(request.getParameter("testo")).thenReturn("ciao1");
+        String stelle = "5";
+        when(request.getParameter("stelle")).thenReturn(stelle);
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Struttura s = new Struttura();
+        when(ss.trovaStruttura(1)).thenReturn(s);
+        ArrayList<Recensione> listaRecensione = new ArrayList<>();
+        when(rs.visualizzaRecensioniByIdStruttura(s)).thenReturn(listaRecensione);
+        when(r.getUtente()).thenReturn(u);
+        when(utente.getIdUtente()).thenReturn(3);
         rc.doPost(request, response);
-        verify(request, atLeastOnce()).setAttribute("idStruttura", "ciao");
-        verify(dispatcher, atLeastOnce()).forward(request, response);
+    }
+
+    @Test
+    public void addRecensioneFullTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/addRecensione");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+        Utente u = new Utente();
+        when(session.getAttribute("profilo")).thenReturn(u);
+        when(request.getParameter("idStruttura")).thenReturn("1");
+        when(request.getParameter("titolo")).thenReturn("ciao");
+        when(request.getParameter("testo")).thenReturn("ciao1");
+        String stelle = "5";
+        when(request.getParameter("stelle")).thenReturn(stelle);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Struttura s = new Struttura();
+        when(ss.trovaStruttura(1)).thenReturn(s);
+        ArrayList<Recensione> listaRecensione = new ArrayList<>();
+        listaRecensione.add(new Recensione(1, "Bel Test", "Veramente divertente", 5, u, s));
+        when(rs.visualizzaRecensioniByIdStruttura(s)).thenReturn(listaRecensione);
+        when(r.getUtente()).thenReturn(u);
+        when(utente.getIdUtente()).thenReturn(3);
+        rc.doPost(request, response);
     }
 }
