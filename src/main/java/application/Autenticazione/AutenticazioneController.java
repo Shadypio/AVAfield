@@ -50,9 +50,9 @@ public class AutenticazioneController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
-        String address=getServletContext().getContextPath();
+        String address=request.getServletContext().getContextPath();
         String email,pass;
         Utente log=new Utente(); //Utente che prova a loggarsi
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
