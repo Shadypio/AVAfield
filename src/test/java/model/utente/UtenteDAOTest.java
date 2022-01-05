@@ -4,7 +4,10 @@ import model.recensione.Recensione;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -16,7 +19,6 @@ public class UtenteDAOTest {
 
     @Before
     public void setUp(){
-
         utenteDAO=new UtenteDAO();
         utenteService = new UtenteServiceImpl();
     }
@@ -97,6 +99,18 @@ public class UtenteDAOTest {
         assertEquals(test.isAdmin(), false);
         assertNull(test.getNumeroTelefono());
         assertEquals(test.getAutovalutazione(), 0);
+    }
 
+    @Test
+    public void doRetrieveByEmailPassTest() throws NoSuchAlgorithmException {
+        String email="minaadmin80@gmail.com";
+        String pass="admin";
+        Utente u=utenteDAO.doRetrieveUtenteByEmailPassword(email,pass);
+        MessageDigest digest = MessageDigest.getInstance("SHA-1");
+        digest.reset();
+        digest.update(pass.getBytes(StandardCharsets.UTF_8));
+        pass = String.format("%040x", new BigInteger(1, digest.digest()));
+        assertEquals(u.getEmail(),email);
+        assertEquals(u.getPassword(),pass);
     }
 }

@@ -14,7 +14,7 @@ public class UtenteExtractor implements ResultSetExtractor<Utente> {
         u.setCognome(rs.getString("ute.cognome"));
         u.setEmail(rs.getString("ute.email"));
         u.setUsername(rs.getString("ute.username"));
-        u.setPassword(rs.getString("ute.password"));
+        u.setPasswordNOSHA(rs.getString("ute.password"));
         u.setNumeroTelefono(rs.getString("ute.telefono"));
         u.setAutovalutazione(rs.getInt("ute.autovalutazione"));
         u.setAdmin(rs.getBoolean("ute.isAdmin"));

@@ -55,7 +55,7 @@ public class RecensioneControllerTest {
         utente = Mockito.mock(Utente.class);
     }
 
-    /*@Test
+    @Test
     public void addRecensioneEmptyTest() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
         when(request.getPathInfo()).thenReturn("/addRecensione");
@@ -100,5 +100,5 @@ public class RecensioneControllerTest {
         when(r.getUtente()).thenReturn(u);
         when(utente.getIdUtente()).thenReturn(3);
         rc.doPost(request, response);
-    }*/
+    }
 }

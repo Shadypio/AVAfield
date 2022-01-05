@@ -1,11 +1,14 @@
 package model.evento;
 
 
+import model.evento_utente.EventoUtente;
 import model.struttura.Struttura;
 import org.junit.Before;
 import org.junit.Test;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -87,4 +90,15 @@ public class EventoDAOTest {
         assertNull(test.getOrario());
         assertNull(test.getStruttura());
     }
+
+    @Test
+    public void doRetrieveByIdStrutturaTest(){
+        int id=1;
+        ArrayList<Evento> result = eventoDAO.doRetrieveByIdStruttura(1);
+        for(Evento e: result){
+            assertEquals(e.getStruttura().getIdStruttura(),id);
+        }
+    }
+
+
 }

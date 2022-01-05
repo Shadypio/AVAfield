@@ -72,6 +72,9 @@ public class Utente {
             throw new RuntimeException(e);
         }
     }
+    public void setPasswordNOSHA(String password) {
+        this.password=password;
+    }
     public String getNumeroTelefono() {
         return numeroTelefono;
     }
