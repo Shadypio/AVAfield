@@ -1,3 +1,5 @@
+package application.Autenticazione;
+
 import application.Autenticazione.AutenticazioneController;
 import application.GestioneEventi.EventoController;
 import model.evento.Evento;

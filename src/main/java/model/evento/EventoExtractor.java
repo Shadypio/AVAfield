@@ -15,7 +15,7 @@ public class EventoExtractor implements ResultSetExtractor<Evento>{
         e.setNome(rs.getString("eve.nome"));
         e.setNumeroPartecipanti(rs.getInt("eve.numeroPartecipanti"));
         e.setDataEvento(rs.getDate("eve.dataEvento"));
-        e.setOrario(rs.getDate("eve.orario"));
+        e.setOrario(rs.getTime("eve.orario"));
         int idStruttura=rs.getInt("eve.str_fk");
         Struttura s=new Struttura();
         s.setIdStruttura(idStruttura);

@@ -1,3 +1,5 @@
+package application.GestioneStrutture;
+
 import application.GestioneEventi.EventoController;
 import application.GestioneStrutture.StrutturaController;
 import model.evento.EventoServiceImpl;

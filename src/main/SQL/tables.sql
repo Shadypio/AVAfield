@@ -38,7 +38,7 @@ create table evento
     nome               varchar(30) not null,
     numeroPartecipanti int         not null,
     dataEvento         date        not null,
-    orario             datetime    not null,
+    orario             time        not null,
     str_fk             int         null,
     constraint str_evento_fk
         foreign key (str_fk) references struttura (idStruttura)

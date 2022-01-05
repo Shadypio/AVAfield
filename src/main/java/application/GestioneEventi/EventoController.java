@@ -15,6 +15,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,6 +63,8 @@ public class EventoController extends HttpServlet {
                 Utente u= (Utente) session.getAttribute("profilo");
                 session.setAttribute("listaEventi",es.visualizzaEventi());
                 session.setAttribute("listaStrutture",ss.visualizzaStrutture());
+                if (u==null)
+                    u=new Utente();
                 if (u.isAdmin())
                     request.getRequestDispatcher("/WEB-INF/interface/area_riservata/events.jsp").forward(request, response);
                 else
@@ -80,20 +83,18 @@ public class EventoController extends HttpServlet {
                 e.setStruttura(s);
                 String data=request.getParameter("data");
                 String orario=request.getParameter("time");
-                System.out.println(data+"    "+orario);
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 DateFormat of = new SimpleDateFormat("HH:mm");
                 df.setLenient (false);
                 of.setLenient(false);
-                Date dataEvento,oraEvento;
+                Date dataEvento;
+                Time timeEvento = null;//ISTANZIA ORARIO PER FAVORE
+                e.setOrario(timeEvento);
                 try {
                     dataEvento = df.parse (data);
-                    oraEvento= of.parse(orario);
-                    System.out.println(dataEvento+"    "+oraEvento);
                     java.sql.Date sqlDate = new java.sql.Date(dataEvento.getTime());
-                    java.sql.Date sqlTime = new java.sql.Date(oraEvento.getTime());
                     e.setDataEvento(sqlDate);
-                    e.setOrario(sqlTime);
+
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }

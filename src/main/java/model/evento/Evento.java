@@ -2,13 +2,15 @@ package model.evento;
 
 import model.struttura.Struttura;
 import model.utente.Utente;
+
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Evento {
 
     public Evento(){ }
-    public Evento(int idEvento, String nome, int numeroPartecipanti, Date data, Date orario, Struttura struttura, ArrayList<Utente> listaUtenti) {
+    public Evento(int idEvento, String nome, int numeroPartecipanti, Date data, Time orario, Struttura struttura, ArrayList<Utente> listaUtenti) {
         this.idEvento = idEvento;
         this.nome = nome;
         this.numeroPartecipanti = numeroPartecipanti;
@@ -38,10 +40,10 @@ public class Evento {
     public void setDataEvento(Date data) {
         this.dataEvento = data;
     }
-    public Date getOrario() {
+    public Time getOrario() {
         return orario;
     }
-    public void setOrario(Date orario) {
+    public void setOrario(Time orario) {
         this.orario = orario;
     }
     public Struttura getStruttura() {
@@ -74,7 +76,7 @@ public class Evento {
     private String nome;
     private int numeroPartecipanti;
     private Date dataEvento;
-    private Date orario;
+    private Time orario;
     private Struttura struttura;
     private ArrayList<Utente> listaUtenti;
 

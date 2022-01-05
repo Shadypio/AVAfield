@@ -17,7 +17,7 @@ public class EventoDAO {
             ps.setString(2,e.getNome());
             ps.setInt(3,e.getNumeroPartecipanti());
             ps.setDate(4, (Date) e.getDataEvento());
-            ps.setDate(5, (Date) e.getOrario());
+            ps.setTime(5, (Time) e.getOrario());
             ps.setInt(6, s.getIdStruttura());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
@@ -34,7 +34,7 @@ public class EventoDAO {
             ps.setString(1,e.getNome());
             ps.setInt(2,e.getNumeroPartecipanti());
             ps.setDate(3, (Date) e.getDataEvento());
-            ps.setDate(4, (Date) e.getOrario());
+            ps.setTime(4, (Time) e.getOrario());
             ps.setInt(5, s.getIdStruttura());
             ps.setInt(6,e.getIdEvento());
             if (ps.executeUpdate() != 1) {

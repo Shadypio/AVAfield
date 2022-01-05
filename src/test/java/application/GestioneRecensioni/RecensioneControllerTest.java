@@ -1,3 +1,5 @@
+package application.GestioneRecensioni;
+
 import application.GestioneEventi.EventoController;
 import application.GestioneRecensioni.RecensioneController;
 import application.GestioneStrutture.StrutturaController;
