@@ -102,6 +102,7 @@ public class StrutturaController extends HttpServlet {
                 int idStruttura=Integer.parseInt(request.getParameter("idStruttura"));
                 s=ss.trovaStruttura(idStruttura);
                 ArrayList<Recensione> listaRecensioni=rs.visualizzaRecensioniByIdStruttura(s);
+                System.out.println(listaRecensioni);
                 for (Recensione r:listaRecensioni){
                     Utente x=r.getUtente();
                     r.setUtente(us.trovaUtente(x.getIdUtente()));
