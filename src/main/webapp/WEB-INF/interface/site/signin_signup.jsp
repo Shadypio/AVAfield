@@ -126,6 +126,7 @@
     function hideInfoPassword(){
         document.getElementById("inner").style.display = "none"
     }
+
 </script>
 </body>
 </html>

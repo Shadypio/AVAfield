@@ -1,8 +1,13 @@
 body {
     background-color: #000
 }
+.card{
+    width: 470px;
+    border: none;
+    padding-bottom: 250px;
+}
 
-.card {
+.card-active {
     width: 400px;
     border: none;
     padding-bottom: 120px;
