@@ -38,6 +38,7 @@
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 
@@ -45,7 +46,7 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold"><%=u.getNome()%></span><span class="text-black-50"><%=u.getEmail()%></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/index.jsp" style="margin-top: 20px">Torna alla Home</a></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/ac/logout" style="margin-top: 10px">Logout</a></span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn2.iconfinder.com/data/icons/people-flat-design/64/Sport-Athlete-Sportsman-Player-Exercise-Fitness-Avatar-1024.png"><span class="font-weight-bold"><%=u.getNome()%></span><span class="text-black-50"><%=u.getEmail()%></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/index.jsp" style="margin-top: 20px">Torna alla Home</a></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/ac/logout" style="margin-top: 10px">Logout</a></span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
             <form class="p-3 py-5" action="${pageContext.request.contextPath}/gu/updateUtente" method="post"> <!-- onsubmit="return validatePass()" -->

@@ -1,5 +1,5 @@
 body {
-    background-color: #000
+    background-color: #f05743
 }
 
 .card {
@@ -15,7 +15,7 @@ body {
 }
 
 .act-price {
-    color: red;
+    color: #fd3114;
     font-weight: 700
 }
 
@@ -45,27 +45,27 @@ label.radio input {
 
 label.radio span {
     padding: 2px 9px;
-    border: 2px solid #ff0000;
+    border: 2px solid #f05743;
     display: inline-block;
-    color: #ff0000;
+    color: #f05743;
     border-radius: 3px;
     text-transform: uppercase
 }
 
 label.radio input:checked+span {
-    border-color: #ff0000;
-    background-color: #ff0000;
+    border-color: #f05743;
+    background-color: #f05743;
     color: #fff
 }
 
 .btn-danger {
-    background-color: #ff0000 !important;
-    border-color: #ff0000 !important
+    background-color: #f05743 !important;
+    border-color: #f05743 !important
 }
 
 .btn-danger:hover {
-    background-color: #da0606 !important;
-    border-color: #da0606 !important
+    background-color: #fd3114 !important;
+    border-color: #fd3114 !important
 }
 
 .btn-danger:focus {
