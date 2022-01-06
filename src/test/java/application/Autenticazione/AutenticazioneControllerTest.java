@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -59,6 +61,7 @@ public class AutenticazioneControllerTest {
         when(context.getContextPath()).thenReturn("ciao2");
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
     }
 
     @Test
@@ -115,9 +118,53 @@ public class AutenticazioneControllerTest {
         Utente u = new Utente();
         when(session.getAttribute("profilo")).thenReturn(u);
 
-        ArrayList<Evento> arrayListEvento = new ArrayList<>();
-        when(es.findAllEventi(u)).thenReturn(arrayListEvento);
+        ArrayList<Evento> listaEventi = new ArrayList<>();
+        when(es.findAllEventi(u)).thenReturn(listaEventi);
 
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+    @Test
+    public void signInSignUpWithListaTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/signin_signup");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        Boolean bool = true;
+        when(session.getAttribute("loggato")).thenReturn(bool);
+        Utente u = new Utente();
+        when(session.getAttribute("profilo")).thenReturn(u);
+        ArrayList<Evento> listaEventi = new ArrayList<>();
+        Evento e=new Evento();
+        e.setNome("Nuovo Evento");
+        e.setNumeroPartecipanti(12);
+        java.sql.Date data= Date.valueOf("2021-12-25");
+        e.setDataEvento(data);
+        Time t=new Time(10,10,10);
+        e.setOrario(t);
+        Struttura s=new Struttura();
+        s.setIdStruttura(1);
+        e.setStruttura(s);
+        listaEventi.add(e);
+        when(es.findAllEventi(u)).thenReturn(listaEventi);
+        when(ss.trovaStruttura(anyInt())).thenReturn(s);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+    @Test
+    public void signInSignUpAllNullTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/signin_signup");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        Boolean bool = null;
+        when(session.getAttribute("loggato")).thenReturn(bool);
+        Utente u = null;
+        when(session.getAttribute("profilo")).thenReturn(u);
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         ac.doPost(request,response);
         verify(dispatcher,atLeastOnce()).forward(request,response);
@@ -166,6 +213,77 @@ public class AutenticazioneControllerTest {
     }
 
     @Test
+    public void signInAllNullTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/signin");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        when(request.getParameter("email")).thenReturn("ciao3");
+        when(request.getParameter("password")).thenReturn("ciao4");
+
+        Utente u = null;
+        Utente u2 = null;
+        when(us.login("ciao3", "ciao4")).thenReturn(u);
+        when(session.getAttribute("profilo")).thenReturn(u2);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    public void signInLogNullTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/signin");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        when(request.getParameter("email")).thenReturn("ciao3");
+        when(request.getParameter("password")).thenReturn("ciao4");
+
+        Utente u = null;
+        Utente u2 = new Utente();
+        when(us.login("ciao3", "ciao4")).thenReturn(u);
+        when(session.getAttribute("profilo")).thenReturn(u2);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    public void signInWithListaTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/signin");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        when(request.getParameter("email")).thenReturn("ciao3");
+        when(request.getParameter("password")).thenReturn("ciao4");
+
+        Utente u = new Utente();
+        Utente u2 = new Utente();
+        when(us.login("ciao3", "ciao4")).thenReturn(u);
+        when(session.getAttribute("profilo")).thenReturn(u2);
+        ArrayList<Evento> listaEventi = new ArrayList<>();
+        Evento e=new Evento();
+        e.setNome("Nuovo Evento");
+        e.setNumeroPartecipanti(12);
+        java.sql.Date data= Date.valueOf("2021-12-25");
+        e.setDataEvento(data);
+        Time t=new Time(10,10,10);
+        e.setOrario(t);
+        Struttura s=new Struttura();
+        s.setIdStruttura(1);
+        e.setStruttura(s);
+        listaEventi.add(e);
+        when(es.findAllEventi(u)).thenReturn(listaEventi);
+        when(ss.trovaStruttura(anyInt())).thenReturn(s);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
     public void logoutTestIsAdmin() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
         when(request.getPathInfo()).thenReturn("/logout");
@@ -173,14 +291,9 @@ public class AutenticazioneControllerTest {
         when(context.getContextPath()).thenReturn("ciao2");
 
         Utente u = new Utente();
-        when(session.getAttribute("profilo")).thenReturn(u);
         u.setAdmin(true);
+        when(session.getAttribute("profilo")).thenReturn(u);
         this.secretTest();
-
-        session.removeAttribute("loggato");
-        session.removeAttribute("profilo");
-        session.invalidate();
-        session.invalidate();
     }
 
     @Test
@@ -191,14 +304,9 @@ public class AutenticazioneControllerTest {
         when(context.getContextPath()).thenReturn("ciao2");
 
         Utente u = new Utente();
-        when(session.getAttribute("profilo")).thenReturn(u);
         u.setAdmin(false);
+        when(session.getAttribute("profilo")).thenReturn(u);
         this.signInSignUpTest();
-
-        session.removeAttribute("loggato");
-        session.removeAttribute("profilo");
-        session.invalidate();
-        session.invalidate();
     }
 
 }

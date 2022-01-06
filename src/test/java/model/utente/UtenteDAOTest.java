@@ -1,6 +1,6 @@
 package model.utente;
 
-import model.recensione.Recensione;
+
 import org.junit.Before;
 import org.junit.Test;
 

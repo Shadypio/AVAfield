@@ -1,7 +1,7 @@
 package model.evento;
 
 
-import model.evento_utente.EventoUtente;
+
 import model.struttura.Struttura;
 import org.junit.Before;
 import org.junit.Test;

@@ -123,6 +123,27 @@ public class UtenteControllerTest {
     }
 
     @Test
+    public void addUtenteIsAdminTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/addUtente");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+        Utente x = new Utente();
+        when(lista.size()).thenReturn(10);
+        when(request.getParameter("nome")).thenReturn("nome");
+        when(request.getParameter("cognome")).thenReturn("cognome");
+        when(request.getParameter("email")).thenReturn("email");
+        when(request.getParameter("username")).thenReturn("username");
+        when(request.getParameter("password")).thenReturn("pass");
+        when(request.getParameter("telefono")).thenReturn("telefono");
+        when(request.getParameter("admin")).thenReturn("on");
+        String auto = "3";
+        when(request.getParameter("auto")).thenReturn(auto);
+        uc.doPost(request, response);
+        this.viewUserTest();
+    }
+
+    @Test
     public void deleteUtenteTest() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
         when(request.getPathInfo()).thenReturn("/deleteUtente");
