@@ -1,13 +1,9 @@
 package model.eventoutente;
 
 import model.evento.Evento;
-import model.evento.EventoDAO;
-import model.evento.EventoServiceImpl;
 import model.evento_utente.EventoUtente;
 import model.evento_utente.EventoUtenteDAO;
 import model.utente.Utente;
-import model.utente.UtenteDAO;
-import model.utente.UtenteServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,7 +42,7 @@ public class EventoUtenteDAOTest {
         u.setIdUtente(2);
         eventoUtenteDAO.addEventoUtente(e,u);
 
-        ArrayList<EventoUtente> result=eventoUtenteDAO.doRetrieveUtentiWithIdEvento(1);
+        ArrayList<EventoUtente> result=eventoUtenteDAO.doRetrieveUtentiWithIdEvento(2);
         for(EventoUtente eu: result){
             assertEquals(eu.getUtente().getIdUtente(),u.getIdUtente());
         }

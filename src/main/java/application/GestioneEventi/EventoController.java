@@ -15,11 +15,11 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @WebServlet(name = "EventoController", value = "/ge/*")
 public class EventoController extends HttpServlet {
@@ -83,21 +83,18 @@ public class EventoController extends HttpServlet {
                 e.setStruttura(s);
                 String data=request.getParameter("data");
                 String orario=request.getParameter("time");
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                DateFormat of = new SimpleDateFormat("HH:mm");
-                df.setLenient (false);
-                of.setLenient(false);
-                Date dataEvento;
-                Time timeEvento = null;//ISTANZIA ORARIO PER FAVORE
-                e.setOrario(timeEvento);
-                try {
-                    dataEvento = df.parse (data);
-                    java.sql.Date sqlDate = new java.sql.Date(dataEvento.getTime());
-                    e.setDataEvento(sqlDate);
 
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                }
+                java.sql.Date dataSQL= Date.valueOf(data);
+                e.setDataEvento(dataSQL);
+                String[] parts = orario.split(":");
+                String part1 = parts[0]; //
+                String part2 = parts[1]; //
+                int h=Integer.parseInt(part1);
+                int m=Integer.parseInt(part2);
+                Time t=new Time(h,m,00);
+                e.setOrario(t);
+                System.out.println(e.toString());
+                System.out.println(e.getOrario() +"    "+ e.getDataEvento());
                 es.creaEvento(e);
                 request.getRequestDispatcher("/WEB-INF/interface/site/event_created.jsp").forward(request, response);
                 break;

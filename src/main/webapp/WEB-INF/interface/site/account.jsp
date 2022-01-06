@@ -118,7 +118,7 @@
 
         function validatePass() {
             var str1 = document.getElementById("password").value;
-            var patt1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+            var patt1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,50}$/;
             var result1 = str1.match(patt1)
             var x = result1;
             if (x== str1 ){

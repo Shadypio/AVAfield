@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -55,12 +56,16 @@
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="form px-4">
-                    <form action="${pageContext.request.contextPath}/ac/create" method="post">
+                    <form action="${pageContext.request.contextPath}/ac/create" method="post" onsubmit="return validateTelPass()">
                         <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome" required>
                         <input class="form-control" type="text" name="cognome" id="cognome" placeholder="Cognome" required>
                         <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email">
                         <input class="form-control" onfocusout="hideInfoPassword()" onfocusin="showInfoPassword()" type="password" name="password" id="password" placeholder="Password" required>
+                        <div class="inner" id="inner">
+                            <div id="info">La password deve essere lunga tra gli 8 e i 50 caratteri, deve contenere almeno una minuscola,
+                                una maiuscola, un numero e un carattere speciale tra @$!%*?&</div>
+                        </div>
                         <input class="form-control" type="password" name="confermapassword" id="confermapassword" placeholder="Conferma Password" required>
                         <input class="form-control" type="text" name="telefono" id="telefono" placeholder="Telefono" required>
                         <label for="autovalutazione">Autovalutazione (tra 0 e 5):</label>
@@ -106,7 +111,7 @@
     function validateTelPass() {
         var str1 = document.getElementById("password").value;
         var str2 = document.getElementById("telefono").value;
-        var patt1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+        var patt1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,50}$/;
         var patt2 = /[0-9]/g;
         var result1 = str1.match(patt1)
         var result2 = str2.match(patt2);
