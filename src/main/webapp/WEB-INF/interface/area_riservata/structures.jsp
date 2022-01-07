@@ -154,15 +154,15 @@
 <script>
     $(document).ready(function () {
         $(".butAdd").click(function () {
-            $(".newStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome' placeholder='Nome' required> <br> " +
+            $(".newStr").show().html("<fieldset>  <legend>Aggiungi Struttura</legend> <span> Nome: </span> <input type='text' name='nome' id='nome1' placeholder='Nome' required> <br> " +
                 "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
-                "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
+                "<span> Telefono: </span> <input type='text' name='tel' id='tel1' placeholder='Telefono' required> <br>" +
                 "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
-                "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
-                "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
-                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
+                "<span> Capienza: <input type='number' name='capienza' id='capienza1' placeholder='Capienza' required> <br>" +
+                "<span> Categoria: </span> <input type='text' name='cat' id='cat1' placeholder='Categoria' required> <br>" +
+                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo1' placeholder='Numero Spogliatoi' required> <br>" +
                 "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
-                "<button class='btn primary' type='submit'>Salva</button> " +
+                "<button class='btn primary' type='submit' id='bottonesalva' onclick='return'>Salva</button> " +
                 "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
             $("#annulla").click(function () {
                 $(".newStr").hide();
@@ -188,6 +188,25 @@
         $("table").on("click", "#deleteRow", function (event) {
             $(this).closest("form").remove();
             $(this).closest("tr").remove();
+        });
+
+        $(".newStr").on("click", "#bottonesalva", function(){
+            if ($("#nome1").val().length < 4 || $("#nome1").val().length > 50) {
+                alert("Il nome deve essere compreso tra 4 e 50 caratteri.")
+                return false;
+            }
+            if ($("#tel1").val().length != 10) {
+                alert("Numero di cifre non rispettato.")
+                return false;
+            }
+            if ($("#numSpo1").val() < 2 || $("#numSpo1").val() > 20) {
+                alert("Il numero degli spogliatoi deve essere compreso tra 2 e 20.")
+                return false;
+            }
+            if ($("#capienza1").val() < 10 || $("#capienza1").val() > 1000) {
+                alert("La capienza deve essere compresa tra 10 e 1000.")
+                return false;
+            }
         });
     });
 </script>
