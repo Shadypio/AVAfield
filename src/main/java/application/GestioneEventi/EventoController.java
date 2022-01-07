@@ -83,7 +83,6 @@ public class EventoController extends HttpServlet {
                 e.setStruttura(s);
                 String data=request.getParameter("data");
                 String orario=request.getParameter("time");
-
                 java.sql.Date dataSQL= Date.valueOf(data);
                 e.setDataEvento(dataSQL);
                 String[] parts = orario.split(":");
