@@ -91,7 +91,6 @@
         if (str1.length >= 4 && str1.length <= 50) {
             {
                 var numeroPartecipanti = document.getElementById("numeroPartecipanti").value;
-                alert(numeroPartecipanti)
                 if (numeroPartecipanti >= 2 && numeroPartecipanti <= 50) {
                     return true;
                 } else {
