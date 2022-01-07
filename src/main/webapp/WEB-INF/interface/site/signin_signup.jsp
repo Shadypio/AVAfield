@@ -1,5 +1,6 @@
 <%-- PAGINA DI REGISTRAZIONE E LOGIN DA PARTE DI UN UTENTE (ERRORE SE è UN ADMIN) --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <!-- basic -->
@@ -36,6 +37,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<c:if test="${failedUtente}">
+    <div class="alert grid-y cell w50 login">
+        <p>Utente NON Registrato</p>
+        <% request.getSession().setAttribute("failedUtente",false);%>
+        <button type="button" class="okAlert">OK</button>
+    </div>
+</c:if>
+<c:if test="${emailUsed}">
+    <div class="alert grid-y cell w50 login">
+        <p>Email Esistente</p>
+        <% request.getSession().setAttribute("emailUsed",false);%>
+        <button type="button" class="okAlert">OK</button>
+    </div>
+</c:if>
 
 <div class="d-flex justify-content-center align-items-center mt-5">
     <div class="card">
@@ -48,7 +63,7 @@
                 <div class="form px-4 pt-5">
                     <form action="${pageContext.request.contextPath}/ac/signin" method="post">
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
-                        <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+                        <input class="form-control" type="password" name="password" id="password" placeholder="Password">
                         <button class="btn btn-dark btn-block" name="login" >Login</button>
                         <a class="btn btn-dark btn-block" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
                     </form>
@@ -60,8 +75,8 @@
                         <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome" required>
                         <input class="form-control" type="text" name="cognome" id="cognome" placeholder="Cognome" required>
                         <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
-                        <input class="form-control" type="email" name="email" id="email" placeholder="Email">
-                        <input class="form-control" onfocusout="hideInfoPassword()" onfocusin="showInfoPassword()" type="password" name="password" id="password" placeholder="Password" required>
+                        <input class="form-control" type="email" name="email" id="email1" placeholder="Email">
+                        <input class="form-control" onfocusout="hideInfoPassword()" onfocusin="showInfoPassword()" type="password" name="password" id="password1" placeholder="Password" required>
                         <div class="inner" id="inner">
                             <div id="info">La password deve essere lunga tra gli 8 e i 50 caratteri, deve contenere almeno una minuscola,
                                 una maiuscola, un numero e un carattere speciale tra @$!%*?&</div>
@@ -109,22 +124,36 @@
      */
 
     function validateTelPass() {
-        var str1 = document.getElementById("password").value;
+        var str1 = document.getElementById("password1").value;
         var str2 = document.getElementById("telefono").value;
-        var patt1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,50}$/;
+        var str3 = document.getElementById("username").value;
+        var patt1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,50}$/;
         var patt2 = /[0-9]/g;
+        var patt3 = /[a-zA-Z0-9]{4,50}/;
         var result1 = str1.match(patt1)
-        var result2 = str2.match(patt2);
+        var result2 = str2.match(patt2)
+        var result3 = str3.match(patt3)
         var x = result1;
         var y = result2;
-        var p = document.getElementById("password").value;
+        var z = result3;
+        var p = document.getElementById("password1").value;
         var q = document.getElementById("confermapassword").value;
 
-        if (x== str1 && y.length == 10 && p===q){
+        if (p != q) {
+            alert('Password Non Coincidono!')
+            return false;
+        }
+        if (x!=str1) {
+            alert('Password Formattata Male!')
+            return false;
+        }
+        if (z!=str3) {
+            alert('Username Formattata Male!')
+            return false;
+        }
+
+        if (x== str1 && y.length == 10 && p===q && z==str3){
             return true;
-        }else {
-            alert('Compila Correttamente!')
-            return false
         }
     }
 
@@ -132,6 +161,9 @@
         document.getElementById("inner").style.display = "none"
     }
 
+    $(".okAlert").click(function () {
+        $(".alert").hide();
+    });
 </script>
 </body>
 </html>

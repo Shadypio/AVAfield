@@ -104,9 +104,15 @@ public class AutenticazioneController extends HttpServlet {
                 String val = request.getParameter("autovalutazione");
                 int auto = Integer.parseInt(val);
                 int id = us.visualizzaUtenti().size()+1;
-                Utente nuovo = new Utente(nome, cognome, email, user, pass, tel, false, auto, id);
-                us.registrazione(nuovo);
-                request.getRequestDispatcher("/WEB-INF/interface/site/registered.jsp").forward(request, response);
+                if (us.checkEmail(email)) {
+                    System.out.println(email);
+                    session.setAttribute("emailUsed",true);
+                    response.sendRedirect(address + "/ac/signin_signup");
+                }else {
+                    Utente nuovo = new Utente(nome, cognome, email, user, pass, tel, false, auto, id);
+                    us.registrazione(nuovo);
+                    request.getRequestDispatcher("/WEB-INF/interface/site/registered.jsp").forward(request, response);
+                }
                 break;
             case "/signin":
                 email = request.getParameter("email");
@@ -125,8 +131,15 @@ public class AutenticazioneController extends HttpServlet {
                     session.setAttribute("profilo", log);
                     session.setAttribute("loggato", true);
                     request.getRequestDispatcher("/WEB-INF/interface/site/account.jsp").forward(request, response);
-                } else
+                } else {
+                    if (email == null)
+                        session.setAttribute("failedUtente", false);
+                    else {
+                        if (log == null)
+                            session.setAttribute("failedUtente", true);
+                    }
                     request.getRequestDispatcher("/WEB-INF/interface/site/signin_signup.jsp").forward(request, response);
+                }
                 break;
             case "/logout":
                 session.setAttribute("loggato", false);

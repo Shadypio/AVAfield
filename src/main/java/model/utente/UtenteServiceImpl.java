@@ -46,4 +46,13 @@ public class UtenteServiceImpl implements UtenteService{
     public Utente trovaUtente (int id){
         return uteDAO.doRetrieveById(id);
     }
-}
+
+    public Boolean checkEmail (String email){
+            ArrayList<Utente> result=uteDAO.doRetrieveAll();
+            for (Utente u: result){
+                if (u.getEmail().equals(email))
+                    return true;
+            }
+            return false;
+    }
+    }
