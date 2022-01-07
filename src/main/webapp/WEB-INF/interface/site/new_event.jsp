@@ -42,42 +42,70 @@
 <body style="background: white">
 <% LocalDate currentDate = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");%>
-    <div class="align-content-center">
-        <form class="p-3 py-5" action="${pageContext.request.contextPath}/ge/addEvento" method="post">
-            <!-- onsubmit="return validatePass()" -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 style="text-align: center">CREA UN EVENTO</h4>
-            </div>
-            <div class="row mt-3">
-                <input type="hidden" name="idStr" value="<%=Integer.parseInt((String) request.getAttribute("idStruttura"))%>">
-                <div class="col-md-6"><label class="labels">Nome evento</label><input type="text" class="form-control"
-                                                                                      name="nome" id="nome"
-                                                                                      placeholder="Nome"></div>
-                <div class="col-md-6"><label class="labels">Numero partecipanti</label><input type="text"
-                                                                                              class="form-control"
-                                                                                              name="numero"
-                                                                                              id="numeroPartecipanti"
-                                                                                              placeholder="Numero Partecipanti"
-                                                                                              required></div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12"><label class="labels">Data evento</label><input type="date" class="form-control"
-                                                                                       name="data" id="data"
-                                                                                       placeholder="Data"
-                                                                                       value='<%=""+currentDate.format(formatter)%>'
-                                                                                       min='<%=""+currentDate.format(formatter)%>'
-                                                                                       max='2022-12-25' required></div>
-                <div class="col-md-12"><label class="labels">Orario</label> <input type="time" class="form-control"
-                                                                                   name="time" id="time"
-                                                                                   placeholder="Orario" required></div>
-            </div>
-            <div class="mt-5 text-center">
-                <button class="btn btn-primary profile-button" type="submit" name="registrati">Salva</button>
-                <button class="btn btn-primary profile-button" type="button" id="annulla">Annulla</button>
-            </div>
-        </form>
-    </div>
+<div class="align-content-center">
+    <form class="p-3 py-5" action="${pageContext.request.contextPath}/ge/addEvento" method="post">
+        <!-- onsubmit="return validatePass()" -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 style="text-align: center">CREA UN EVENTO</h4>
+        </div>
+        <div class="row mt-3">
+            <input type="hidden" name="idStr"
+                   value="<%=Integer.parseInt((String) request.getAttribute("idStruttura"))%>">
+            <div class="col-md-6"><label class="labels">Nome evento</label><input type="text" class="form-control"
+                                                                                  name="nome" id="nome"
+                                                                                  placeholder="Nome"></div>
+            <div class="col-md-6"><label class="labels">Numero partecipanti</label><input type="text"
+                                                                                          class="form-control"
+                                                                                          name="numero"
+                                                                                          id="numeroPartecipanti"
+                                                                                          placeholder="Numero Partecipanti"
+                                                                                          required></div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12"><label class="labels">Data evento</label><input type="date" class="form-control"
+                                                                                   name="data" id="data"
+                                                                                   placeholder="Data"
+                                                                                   value='<%=""+currentDate.format(formatter)%>'
+                                                                                   min='<%=""+currentDate.format(formatter)%>'
+                                                                                   max='2022-12-25' required></div>
+            <div class="col-md-12"><label class="labels">Orario</label> <input type="time" class="form-control"
+                                                                               name="time" id="time"
+                                                                               placeholder="Orario" required></div>
+        </div>
+        <div class="mt-5 text-center">
+            <button class="btn btn-primary profile-button" type="submit" name="registrati"
+                    onclick="return checkNameEventAndParticipants()">Salva
+            </button>
+            <button class="btn btn-primary profile-button" type="button" id="annulla">Annulla</button>
+        </div>
+    </form>
+</div>
 </div>
 
+<script>
+
+    function checkNameEventAndParticipants() {
+
+        var str1 = document.getElementById("nome").value;
+
+        if (str1.length >= 4 && str1.length <= 50) {
+            {
+                var numeroPartecipanti = document.getElementById("numeroPartecipanti");
+                if (numeroPartecipanti >= 2 && numeroPartecipanti <= 50) {
+                    return true;
+                } else {
+                    alert('Il numero di partecipanti deve essere compreso tra 2 e 50')
+                    return false;
+                }
+            }
+        } else {
+            alert('La lunghezza del nome dell\' evento deve essere compreso tra le 4 e le 50 lettere')
+            return false;
+        }
+
+
+    }
+
+</script>
 </body>
 </html>
