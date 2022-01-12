@@ -10,6 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StrutturaExtractor implements ResultSetExtractor<Struttura> {
+    /**
+     * Estrae i dati della struttura dalla base di dati e li inserisce in un oggetto Struttura
+     * @param rs il risultato della query
+     * @return la struttura della base di dati sotto forma di oggetto
+     * @throws SQLException
+     * @throws IOException
+     */
     @Override
     public Struttura extract(ResultSet rs) throws SQLException, IOException {
         Struttura s=new Struttura();

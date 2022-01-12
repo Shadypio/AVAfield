@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class RecensioneExtractor implements ResultSetExtractor<Recensione> {
     /**
-     * Estrae i dati dell'evento dalla base di dati e li inserisce in un oggetto Recensione
+     * Estrae i dati della recensione dalla base di dati e li inserisce in un oggetto Recensione
      * @param rs il risultato della query
      * @return la recensione della base di dati sotto forma di oggetto
      * @throws SQLException

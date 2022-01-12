@@ -13,6 +13,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class StrutturaDAO {
+    /**
+     * Inserisce una struttura all'interno della base di dati
+     * @param s la struttura da inserire
+     */
     public void addStruttura(Struttura s) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -34,6 +38,11 @@ public class StrutturaDAO {
         }
     }
 
+    /**
+     * Apporta delle modifiche alla struttura selezionata
+     * @param s la struttura da modificare
+     * @return l'esito della modifica
+     */
     public boolean doChanges(Struttura s){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE struttura s SET s.nome = (?), s.indirizzo = (?), s.telefono =(?), s.descrizione=(?), s.capienza=(?), s.categoria=(?), s.numeroSpogliatoi=(?), s.parcheggio=(?) WHERE s.idStruttura=(?);");
@@ -55,6 +64,10 @@ public class StrutturaDAO {
         }
     }
 
+    /**
+     * Recupera tutte le strutture dalla base di dati
+     * @return la lista delle strutture
+     */
     public ArrayList<Struttura> doRetrieveAll() {
         ArrayList<Struttura> result = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -70,6 +83,11 @@ public class StrutturaDAO {
         return result;
     }
 
+    /**
+     * Recupera una struttura a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return la struttura
+     */
     public Struttura doRetrieveById(int id){
         Struttura s = new Struttura();
         try (Connection con = ConPool.getConnection()) {
@@ -85,6 +103,10 @@ public class StrutturaDAO {
         return s;
     }
 
+    /**
+     * Elimina una struttura dalla base di dati
+     * @param id l'identificativo della struttura da considerare
+     */
     public void deleteById(int id){
         try (Connection con = ConPool.getConnection()) {
             String query ="DELETE FROM struttura as str WHERE str.idStruttura = (?);";
