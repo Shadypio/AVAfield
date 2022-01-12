@@ -1,3 +1,7 @@
+/**
+ * Questa classe modella le interazioni tra la classe EventoUtente e la base di dati
+ */
+
 package model.evento_utente;
 
 import model.evento.Evento;
@@ -9,6 +13,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class EventoUtenteDAO {
+
+    /**
+     * Inserisce la partecipazione all'interno della base di dati
+     * @param e l'evento a cui l'utente partecipa
+     * @param u l'utente che partecipa all'evento
+     */
     public void addEventoUtente(Evento e, Utente u){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -23,6 +33,11 @@ public class EventoUtenteDAO {
         }
     }
 
+    /**
+     * Recupera tutti gli eventi a cui partecipa l'utente scelto
+     * @param id l'identificativo dell'utente
+     * @return la lista di eventi a cui partecipa l'utente
+     */
     public ArrayList<EventoUtente> doRetrieveEventiWithIdUtente(int id){
         ArrayList<EventoUtente> result = new ArrayList<EventoUtente>();
         try (Connection con = ConPool.getConnection()) {
@@ -42,6 +57,11 @@ public class EventoUtenteDAO {
         return result;
     }
 
+    /**
+     * Recupera tutti gli utenti che partecipano all'evento scelto
+     * @param id l'identificativo dell'evento
+     * @return la lista di utenti che partecipano all'evento
+     */
     public ArrayList<EventoUtente> doRetrieveUtentiWithIdEvento(int id){
         ArrayList<EventoUtente> res=new ArrayList<EventoUtente>();
         try (Connection con = ConPool.getConnection()) {

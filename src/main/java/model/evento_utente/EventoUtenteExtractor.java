@@ -1,3 +1,7 @@
+/**
+ * Questa classe di utility evita ridondanze nel codice di EventoUtenteDAO
+ */
+
 package model.evento_utente;
 
 import model.evento.Evento;
@@ -10,6 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EventoUtenteExtractor implements ResultSetExtractor<EventoUtente> {
+    /**
+     * Estrae i dati dell'evento dalla base di dati e li inserisce in un oggetto EventoUtente
+     * @param rs il risultato della query
+     * @return la partecipazione di uno specifico utente ad uno specifico evento
+     * @throws SQLException
+     * @throws IOException
+     */
     @Override
     public EventoUtente extract(ResultSet rs) throws SQLException, IOException {
         EventoUtente eu= new EventoUtente();

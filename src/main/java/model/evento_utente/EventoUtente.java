@@ -1,3 +1,7 @@
+/**
+ * Questa classe modella la partecipazione di un utnte a un evento.
+ */
+
 package model.evento_utente;
 
 import model.evento.Evento;
