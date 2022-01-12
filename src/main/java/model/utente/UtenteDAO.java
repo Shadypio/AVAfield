@@ -1,3 +1,8 @@
+/**
+ * Questa classe modella le interazioni tra la classe Utente e la base di dati. Sono previsti i metodi
+ * principali delle operazioni CRUD
+ */
+
 package model.utente;
 
 

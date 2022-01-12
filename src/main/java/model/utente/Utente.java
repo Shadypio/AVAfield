@@ -1,3 +1,8 @@
+/**
+ * Questa classe modella un Utente. Un utente può creare un evento, partecipare ad un evento
+ * e può lasciare una recensione
+ */
+
 package model.utente;
 
 
@@ -11,6 +16,19 @@ import java.util.ArrayList;
 
 public class Utente {
     public Utente(){ }
+
+    /**
+     * Crea un nuovo Utente settando gli opportuni parametri
+     * @param nome  il nome dell'utente
+     * @param cognome il cognome dell'utente
+     * @param email l'email dell'utente
+     * @param username l'username dell'utente
+     * @param password la password dell'utente
+     * @param numeroTelefono il numero di telefono dell'utente
+     * @param isAdmin specifica se l'utente sia admin
+     * @param autovalutazione l'autovalutazione delle abilita' sportive dell'utente
+     * @param idUtente l'identificativo dell'utente
+     */
     public Utente(String nome, String cognome, String email, String username, String password, String numeroTelefono, boolean isAdmin, int autovalutazione, int idUtente) {
         this.nome = nome;
         this.cognome = cognome;

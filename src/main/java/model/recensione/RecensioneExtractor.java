@@ -1,3 +1,7 @@
+/**
+ * Questa classe di utility evita ridondanze nel codice di RecensioneDAO
+ */
+
 package model.recensione;
 
 import model.struttura.Struttura;

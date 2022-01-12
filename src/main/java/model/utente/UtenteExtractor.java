@@ -1,3 +1,7 @@
+/**
+ * Questa classe di utility evita ridondanze nel codice di UtenteDAO
+ */
+
 package model.utente;
 
 import model.utils.ResultSetExtractor;

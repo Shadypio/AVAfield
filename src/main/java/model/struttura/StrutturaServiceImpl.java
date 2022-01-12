@@ -1,3 +1,7 @@
+/**
+ * Questa classe funge da intermediario tra le servlet e gli oggetti DAO
+ */
+
 package model.struttura;
 
 import java.util.ArrayList;

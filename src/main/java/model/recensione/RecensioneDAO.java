@@ -1,3 +1,8 @@
+/**
+ * Questa classe modella le interazioni tra la classe Recensione e la base di dati. Sono previsti i metodi
+ * principali delle operazioni CRUD
+ */
+
 package model.recensione;
 
 import model.struttura.Struttura;

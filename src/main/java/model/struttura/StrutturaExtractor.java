@@ -1,3 +1,7 @@
+/**
+ * Questa classe di utility evita ridondanze nel codice di StrutturaDAO
+ */
+
 package model.struttura;
 
 import model.utils.ResultSetExtractor;

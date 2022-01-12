@@ -1,7 +1,23 @@
+/**
+ * Questa classe modella una Struttura. Una struttura può ospitare uno o più eventi
+ */
+
 package model.struttura;
 
 public class Struttura {
     public Struttura(){ }
+
+    /** Crea una nuova struttura settando gli opportuni parametri
+     * @param nome il nome della struttura
+     * @param indirizzo l'indirizzo della struttura
+     * @param descrizione la descrizione della struttura
+     * @param categoria la categoria della struttura
+     * @param numeroSpogliatoi il numero di spogliatoi della struttura
+     * @param numeroTelefono il numero di telefono della struttura
+     * @param capienza la capienza massima della struttura
+     * @param parcheggio la disponibilita' di parcheggio
+     * @param idStruttura l'identificativo della struttura
+     */
     public Struttura(String nome, String indirizzo, String descrizione, String categoria, int numeroSpogliatoi, String numeroTelefono, int capienza, boolean parcheggio, int idStruttura) {
         this.nome = nome;
         this.indirizzo = indirizzo;
