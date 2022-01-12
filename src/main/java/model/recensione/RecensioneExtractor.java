@@ -12,6 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RecensioneExtractor implements ResultSetExtractor<Recensione> {
+    /**
+     * Estrae i dati dell'evento dalla base di dati e li inserisce in un oggetto Recensione
+     * @param rs il risultato della query
+     * @return la recensione della base di dati sotto forma di oggetto
+     * @throws SQLException
+     * @throws IOException
+     */
     @Override
     public Recensione extract(ResultSet rs) throws SQLException, IOException {
         Recensione r= new Recensione();

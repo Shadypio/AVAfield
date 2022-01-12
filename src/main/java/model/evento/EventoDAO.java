@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class EventoDAO {
 
     /**
-     * Memorizza l'evento in maniera persistente
-     * @param e l'evento da inserire nella base di dati
+     * Inserisce un evento all'interno della base di dati
+     * @param e l'evento da inserire
      */
     public void addEvento(Evento e){
         Struttura s=e.getStruttura();
@@ -38,7 +38,7 @@ public class EventoDAO {
 
     /**
      * Apporta delle modifiche all'evento selezionato
-     * @param e L'evento da modificare
+     * @param e l'evento da modificare
      * @return l'esito della modifica
      */
     public boolean doChanges(Evento e){
@@ -61,7 +61,7 @@ public class EventoDAO {
     }
 
     /**
-     * Recupera tutti gli eventi disponibili
+     * Recupera tutti gli eventi dalla base di dati
      * @return la lista di eventi
      */
     public ArrayList<Evento> doRetrieveAll(){

@@ -13,6 +13,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class RecensioneDAO {
+    /**
+     * Inserisce una recensione all'interno della base di dati
+     * @param r la recensione da inserire
+     */
     public void addRecensione(Recensione r){
         Struttura s=r.getStruttura();
         Utente u=r.getUtente();
@@ -33,6 +37,10 @@ public class RecensioneDAO {
         }
     }
 
+    /**
+     * Recupera tutte le recensioni dalla base di dati
+     * @return la lista di recensioni
+     */
     public ArrayList<Recensione> doRetrieveAll(){
         ArrayList<Recensione> result=new ArrayList<Recensione>();
         try (Connection con = ConPool.getConnection()) {
@@ -48,6 +56,11 @@ public class RecensioneDAO {
         }
     }
 
+    /**
+     * Recupera una recensione a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return la recensione
+     */
     public Recensione doRetrieveById(int id){
         Recensione r= new Recensione();
         try (Connection con = ConPool.getConnection()) {
@@ -63,6 +76,10 @@ public class RecensioneDAO {
         return r;
     }
 
+    /**
+     * Apporta delle modifiche alla recensione selezionata
+     * @param r la recensione da modificare
+     */
     public void doChanges(Recensione r){
         Utente r1= r.getUtente();
         Struttura r2= r.getStruttura();
@@ -77,6 +94,10 @@ public class RecensioneDAO {
         }
     }
 
+    /**
+     * Elimina una recensione dalla base di dati
+     * @param id l'identificativo della recensione da eliminare
+     */
     public void deleteById(int id){
         try (Connection con = ConPool.getConnection()) {
             String query ="DELETE FROM recensione AS rec WHERE rec.idRecensione = (?);";
@@ -90,6 +111,11 @@ public class RecensioneDAO {
         }
     }
 
+    /**
+     * Recupera le recensioni a partire da una struttura
+     * @param s la struttura di cui si desidera conoscere le recensioni
+     * @return la lista di recensioni della struttura
+     */
     public ArrayList<Recensione> doRetrieveRecensioniWithIdStruttura(Struttura s){
         ArrayList<Recensione> result=new ArrayList<Recensione>();
         try (Connection con = ConPool.getConnection()) {
