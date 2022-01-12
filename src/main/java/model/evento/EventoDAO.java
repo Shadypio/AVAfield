@@ -1,3 +1,8 @@
+/**
+ * Questa classe modella le interazioni tra la classe Evento e la base di dati. Sono previsti i metodi
+ * principali delle operazioni CRUD
+ */
+
 package model.evento;
 
 import model.utils.ConPool;
@@ -8,6 +13,10 @@ import java.util.ArrayList;
 
 public class EventoDAO {
 
+    /**
+     * Memorizza l'evento in maniera persistente
+     * @param e l'evento da inserire nella base di dati
+     */
     public void addEvento(Evento e){
         Struttura s=e.getStruttura();
         try (Connection con = ConPool.getConnection()) {
@@ -27,6 +36,11 @@ public class EventoDAO {
         }
     }
 
+    /**
+     * Apporta delle modifiche all'evento selezionato
+     * @param e L'evento da modificare
+     * @return l'esito della modifica
+     */
     public boolean doChanges(Evento e){
         Struttura s=e.getStruttura();
         try (Connection con = ConPool.getConnection()) {
@@ -46,6 +60,10 @@ public class EventoDAO {
         }
     }
 
+    /**
+     * Recupera tutti gli eventi disponibili
+     * @return la lista di eventi
+     */
     public ArrayList<Evento> doRetrieveAll(){
         ArrayList<Evento> result=new ArrayList<Evento>();
         try (Connection con = ConPool.getConnection()) {
@@ -61,6 +79,11 @@ public class EventoDAO {
         }
     }
 
+    /**
+     * Recupera un evento a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return l'evento
+     */
     public Evento doRetrieveById(int id){
         Evento e = new Evento();
         try (Connection con = ConPool.getConnection()) {
@@ -76,6 +99,11 @@ public class EventoDAO {
         return e;
     }
 
+    /**
+     * Recupera tutti gli eventi ospitati dalla struttura desiderata
+     * @param id l'identificativo della struttura
+     * @return gli eventi ospitati dalla struttura
+     */
     public ArrayList<Evento> doRetrieveByIdStruttura(int id){
         ArrayList<Evento> result = new ArrayList<Evento>();
         try (Connection con = ConPool.getConnection()) {
@@ -92,6 +120,10 @@ public class EventoDAO {
         }
     }
 
+    /**
+     * Elimina un evento dalla base di dati
+     * @param id l'identificativo dell'evento da eliminare
+     */
     public void deleteById(int id){
         try (Connection con = ConPool.getConnection()) {
             String query ="DELETE FROM evento as eve WHERE eve.idEvento = (?);";

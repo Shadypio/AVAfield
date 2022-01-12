@@ -1,3 +1,7 @@
+/**
+ * Questa classe modella un Evento. Un evento è ospitato in una struttura, ha utenti che vi partecipano e può essere
+ * creato da un utente
+ */
 package model.evento;
 
 import model.struttura.Struttura;
@@ -9,7 +13,22 @@ import java.util.Date;
 
 public class Evento {
 
-    public Evento(){ }
+
+    public Evento(){
+
+    }
+
+
+    /**
+     * Crea un nuovo Evento settando gli opportuni parametri
+     * @param idEvento l'identificativo dell'evento
+     * @param nome il nome dell'evento
+     * @param numeroPartecipanti il numero di partecipanti
+     * @param data la data dell'evento
+     * @param orario l'orario dell'evento
+     * @param struttura la Struttura che ospita l'evento
+     * @param listaUtenti la lista degli utenti che partecipano all'evento
+     */
     public Evento(int idEvento, String nome, int numeroPartecipanti, Date data, Time orario, Struttura struttura, ArrayList<Utente> listaUtenti) {
         this.idEvento = idEvento;
         this.nome = nome;

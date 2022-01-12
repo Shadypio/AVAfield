@@ -1,3 +1,7 @@
+/**
+ * Questa classe funge da intermediario tra le servlet e gli oggetti DAO
+ */
+
 package model.evento;
 
 import model.evento_utente.EventoUtente;
@@ -35,32 +39,58 @@ public class EventoServiceImpl implements EventoService{
         this.uteDAO=uteDAO;
     }
 
+    /**
+     * Invoca il metodo DAO che inserisce l'evento nella base di dati
+     * @param e l'evento da inserire nella base di dati
+     */
     @Override
     public void creaEvento(Evento e) {
         eveDAO.addEvento(e);
     }
 
+    /**
+     * Invoca il metodo DAO che elimina l'evento dalla base di dati
+     * @param e l'evento da eliminare
+     */
     @Override
     public void eliminaEvento(Evento e) {
         eveDAO.deleteById(e.getIdEvento());
     }
 
+    /**
+     * Invoca il metodo DAO che modifica l'evento nella base di dati
+     * @param e l'evento da modificare
+     */
     @Override
     public void modificaEvento(Evento e) {
         eveDAO.doChanges(e);
     }
 
+    /**
+     * Invoca il metodo DAO che associa ad un utente la partecipazione ad un evento
+     * @param e l'evento a cui l'utente partecipa
+     * @param u l'utente che partecipa
+     */
     @Override
     public void partecipaEvento(Evento e, Utente u) {
         euDAO.addEventoUtente(e,u);
     }
 
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di tutti gli eventi
+     * @return la lista degli eventi
+     */
     @Override
     public ArrayList<Evento> visualizzaEventi() {
         ArrayList<Evento> result=eveDAO.doRetrieveAll();
         return result;
     }
 
+    /**
+     * Trova tutti gli utenti a partire da un evento
+     * @param e l'evento di cui si vogliono i partecipanti
+     * @return la lista di utenti che partecipano all'evento
+     */
     @Override
     public ArrayList<Utente> findAllUtenti(Evento e) {
         ArrayList<Utente> result=new ArrayList<Utente>();
@@ -71,6 +101,11 @@ public class EventoServiceImpl implements EventoService{
         return result;
     }
 
+    /**
+     * Trova tutti gli eventi a partire da un utente
+     * @param e l'utente che partecipa agli eventi
+     * @return la lista di eventi a cui partecipa l'utente
+     */
     @Override
     public ArrayList<Evento> findAllEventi(Utente e){
         ArrayList<Evento> result=new ArrayList<Evento>();
@@ -81,6 +116,11 @@ public class EventoServiceImpl implements EventoService{
         return result;
     }
 
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di un evento a partire da un identificativo
+     * @param id l'identificativo dell'evento
+     * @return l'evento recuperato
+     */
     @Override
     public Evento trovaEvento(int id){
         return eveDAO.doRetrieveById(id);
