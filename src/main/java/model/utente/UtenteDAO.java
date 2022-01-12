@@ -12,6 +12,11 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UtenteDAO {
+    /**
+     * Inserisce un utente all'interno della base di dati
+     * @param u l'utente da inserire
+     * @return
+     */
     public boolean addUtente(Utente u){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -34,6 +39,10 @@ public class UtenteDAO {
         }
     }
 
+    /**
+     * Recupera tutti gli utenti dalla base di dati
+     * @return la lista di utenti
+     */
     public ArrayList<Utente> doRetrieveAll(){
         ArrayList<Utente> result=new ArrayList<Utente>();
         try (Connection con = ConPool.getConnection()) {
@@ -49,6 +58,11 @@ public class UtenteDAO {
         }
     }
 
+    /**
+     * Recupera un utente a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return l'utente
+     */
     public Utente doRetrieveById(int id){
         Utente u = new Utente();
         try (Connection con = ConPool.getConnection()) {
@@ -64,6 +78,10 @@ public class UtenteDAO {
         return u;
     }
 
+    /**
+     * Elimina un utente dalla base di dati
+     * @param id l'identificativo dell'utente da eliminare
+     */
     public void deleteById(int id){
         try (Connection con = ConPool.getConnection()) {
             String query ="DELETE FROM utente AS ute WHERE ute.idUtente = (?);";
@@ -77,6 +95,10 @@ public class UtenteDAO {
         }
     }
 
+    /**
+     * Apporta delle modifiche all'utente selezionato
+     * @param u l'utente da modificare
+     */
     public void doChanges(Utente u){
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();
@@ -90,6 +112,10 @@ public class UtenteDAO {
         }
     }
 
+    /**
+     * Apporta delle modifiche all'utente selezionato
+     * @param u l'utente da modificare
+     */
     public void doChangesWithPass(Utente u){
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();
@@ -103,6 +129,13 @@ public class UtenteDAO {
         }
     }
 
+
+    /**
+     * Recupera un utente a partire da email e password
+     * @param email l'email dell'utente
+     * @param pass la password dell'utente
+     * @return l'utente con email e password corretti
+     */
     public Utente doRetrieveUtenteByEmailPassword(String email,String pass){
         Utente u = null;
         try (Connection con = ConPool.getConnection()) {

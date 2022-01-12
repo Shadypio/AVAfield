@@ -10,6 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UtenteExtractor implements ResultSetExtractor<Utente> {
+
+    /**
+     * Estrae i dati dell'utente dalla base di dati e li inserisce in un oggetto Utente
+     * @param rs il risultato della query
+     * @return l'utente della base di dati sotto forma di oggetto
+     * @throws SQLException
+     * @throws IOException
+     */
     @Override
     public Utente extract(ResultSet rs) throws SQLException, IOException {
         Utente u= new Utente();
