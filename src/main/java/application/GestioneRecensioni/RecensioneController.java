@@ -1,3 +1,8 @@
+/**
+ * Questa classe si occupa di modellare tutte le operazioni
+ * inerenti alle recensioni
+ */
+
 package application.GestioneRecensioni;
 
 import model.recensione.Recensione;
@@ -54,6 +59,12 @@ public class RecensioneController extends HttpServlet {
         String address=request.getServletContext().getContextPath();
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
+            /**
+             * Raccoglie le informazioni sulla recensione inserite
+             * dall'utente e la memorizza all'interno
+             * della base di dati. Si effettua prima
+             * un controllo sullo stato di login dell'utente
+             */
             case "/addRecensione":
                 Utente profilo=(Utente) session.getAttribute("profilo");
                 if(profilo==null)
