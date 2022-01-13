@@ -36,3 +36,8 @@ a:link, a:visited {
 a:active {
     color: #9a51ff;
 }
+
+h1, h3, a {
+    font-family: Raleway;
+    position: center;
+}
