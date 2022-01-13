@@ -117,7 +117,11 @@
                             <td>${s.categoria}</td>
                             <td>${s.capienza}</td>
                             <td>${s.numeroSpogliatoi}</td>
-                            <td>${s.parcheggio}</td>
+                            <%if (s.isParcheggio()) {%>
+                            <td>Sì</td>
+                            <%} else {%>
+                            <td>No</td>
+                            <%}%>
                             <td>
                                 <button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i>
 

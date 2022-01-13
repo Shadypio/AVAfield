@@ -76,7 +76,11 @@
                         </h5><br>
                             <h4>Numero Spogliatoi: </h4> <h5><%=struttura.getNumeroSpogliatoi()%>
                         </h5><br>
-                            <h4>Parcheggio: </h4> <h5><%=struttura.isParcheggio()%>
+                            <h4>Parcheggio: </h4> <%if (struttura.isParcheggio()) {%>
+                            <h5>Sì</h5>
+                            <%} else {%>
+                            <h5>No</h5>
+                            <%}%>
                         </h5><br>
                             <h4>Contattaci: </h4> <h5><%=struttura.getTelefono()%>
                         </h5><br></p>
