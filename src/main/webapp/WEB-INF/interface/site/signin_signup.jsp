@@ -11,10 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>AVAField</title>
+    <title>Area utente</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="../images/logo_no_text.png" type="image/gif"/>
     <!-- bootstrap css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <!-- style css -->

@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>AVAField</title>
+    <title>Nuovo Evento</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -22,7 +22,7 @@
     <!-- Responsive-->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
     <!-- fevicon -->
-    <link rel="icon" href="images/logo_no_text.png" type="image/gif"/>
+    <link rel="icon" href="../images/logo_no_text.png" type="image/gif"/>
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- fonts -->

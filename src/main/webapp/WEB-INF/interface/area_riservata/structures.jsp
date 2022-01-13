@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Strutture</title>
 
     <!-- Custom fonts for this template-->
     <link
@@ -165,7 +165,7 @@
                 "<span> Capienza: <input type='number' name='capienza' id='capienza1' placeholder='Capienza' required> <br>" +
                 "<span> Categoria: </span> <input type='text' name='cat' id='cat1' placeholder='Categoria' required> <br>" +
                 "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo1' placeholder='Numero Spogliatoi' required> <br>" +
-                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
+                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio'> <br>" +
                 "<button class='btn primary' type='submit' id='bottonesalva' onclick='return'>Salva</button> " +
                 "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
             $("#annulla").click(function () {

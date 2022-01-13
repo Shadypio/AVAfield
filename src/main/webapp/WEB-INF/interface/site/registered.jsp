@@ -4,6 +4,7 @@
 <head>
     <link href="<c:url value="/css/success.css"/>" rel="stylesheet">
     <title>Registrazione Effettuata</title>
+    <link rel="icon" href="../images/logo_no_text.png" type="image/gif"/>
 </head>
 <body>
 <div class="bg">

@@ -9,8 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Dashboard</title>
 
+    <link rel="icon" href="../images/logo_no_text.png" type="image/gif"/>
     <!-- Custom fonts for this template-->
     <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
           type="text/css">

@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Utenti</title>
 
     <!-- Custom fonts for this template-->
     <link
@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/single_page_dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" href="../images/logo_no_text.png" type="image/gif"/>
 </head>
 <body>
 <div id="page-top">
