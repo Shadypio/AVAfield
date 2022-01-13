@@ -31,7 +31,7 @@
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-
+    <link rel="icon" href="../images/logo_no_text.png" type="image/gif"/>
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/single_page_dashboard.css">
@@ -180,7 +180,7 @@
                 "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
                 "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
                 "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
-                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio' required> <br>" +
+                "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio'> <br>" +
                 "<button class='btn primary' type='submit'>Salva</button> " +
                 "<button class='btn primary' type='button' id='annulla2'>Annulla</button> </fieldset>")
             $("#annulla2").click(function () {

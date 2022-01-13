@@ -74,7 +74,7 @@ public class StrutturaController extends HttpServlet {
                 s.setCapienza(Integer.parseInt(request.getParameter("capienza")));
                 s.setNumeroSpogliatoi(Integer.parseInt(request.getParameter("numSpo")));
                 String park=request.getParameter("park");
-                if (park.equals("on"))
+                if (park!=null)
                     s.setParcheggio(true);
                 else
                     s.setParcheggio(false);
