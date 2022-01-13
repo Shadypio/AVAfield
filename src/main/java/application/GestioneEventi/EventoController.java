@@ -1,3 +1,8 @@
+/**
+ * Questa classe Controller si occupa di modellare tutte le operazioni inerenti alla gestione
+ * degli eventi
+ */
+
 package application.GestioneEventi;
 
 import model.evento.Evento;
@@ -51,6 +56,12 @@ public class EventoController extends HttpServlet {
         Utente utente;
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path) {
+
+            /**
+             * Reindirizza alla pagina di creazione di un nuovo evento.
+             * Si effettua prima un controllo di login dell'utente
+             */
+
             case "/nuovoEvento":
                 verifica = (Boolean) session.getAttribute("loggato");
                 if (verifica == null)
@@ -60,6 +71,13 @@ public class EventoController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/interface/site/new_event.jsp").forward(request, response);
                 }
                 break;
+
+
+            /**
+             * Gestisce la visualizzazione degli eventi.
+             * A seconda che la richiesta provenga dall'admin o da
+             * un utente comune, la visualizzazione sarà diversa
+             */
             case "/listaPerPartecipare":
                 Utente u = (Utente) session.getAttribute("profilo");
                 session.setAttribute("listaEventi", es.visualizzaEventi());
@@ -71,10 +89,19 @@ public class EventoController extends HttpServlet {
                 else
                     request.getRequestDispatcher("/WEB-INF/interface/site/showEvents.jsp").forward(request, response);
                 break;
+
+            /**
+             * Gestisce la visualizzazione degli eventi.
+             */
             case "/viewEvents":
                 session.setAttribute("listaEventi", es.visualizzaEventi());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/events.jsp").forward(request, response);
                 break;
+
+            /**
+             * Raccoglie i valori inseriti dall'utente nel form e invoca il metodo
+             * per inserire il nuovo evento nella base di dati
+             */
             case "/addEvento":
                 e.setIdEvento(es.visualizzaEventi().size() + 1);
                 e.setNome(request.getParameter("nome"));
@@ -98,21 +125,28 @@ public class EventoController extends HttpServlet {
                 es.creaEvento(e);
                 request.getRequestDispatcher("/WEB-INF/interface/site/event_created.jsp").forward(request, response);
                 break;
+
+            /**
+             * Raccoglie l'identificativo dell'evento selezionato dall'utente
+             * e lo elimina dalla base di dati
+             */
             case "/deleteEvento":
                 String idDelete = request.getParameter("selezioneDelete");
                 e.setIdEvento(Integer.parseInt(idDelete));
                 es.eliminaEvento(e);
                 response.sendRedirect(address + "/ge/viewEvents");
                 break;
+
+            /**
+             * Si occupa della partecipazione a un evento da parte di un utente.
+             * Si effettua prima un controllo sul login dell'utente, per poi
+             * verificare se l'utente è già iscritto all'evento
+             */
             case "/partecipaAdEvento":
                 verifica = (Boolean) session.getAttribute("loggato");
                 if (verifica == null)
                     response.sendRedirect(address + "/ac/signin");
                 else {
-                    /**
-                     * Controllo se l'utente è già iscritto all'evento
-                     * */
-
                     e = es.trovaEvento(Integer.parseInt(request.getParameter("idEvento")));
                     utente = (Utente) session.getAttribute("profilo");
                     EventoUtenteDAO eventoUtenteDAO = new EventoUtenteDAO();

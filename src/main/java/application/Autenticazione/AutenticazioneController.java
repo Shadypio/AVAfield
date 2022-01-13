@@ -1,3 +1,9 @@
+/**
+ * Questa classe si occupa di modellare le operazioni inerenti
+ * alla gestione di profilo sia dell'utente admin che
+ * dell'utente semplice
+ */
+
 package application.Autenticazione;
 
 import model.evento.Evento;
@@ -57,10 +63,18 @@ public class AutenticazioneController extends HttpServlet {
         Utente log=new Utente(); //Utente che prova a loggarsi
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
-            case "/secret":// pagina di login admin
+
+            /**
+             * Reindirizza alla pagina di login dell'area riservata (admin)
+             */
+            case "/secret":
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/secret.jsp").forward(request, response);
                 break;
-            case "/dashboard": // admin tentativo di login to dashboard
+
+            /**
+             * Reindirizza alla dashboard dell'admin o dell'utente
+             */
+            case "/dashboard":
                 Boolean loggato = (Boolean) session.getAttribute("loggato");
                 if (loggato == null) {
                     email = request.getParameter("email");
@@ -80,6 +94,12 @@ public class AutenticazioneController extends HttpServlet {
                 } else
                     request.getRequestDispatcher("/WEB-INF/interface/area_riservata/secret.jsp").forward(request, response);
                 break;
+
+            /**
+             * Se l'utente non è ancora loggato, reindirizza alla pagina di
+             * signin e di signup. Se l'utente è già loggato, reindirizza
+             * alla pagina personale
+             */
             case "/signin_signup": //pagina di registrazione e login
                 loggato = (Boolean) session.getAttribute("loggato");
                 Utente profilo = (Utente) session.getAttribute("profilo");
@@ -94,7 +114,12 @@ public class AutenticazioneController extends HttpServlet {
                 }else
                     request.getRequestDispatcher("/WEB-INF/interface/site/signin_signup.jsp").forward(request, response);
                 break;
-            case "/create": //registrazione nuovo utente
+
+            /**
+             * Raccoglie i parametri di un nuovo utente
+             * e ne effettua la registrazione sulla piattaforma
+             */
+            case "/create":
                 String nome = request.getParameter("nome");
                 String cognome = request.getParameter("cognome");
                 String user = request.getParameter("username");
@@ -114,6 +139,10 @@ public class AutenticazioneController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/interface/site/registered.jsp").forward(request, response);
                 }
                 break;
+
+            /**
+             * Si occupa del login dell'utente all'interno della piattaforma
+             */
             case "/signin":
                 email = request.getParameter("email");
                 pass = request.getParameter("password");
