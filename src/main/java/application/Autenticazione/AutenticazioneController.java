@@ -170,6 +170,10 @@ public class AutenticazioneController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/interface/site/signin_signup.jsp").forward(request, response);
                 }
                 break;
+
+            /**
+             * Efrfettua il logout  dell'utente loggato
+             */
             case "/logout":
                 session.setAttribute("loggato", false);
                 log= (Utente) session.getAttribute("profilo");

@@ -1,5 +1,5 @@
 /**
- * Questa classe Controller si occupa di modellare tutte le operazioni inerenti alla gestione
+ * Questa classe si occupa di modellare tutte le operazioni inerenti alla gestione
  * degli eventi
  */
 

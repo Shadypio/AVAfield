@@ -1,3 +1,8 @@
+/**
+ * Questa classe si occupa di modellare tutte le operazioni
+ * inerenti alle strutture
+ */
+
 package application.GestioneStrutture;
 
 import model.recensione.Recensione;
@@ -53,16 +58,30 @@ public class StrutturaController extends HttpServlet {
         Struttura s=new Struttura(); // oggetto di appoggio;
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
+            /**
+             * Raccoglie tutte le strutture disponibili
+             * e reindirizza alla pagina che le mostra a schermo
+             */
             case "/viewStructures":
                 session.setAttribute("listaStrutture",ss.visualizzaStrutture());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/structures.jsp").forward(request, response);
                 break;
+
+            /**
+             * Raccoglie l'identificativo della struttura scelta dall'utente
+             * e la elimina dalla base di dati
+             */
             case "/deleteStruttura":
                 String idDelete=request.getParameter("selezioneDelete");
                 s.setIdStruttura(Integer.parseInt(idDelete));
                 ss.eliminaStruttura(s);
                 response.sendRedirect(address+"/gs/viewStructures");
                 break;
+
+            /**
+             * Raccoglie i parametri inseriti dall'utente per la modifica
+             * di una struttura e la modifica come richiesto
+             */
             case "/updateStruttura":
                 String idUpdate=request.getParameter("selezioneMod");
                 s.setIdStruttura(Integer.parseInt(idUpdate));
@@ -81,6 +100,11 @@ public class StrutturaController extends HttpServlet {
                 ss.modificaStruttura(s);
                 response.sendRedirect(address+"/gs/viewStructures");
                 break;
+
+            /**
+             * Raccoglie i parametri inseriti per la creazione di una
+             * nuova struttura e la aggiunge alla base di dati
+             */
             case "/addStruttura":
                 s.setIdStruttura(ss.visualizzaStrutture().size()+1);
                 s.setNome(request.getParameter("nome"));
@@ -98,6 +122,11 @@ public class StrutturaController extends HttpServlet {
                 ss.inserisciStruttura(s);
                 response.sendRedirect(address+"/gs/viewStructures");
                 break;
+
+                /**
+                 * Reindirizza alla pagina di una singola struttura mostrandone
+                 * anche le recensioni
+                 */
             case "/singleStructure":
                 int idStruttura=Integer.parseInt(request.getParameter("idStruttura"));
                 s=ss.trovaStruttura(idStruttura);
@@ -110,6 +139,10 @@ public class StrutturaController extends HttpServlet {
                 session.setAttribute("listaRecensioni",listaRecensioni);
                 request.getRequestDispatcher("/WEB-INF/interface/site/single_structure.jsp").forward(request, response);
                 break;
+
+            /**
+             * Visualizza le strutture appartenenti alla categoria selezionata dall'utente
+             */
             case "/viewStructuresUser":
                 String categoria=request.getParameter("categoria");
                 if (categoria==null) {

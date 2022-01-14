@@ -1,3 +1,8 @@
+/**
+ * Questa classe si occupa di modellare tutte le operazioni
+ * inerenti agli utenti
+ */
+
 package application.GestioneUtenti;
 
 import model.utente.Utente;
@@ -34,13 +39,26 @@ public class UtenteController extends HttpServlet {
         Utente u=new Utente();//oggetto di apppoggio
         String path=(request.getPathInfo() != null) ? request.getPathInfo(): "/";
         switch (path) {
+
+            /**
+             * Gestisce la visualizzazione di tutti gli utenti
+             */
             case "/viewUsers":
                 session.setAttribute("listaUtenti",us.visualizzaUtenti());
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/users.jsp").forward(request, response);
                 break;
+
+            /**
+             * Reindirizza alla pagina di gestione del proprio profilo utente
+             */
             case "/profileAdmin":
                 request.getRequestDispatcher("/WEB-INF/interface/area_riservata/profile.jsp").forward(request, response);
                 break;
+
+            /**
+             * Raccoglie le modifiche della gestione profilo e
+             * apporta le modifiche richieste
+             */
             case "/updateAdmin":
                 u.setIdUtente(Integer.parseInt(request.getParameter("id")));
                 u.setNome(request.getParameter("nome"));
@@ -61,6 +79,11 @@ public class UtenteController extends HttpServlet {
                 session.setAttribute("profilo",u);
                 response.sendRedirect(address+"/gu/profileAdmin");
                 break;
+
+            /**
+             * Raccoglie i dati di un nuovo utente e lo inserisce
+             * nella base di dati
+             */
             case "/addUtente":
                 u.setIdUtente(us.visualizzaUtenti().size()+1);
                 u.setNome(request.getParameter("nome"));
@@ -78,12 +101,21 @@ public class UtenteController extends HttpServlet {
                 us.registrazione(u);
                 response.sendRedirect(address+"/gu/viewUsers");
                 break;
+
+            /**
+             * Raccoglie l'identificativo dell'utente selezionato e lo elimina
+             * dalla base di dati
+             */
             case "/deleteUtente":
                 String idDelete=request.getParameter("selezioneDelete");
                 u.setIdUtente(Integer.parseInt(idDelete));
                 us.cancellazioneAccount(u);
                 response.sendRedirect(address+"/gu/viewUsers");
                 break;
+
+            /**
+             * Raccoglie le modifiche apportate all'utente e lo modifica
+             */
             case "/updateUtente":
                 u.setIdUtente(Integer.parseInt(request.getParameter("id")));
                 u.setNome(request.getParameter("nome"));
