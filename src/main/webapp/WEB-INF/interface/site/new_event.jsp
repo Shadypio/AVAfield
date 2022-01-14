@@ -76,9 +76,8 @@
             <button class="btn btn-primary profile-button" type="submit" name="registrati"
                     onclick="return checkNameEventAndParticipants()">Salva
             </button>
-            <a href="${pageContext.request.contextPath}/index.jsp">
-            <button class="btn btn-primary profile-button" type="button" id="annulla">Annulla</button>
-            </a>
+
+            <button class="btn btn-primary profile-button" type="button" id="annulla" onclick="history.back()">Annulla</button>
         </div>
     </form>
 </div>
