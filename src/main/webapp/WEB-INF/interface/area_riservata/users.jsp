@@ -89,32 +89,22 @@
                     %>
                     <c:forEach var="u" items="${listaUtenti}">
                         <%Utente u = lista.get(i++);%>
-                        <form action="${pageContext.request.contextPath}/gu/deleteUtente" method="post">
-                            <tr>
-                                <input type="hidden" name="selezioneDelete" value="${u.idUtente}">
-                                <th scope="row">${u.idUtente}</th>
-                                <td>${u.nome}</td>
-                                <td>${u.cognome}</td>
-                                <td>${u.email}</td>
-                                <td>${u.username}</td>
-                                <td>${u.autovalutazione}</td>
-                                <td>
-                                    <button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </form>
+
+                        <tr>
+                            <input type="hidden" name="selezioneDelete" value="${u.idUtente}">
+                            <th scope="row">${u.idUtente}</th>
+                            <td>${u.nome}</td>
+                            <td>${u.cognome}</td>
+                            <td>${u.email}</td>
+                            <td>${u.username}</td>
+                            <td>${u.autovalutazione}</td>
+                        </tr>
                     </c:forEach>
                 </table>
             </div>
-            <form action="<%=request.getContextPath()%>/gu/addUtente" method="post">
-                <button class="butAdd btn primary" type="button">Aggiungi Utente</button> <!--Button Add-->
-                <div class="newUte">
-                    <!--Al click Form Add-->
-                </div>
-            </form>
         </div>
     </div>
+
     <div>
 
         <script>
@@ -144,6 +134,8 @@
             });
 
         </script>
+
         </main>
 </body>
 </html>
+

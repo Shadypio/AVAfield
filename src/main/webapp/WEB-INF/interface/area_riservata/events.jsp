@@ -103,7 +103,6 @@
                     %>
                     <c:forEach var="evento" items="${listaEventi}">
                         <%Evento evento = eventi.get(i++);%>
-                        <form action="${pageContext.request.contextPath}/ge/deleteEvento" method="post">
                             <tr>
                                 <input type="hidden" name="selezioneDelete" value="${evento.idEvento}">
                                 <th scope="row">${evento.idEvento}</th>
@@ -112,21 +111,10 @@
                                 <td>${evento.dataEvento}</td>
                                 <td>${evento.orario}</td>
                                 <td>${(evento.struttura).idStruttura}</td>
-                                <td>
-                                    <button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
                             </tr>
-                        </form>
                     </c:forEach>
                 </table>
             </div>
-            <form action="<%=request.getContextPath()%>/ge/addEvento" method="post">
-                <button class="butAdd btn primary" type="button">Aggiungi Evento</button> <!--Button Add-->
-                <div class="newEve">
-                    <!--Al click Form Add-->
-                </div>
-            </form>
         </div>
     </div>
 </div>
