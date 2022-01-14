@@ -80,6 +80,11 @@ public class AutenticazioneController extends HttpServlet {
                     email = request.getParameter("email");
                     pass = request.getParameter("password");
                     log = us.login(email, pass);
+                    if(log == null){
+                        session.setAttribute("failedAdmin",true);
+                        response.sendRedirect(request.getContextPath() + "/ac/secret");
+                        break;
+                    }
                     loggato=false;
                 }
                 if (loggato)

@@ -1,5 +1,6 @@
 <%-- PAGINA DI LOGIN PER L'ADMIN (ERRORE SE è UN UTENTE NORMALE) --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <!-- basic -->
@@ -33,8 +34,36 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<style>
+    .grid-y {
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .cell {
+        flex-basis: 100%;
+    }
+
+    .w50 {
+        flex-basis: 50%;
+    }
+
+    .login{
+        padding: 1rem;
+        background-color: lightblue;
+    }
+
+</style>
+<c:if test="${failedAdmin}">
+    <div class="alert grid-y cell w50 login">
+        <p>Non sei autorizzato</p>
+        <% request.getSession().setAttribute("failedAdmin",false);%>
+        <button type="button" class="okAlert">OK</button>
+    </div>
+</c:if>
 <div class="d-flex justify-content-center align-items-center mt-5">
     <div class="card">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -54,5 +83,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".okAlert").click(function () {
+        $(".alert").hide();
+    });
+</script>
 </body>
 </html>
