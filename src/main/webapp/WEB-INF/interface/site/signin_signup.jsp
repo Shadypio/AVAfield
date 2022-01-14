@@ -38,9 +38,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+
+<style>
+    .grid-y {
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .cell {
+        flex-basis: 100%;
+    }
+
+    .w50 {
+        flex-basis: 50%;
+    }
+
+    .login{
+        padding: 1rem;
+        background-color: lightblue;
+    }
+
+</style>
 <c:if test="${failedUtente}">
     <div class="alert grid-y cell w50 login">
-        <p>Utente NON Registrato</p>
+        <p>Utente non registrato</p>
         <% request.getSession().setAttribute("failedUtente",false);%>
         <button type="button" class="okAlert">OK</button>
     </div>
