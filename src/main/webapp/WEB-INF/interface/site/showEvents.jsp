@@ -23,6 +23,8 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/button.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/structure.css">
     <!-- Responsive-->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
     <!-- fevicon -->
@@ -41,7 +43,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<a href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
+<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
 <section>
     <%  int i=0;   ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
     <c:forEach items="${listaEventi}" var="evento" >
