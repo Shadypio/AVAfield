@@ -115,18 +115,6 @@
                         </c:forEach>
                     </div>
                 </div>
-                <div class="main">
-                    <!-- Another variation with a button -->
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cerca una struttura">
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button"
-                                    style="background-color: #f26522; border-color:#f26522 ">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 <div class="header_box">
                     <div class="login_menu">
                         <ul>
