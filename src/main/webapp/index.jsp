@@ -62,8 +62,8 @@
                     <div class="custom_menu">
                         <ul>
                             <li><a href="<%=request.getContextPath()%>/ac/secret">Area Riservata</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Segnalaci un problema</a></li>
+                            <li><a href="<%=request.getContextPath()%>/info.jsp">About Us</a></li>
+                            <li><a href="https://www.facebook.com" target="_blank">Segnalaci un problema</a></li>
                             <li><a href="<%=request.getContextPath()%>/ac/signin">Area Utente</a></li>
                         </ul>
                     </div>

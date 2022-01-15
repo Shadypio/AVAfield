@@ -193,6 +193,27 @@ public class AutenticazioneControllerTest {
     }
 
     @Test
+    public void createTestSameEmail() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/create");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        when(request.getParameter("nome")).thenReturn("ciao3");
+        when(request.getParameter("cognome")).thenReturn("ciao4");
+        when(request.getParameter("username")).thenReturn("ciao5");
+        when(request.getParameter("email")).thenReturn("ciao6");
+        when(request.getParameter("telefono")).thenReturn("ciao7");
+        when(request.getParameter("password")).thenReturn("ciao8");
+        String val = "2";
+        when(request.getParameter("autovalutazione")).thenReturn(val);
+        Boolean email=true;
+        when(us.checkEmail(anyString())).thenReturn(email);
+        ac.doPost(request,response);
+        this.signInSignUpTest();
+    }
+
+    @Test
     public void signInTest() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
         when(request.getPathInfo()).thenReturn("/signin");
@@ -284,6 +305,27 @@ public class AutenticazioneControllerTest {
     }
 
     @Test
+    public void signInEmailTest() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(session);
+        when(request.getPathInfo()).thenReturn("/signin");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getContextPath()).thenReturn("ciao2");
+
+        String email=null;
+        when(request.getParameter("email")).thenReturn(email);
+        when(request.getParameter("password")).thenReturn("ciao4");
+
+        Utente u = null;
+        Utente u2 = null;
+        when(us.login("ciao3", "ciao4")).thenReturn(u);
+        when(session.getAttribute("profilo")).thenReturn(u2);
+
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        ac.doPost(request,response);
+        verify(dispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
     public void logoutTestIsAdmin() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
         when(request.getPathInfo()).thenReturn("/logout");
@@ -308,5 +350,6 @@ public class AutenticazioneControllerTest {
         when(session.getAttribute("profilo")).thenReturn(u);
         this.signInSignUpTest();
     }
+
 
 }

@@ -135,7 +135,6 @@ public class AutenticazioneController extends HttpServlet {
                 int auto = Integer.parseInt(val);
                 int id = us.visualizzaUtenti().size()+1;
                 if (us.checkEmail(email)) {
-                    System.out.println(email);
                     session.setAttribute("emailUsed",true);
                     response.sendRedirect(address + "/ac/signin_signup");
                 }else {
