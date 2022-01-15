@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecensioneServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.recensione</a> &gt; <span class="el_source">RecensioneServiceImpl.java</span></div><h1>RecensioneServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe funge da intermediario tra le servlet e gli oggetti DAO
+ */
+
+package model.recensione;
+
+import model.struttura.Struttura;
+
+import java.util.ArrayList;
+
+public class RecensioneServiceImpl implements RecensioneService{
+    private RecensioneDAO recDAO;
+
+<span class="fc" id="L14">    public RecensioneServiceImpl(){</span>
+<span class="fc" id="L15">        this.recDAO=new RecensioneDAO();</span>
+<span class="fc" id="L16">    }</span>
+
+<span class="nc" id="L18">    public RecensioneServiceImpl(RecensioneDAO recDAO){</span>
+<span class="nc" id="L19">        this.recDAO=recDAO;</span>
+<span class="nc" id="L20">    }</span>
+
+    /**
+     * Invoca il metodo DAO che inserisce la recensione nella base di dati
+     * @param r la recensione da inserire nella base di dati
+     */
+    @Override
+    public void inserisciRecensione(Recensione r) {
+<span class="nc" id="L28">        recDAO.addRecensione(r);</span>
+<span class="nc" id="L29">    }</span>
+
+    /**
+     * Invoca il metodo DAO che elimina la recensione dalla base di dati
+     * @param r la recensione da eliminare
+     */
+    @Override
+    public void eliminaRecensione(Recensione r) {
+<span class="nc" id="L37">        recDAO.deleteById(r.getIdRecensione());</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Invoca il metodo DAO che modifica la recensione nella base di dati
+     * @param r la recensione da modificare
+     */
+    @Override
+    public void modificaRecensione(Recensione r) {
+<span class="nc" id="L46">        recDAO.doChanges(r);</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di tutte le recensioni
+     * @return la lista delle recensioni
+     */
+    @Override
+    public ArrayList&lt;Recensione&gt; visualizzaRecensioni() {
+<span class="fc" id="L55">        return recDAO.doRetrieveAll();</span>
+    }
+
+    /**
+     * Trova tutte le recensioni a partire da una struttura
+     * @param s la struttura di cui si desidera conoscere le recensioni
+     * @return la lista di recensioni della struttura
+     */
+    @Override
+    public ArrayList&lt;Recensione&gt; visualizzaRecensioniByIdStruttura(Struttura s) {
+<span class="nc" id="L65">        return recDAO.doRetrieveRecensioniWithIdStruttura(s);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EventoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">application.GestioneEventi</a> &gt; <span class="el_source">EventoController.java</span></div><h1>EventoController.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe si occupa di modellare tutte le operazioni inerenti alla gestione
+ * degli eventi
+ */
+
+package application.GestioneEventi;
+
+import model.evento.Evento;
+import model.evento.EventoDAO;
+import model.evento.EventoServiceImpl;
+import model.evento_utente.EventoUtente;
+import model.evento_utente.EventoUtenteDAO;
+import model.struttura.Struttura;
+import model.struttura.StrutturaDAO;
+import model.struttura.StrutturaServiceImpl;
+import model.utente.Utente;
+import model.utente.UtenteDAO;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+@WebServlet(name = &quot;EventoController&quot;, value = &quot;/ge/*&quot;)
+public class EventoController extends HttpServlet {
+    private EventoServiceImpl es;
+    private StrutturaServiceImpl ss;
+
+<span class="nc" id="L35">    public EventoController() {</span>
+<span class="nc" id="L36">        es = new EventoServiceImpl();</span>
+<span class="nc" id="L37">        ss = new StrutturaServiceImpl();</span>
+<span class="nc" id="L38">    }</span>
+
+<span class="fc" id="L40">    public EventoController(EventoServiceImpl es, StrutturaServiceImpl ss) {</span>
+<span class="fc" id="L41">        this.es = es;</span>
+<span class="fc" id="L42">        this.ss = ss;</span>
+<span class="fc" id="L43">    }</span>
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L47">        doPost(request, response);</span>
+<span class="nc" id="L48">    }</span>
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L52">        HttpSession session = request.getSession();</span>
+        Boolean verifica;
+<span class="fc" id="L54">        String address = request.getServletContext().getContextPath();</span>
+<span class="fc" id="L55">        Evento e = new Evento();//oggetto di appoggio</span>
+        Utente utente;
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        String path = (request.getPathInfo() != null) ? request.getPathInfo() : &quot;/&quot;;</span>
+<span class="pc bpc" id="L58" title="2 of 7 branches missed.">        switch (path) {</span>
+
+            /**
+             * Reindirizza alla pagina di creazione di un nuovo evento.
+             * Si effettua prima un controllo di login dell'utente
+             */
+
+            case &quot;/nuovoEvento&quot;:
+<span class="fc" id="L66">                verifica = (Boolean) session.getAttribute(&quot;loggato&quot;);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">                if (verifica == null)</span>
+<span class="fc" id="L68">                    response.sendRedirect(address + &quot;/ac/signin&quot;);</span>
+                else {
+<span class="fc" id="L70">                    request.setAttribute(&quot;idStruttura&quot;, request.getParameter(&quot;idStruttura&quot;));</span>
+<span class="fc" id="L71">                    request.getRequestDispatcher(&quot;/WEB-INF/interface/site/new_event.jsp&quot;).forward(request, response);</span>
+                }
+<span class="fc" id="L73">                break;</span>
+
+
+            /**
+             * Gestisce la visualizzazione degli eventi.
+             * A seconda che la richiesta provenga dall'admin o da
+             * un utente comune, la visualizzazione sarà diversa
+             */
+            case &quot;/listaPerPartecipare&quot;:
+<span class="fc" id="L82">                Utente u = (Utente) session.getAttribute(&quot;profilo&quot;);</span>
+<span class="fc" id="L83">                session.setAttribute(&quot;listaEventi&quot;, es.visualizzaEventi());</span>
+<span class="fc" id="L84">                session.setAttribute(&quot;listaStrutture&quot;, ss.visualizzaStrutture());</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                if (u == null)</span>
+<span class="nc" id="L86">                    u = new Utente();</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">                if (u.isAdmin())</span>
+<span class="fc" id="L88">                    request.getRequestDispatcher(&quot;/WEB-INF/interface/area_riservata/events.jsp&quot;).forward(request, response);</span>
+                else
+<span class="fc" id="L90">                    request.getRequestDispatcher(&quot;/WEB-INF/interface/site/showEvents.jsp&quot;).forward(request, response);</span>
+<span class="fc" id="L91">                break;</span>
+
+            /**
+             * Gestisce la visualizzazione degli eventi.
+             */
+            case &quot;/viewEvents&quot;:
+<span class="fc" id="L97">                session.setAttribute(&quot;listaEventi&quot;, es.visualizzaEventi());</span>
+<span class="fc" id="L98">                request.getRequestDispatcher(&quot;/WEB-INF/interface/area_riservata/events.jsp&quot;).forward(request, response);</span>
+<span class="fc" id="L99">                break;</span>
+
+            /**
+             * Raccoglie i valori inseriti dall'utente nel form e invoca il metodo
+             * per inserire il nuovo evento nella base di dati
+             */
+            case &quot;/addEvento&quot;:
+<span class="nc" id="L106">                e.setIdEvento(es.visualizzaEventi().size() + 1);</span>
+<span class="nc" id="L107">                e.setNome(request.getParameter(&quot;nome&quot;));</span>
+<span class="nc" id="L108">                e.setNumeroPartecipanti(Integer.parseInt(request.getParameter(&quot;numero&quot;)));</span>
+<span class="nc" id="L109">                Struttura s = new Struttura();</span>
+<span class="nc" id="L110">                s.setIdStruttura(Integer.parseInt(request.getParameter(&quot;idStr&quot;)));</span>
+<span class="nc" id="L111">                e.setStruttura(s);</span>
+<span class="nc" id="L112">                String data = request.getParameter(&quot;data&quot;);</span>
+<span class="nc" id="L113">                String orario = request.getParameter(&quot;time&quot;);</span>
+<span class="nc" id="L114">                java.sql.Date dataSQL = Date.valueOf(data);</span>
+<span class="nc" id="L115">                e.setDataEvento(dataSQL);</span>
+<span class="nc" id="L116">                String[] parts = orario.split(&quot;:&quot;);</span>
+<span class="nc" id="L117">                String part1 = parts[0]; //</span>
+<span class="nc" id="L118">                String part2 = parts[1]; //</span>
+<span class="nc" id="L119">                int h = Integer.parseInt(part1);</span>
+<span class="nc" id="L120">                int m = Integer.parseInt(part2);</span>
+<span class="nc" id="L121">                Time t = new Time(h, m, 00);</span>
+<span class="nc" id="L122">                e.setOrario(t);</span>
+<span class="nc" id="L123">                System.out.println(e.toString());</span>
+<span class="nc" id="L124">                System.out.println(e.getOrario() + &quot;    &quot; + e.getDataEvento());</span>
+<span class="nc" id="L125">                es.creaEvento(e);</span>
+<span class="nc" id="L126">                request.getRequestDispatcher(&quot;/WEB-INF/interface/site/event_created.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L127">                break;</span>
+
+            /**
+             * Raccoglie l'identificativo dell'evento selezionato dall'utente
+             * e lo elimina dalla base di dati
+             */
+            case &quot;/deleteEvento&quot;:
+<span class="fc" id="L134">                String idDelete = request.getParameter(&quot;selezioneDelete&quot;);</span>
+<span class="fc" id="L135">                e.setIdEvento(Integer.parseInt(idDelete));</span>
+<span class="fc" id="L136">                es.eliminaEvento(e);</span>
+<span class="fc" id="L137">                response.sendRedirect(address + &quot;/ge/viewEvents&quot;);</span>
+<span class="fc" id="L138">                break;</span>
+
+            /**
+             * Si occupa della partecipazione a un evento da parte di un utente.
+             * Si effettua prima un controllo sul login dell'utente, per poi
+             * verificare se l'utente è già iscritto all'evento
+             */
+            case &quot;/partecipaAdEvento&quot;:
+<span class="fc" id="L146">                verifica = (Boolean) session.getAttribute(&quot;loggato&quot;);</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">                if (verifica == null)</span>
+<span class="fc" id="L148">                    response.sendRedirect(address + &quot;/ac/signin&quot;);</span>
+                else {
+<span class="nc" id="L150">                    e = es.trovaEvento(Integer.parseInt(request.getParameter(&quot;idEvento&quot;)));</span>
+<span class="nc" id="L151">                    utente = (Utente) session.getAttribute(&quot;profilo&quot;);</span>
+<span class="nc" id="L152">                    EventoUtenteDAO eventoUtenteDAO = new EventoUtenteDAO();</span>
+<span class="nc" id="L153">                    ArrayList&lt;EventoUtente&gt; eventiUtente = eventoUtenteDAO.doRetrieveEventiWithIdUtente(utente.getIdUtente());</span>
+<span class="nc" id="L154">                    Boolean alreadyParticipated = false;</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">                    for (EventoUtente eu : eventiUtente) {</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                        if (eu.getEvento().getIdEvento() == e.getIdEvento()) {</span>
+<span class="nc" id="L157">                            alreadyParticipated = true;</span>
+                        }
+<span class="nc" id="L159">                    }</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                    if (alreadyParticipated) {</span>
+<span class="nc" id="L161">                        request.getRequestDispatcher(&quot;/WEB-INF/interface/site/already_participating.jsp&quot;).forward(request, response);</span>
+                    } else {
+<span class="nc" id="L163">                        es.partecipaEvento(e, utente);</span>
+<span class="nc" id="L164">                        request.getRequestDispatcher(&quot;/WEB-INF/interface/site/participated_to_event.jsp&quot;).forward(request, response);</span>
+                    }
+                }
+                break;
+        }
+<span class="fc" id="L169">    }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

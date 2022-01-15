@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Recensione.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.recensione</a> &gt; <span class="el_source">Recensione.java</span></div><h1>Recensione.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe modella una Recensione. Una recensione è scritta da un utente ed è riferita
+ * ad una specifica struttura
+ */
+
+package model.recensione;
+
+import model.struttura.Struttura;
+import model.utente.Utente;
+
+public class Recensione {
+<span class="fc" id="L12">    public Recensione(){ }</span>
+
+    /**
+     * Crea una nuova Recensione settando gli opportuni parametri
+     * @param idRecensione l'identificativo della recensione
+     * @param titolo il titolo della recensione
+     * @param testo il testo della recensione
+     * @param numeroStelle il numero di stelle della recensione
+     * @param utente l'utente che ha scritto la recensione
+     * @param struttura la struttura a cui si riferisce la recensione
+     */
+<span class="fc" id="L23">    public Recensione(int idRecensione, String titolo, String testo, int numeroStelle, Utente utente, Struttura struttura) {</span>
+<span class="fc" id="L24">        this.idRecensione = idRecensione;</span>
+<span class="fc" id="L25">        this.titolo = titolo;</span>
+<span class="fc" id="L26">        this.testo = testo;</span>
+<span class="fc" id="L27">        this.numeroStelle = numeroStelle;</span>
+<span class="fc" id="L28">        this.utente = utente;</span>
+<span class="fc" id="L29">        this.struttura = struttura;</span>
+<span class="fc" id="L30">    }</span>
+
+    public int getIdRecensione() {
+<span class="fc" id="L33">        return idRecensione;</span>
+    }
+    public void setIdRecensione(int idRecensione) {
+<span class="fc" id="L36">        this.idRecensione = idRecensione;</span>
+<span class="fc" id="L37">    }</span>
+<span class="fc" id="L38">    public String getTitolo() { return titolo; }</span>
+    public void setTitolo(String titolo) {
+<span class="fc" id="L40">        this.titolo = titolo;</span>
+<span class="fc" id="L41">    }</span>
+    public String getTesto() {
+<span class="fc" id="L43">        return testo;</span>
+    }
+    public void setTesto(String testo) {
+<span class="fc" id="L46">        this.testo = testo;</span>
+<span class="fc" id="L47">    }</span>
+    public int getNumeroStelle() {
+<span class="fc" id="L49">        return numeroStelle;</span>
+    }
+    public void setNumeroStelle(int numeroStelle) {
+<span class="fc" id="L52">        this.numeroStelle = numeroStelle;</span>
+<span class="fc" id="L53">    }</span>
+    public Utente getUtente() {
+<span class="fc" id="L55">        return utente;</span>
+    }
+    public void setUtente(Utente utente) {
+<span class="fc" id="L58">        this.utente = utente;</span>
+<span class="fc" id="L59">    }</span>
+    public Struttura getStruttura() {
+<span class="fc" id="L61">        return struttura;</span>
+    }
+    public void setStruttura(Struttura struttura) {
+<span class="fc" id="L64">        this.struttura = struttura;</span>
+<span class="fc" id="L65">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L69">        return &quot;Recensione{&quot; +</span>
+                &quot;idRecensione=&quot; + idRecensione +
+                &quot;, titolo='&quot; + titolo + '\'' +
+                &quot;, testo='&quot; + testo + '\'' +
+                &quot;, numeroStelle=&quot; + numeroStelle +
+                &quot;, utente=&quot; + utente +
+                &quot;, struttura=&quot; + struttura +
+                '}';
+    }
+
+    private int idRecensione;
+    private String titolo;
+    private String testo;
+    private int numeroStelle;
+    private Utente utente;
+    private Struttura struttura;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

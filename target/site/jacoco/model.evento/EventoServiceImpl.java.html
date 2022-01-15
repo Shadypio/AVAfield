@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EventoServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.evento</a> &gt; <span class="el_source">EventoServiceImpl.java</span></div><h1>EventoServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe funge da intermediario tra le servlet e gli oggetti DAO
+ */
+
+package model.evento;
+
+import model.evento_utente.EventoUtente;
+import model.evento_utente.EventoUtenteDAO;
+import model.utente.Utente;
+import model.utente.UtenteDAO;
+import java.util.ArrayList;
+
+public class EventoServiceImpl implements EventoService{
+    private EventoUtenteDAO euDAO;
+    private UtenteDAO uteDAO;
+    private EventoDAO eveDAO;
+
+<span class="fc" id="L18">    public EventoServiceImpl(){</span>
+<span class="fc" id="L19">        euDAO=new EventoUtenteDAO();</span>
+<span class="fc" id="L20">        uteDAO=new UtenteDAO();</span>
+<span class="fc" id="L21">        eveDAO=new EventoDAO();</span>
+<span class="fc" id="L22">    }</span>
+
+<span class="nc" id="L24">    public EventoServiceImpl(EventoDAO eveDAO){</span>
+<span class="nc" id="L25">        this.eveDAO=eveDAO;</span>
+<span class="nc" id="L26">        euDAO=new EventoUtenteDAO();</span>
+<span class="nc" id="L27">        uteDAO=new UtenteDAO();</span>
+<span class="nc" id="L28">    }</span>
+
+<span class="nc" id="L30">    public EventoServiceImpl(EventoDAO eveDAO, UtenteDAO uteDAO){</span>
+<span class="nc" id="L31">        this.eveDAO=eveDAO;</span>
+<span class="nc" id="L32">        euDAO=new EventoUtenteDAO();</span>
+<span class="nc" id="L33">        this.uteDAO=uteDAO;</span>
+<span class="nc" id="L34">    }</span>
+
+<span class="nc" id="L36">    public EventoServiceImpl(EventoDAO eveDAO, UtenteDAO uteDAO, EventoUtenteDAO euDAO){</span>
+<span class="nc" id="L37">        this.eveDAO=eveDAO;</span>
+<span class="nc" id="L38">        this.euDAO=euDAO;</span>
+<span class="nc" id="L39">        this.uteDAO=uteDAO;</span>
+<span class="nc" id="L40">    }</span>
+
+    /**
+     * Invoca il metodo DAO che inserisce l'evento nella base di dati
+     * @param e l'evento da inserire nella base di dati
+     */
+    @Override
+    public void creaEvento(Evento e) {
+<span class="nc" id="L48">        eveDAO.addEvento(e);</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * Invoca il metodo DAO che elimina l'evento dalla base di dati
+     * @param e l'evento da eliminare
+     */
+    @Override
+    public void eliminaEvento(Evento e) {
+<span class="nc" id="L57">        eveDAO.deleteById(e.getIdEvento());</span>
+<span class="nc" id="L58">    }</span>
+
+    /**
+     * Invoca il metodo DAO che modifica l'evento nella base di dati
+     * @param e l'evento da modificare
+     */
+    @Override
+    public void modificaEvento(Evento e) {
+<span class="nc" id="L66">        eveDAO.doChanges(e);</span>
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * Invoca il metodo DAO che associa ad un utente la partecipazione ad un evento
+     * @param e l'evento a cui l'utente partecipa
+     * @param u l'utente che partecipa
+     */
+    @Override
+    public void partecipaEvento(Evento e, Utente u) {
+<span class="nc" id="L76">        euDAO.addEventoUtente(e,u);</span>
+<span class="nc" id="L77">    }</span>
+
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di tutti gli eventi
+     * @return la lista degli eventi
+     */
+    @Override
+    public ArrayList&lt;Evento&gt; visualizzaEventi() {
+<span class="fc" id="L85">        ArrayList&lt;Evento&gt; result=eveDAO.doRetrieveAll();</span>
+<span class="fc" id="L86">        return result;</span>
+    }
+
+    /**
+     * Trova tutti gli utenti a partire da un evento
+     * @param e l'evento di cui si vogliono i partecipanti
+     * @return la lista di utenti che partecipano all'evento
+     */
+    @Override
+    public ArrayList&lt;Utente&gt; findAllUtenti(Evento e) {
+<span class="nc" id="L96">        ArrayList&lt;Utente&gt; result=new ArrayList&lt;Utente&gt;();</span>
+<span class="nc" id="L97">        ArrayList&lt;EventoUtente&gt; parziale= euDAO.doRetrieveUtentiWithIdEvento(e.getIdEvento());</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (EventoUtente eu:parziale){</span>
+<span class="nc" id="L99">            result.add(uteDAO.doRetrieveById(eu.getUtente().getIdUtente()));</span>
+<span class="nc" id="L100">        }</span>
+<span class="nc" id="L101">        return result;</span>
+    }
+
+    /**
+     * Trova tutti gli eventi a partire da un utente
+     * @param e l'utente che partecipa agli eventi
+     * @return la lista di eventi a cui partecipa l'utente
+     */
+    @Override
+    public ArrayList&lt;Evento&gt; findAllEventi(Utente e){
+<span class="nc" id="L111">        ArrayList&lt;Evento&gt; result=new ArrayList&lt;Evento&gt;();</span>
+<span class="nc" id="L112">        ArrayList&lt;EventoUtente&gt; parziale= euDAO.doRetrieveEventiWithIdUtente(e.getIdUtente());</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        for (EventoUtente eu: parziale){</span>
+<span class="nc" id="L114">            result.add(eveDAO.doRetrieveById(eu.getEvento().getIdEvento()));</span>
+<span class="nc" id="L115">        }</span>
+<span class="nc" id="L116">        return result;</span>
+    }
+
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di un evento a partire da un identificativo
+     * @param id l'identificativo dell'evento
+     * @return l'evento recuperato
+     */
+    @Override
+    public Evento trovaEvento(int id){
+<span class="nc" id="L126">        return eveDAO.doRetrieveById(id);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

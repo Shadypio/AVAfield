@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Struttura.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.struttura</a> &gt; <span class="el_source">Struttura.java</span></div><h1>Struttura.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe modella una Struttura. Una struttura può ospitare uno o più eventi
+ */
+
+package model.struttura;
+
+public class Struttura {
+<span class="fc" id="L8">    public Struttura(){ }</span>
+
+    /** Crea una nuova struttura settando gli opportuni parametri
+     * @param nome il nome della struttura
+     * @param indirizzo l'indirizzo della struttura
+     * @param descrizione la descrizione della struttura
+     * @param categoria la categoria della struttura
+     * @param numeroSpogliatoi il numero di spogliatoi della struttura
+     * @param numeroTelefono il numero di telefono della struttura
+     * @param capienza la capienza massima della struttura
+     * @param parcheggio la disponibilita' di parcheggio
+     * @param idStruttura l'identificativo della struttura
+     */
+<span class="fc" id="L21">    public Struttura(String nome, String indirizzo, String descrizione, String categoria, int numeroSpogliatoi, String numeroTelefono, int capienza, boolean parcheggio, int idStruttura) {</span>
+<span class="fc" id="L22">        this.nome = nome;</span>
+<span class="fc" id="L23">        this.indirizzo = indirizzo;</span>
+<span class="fc" id="L24">        this.descrizione = descrizione;</span>
+<span class="fc" id="L25">        this.categoria = categoria;</span>
+<span class="fc" id="L26">        this.numeroSpogliatoi = numeroSpogliatoi;</span>
+<span class="fc" id="L27">        this.telefono = numeroTelefono;</span>
+<span class="fc" id="L28">        this.capienza = capienza;</span>
+<span class="fc" id="L29">        this.parcheggio = parcheggio;</span>
+<span class="fc" id="L30">        this.idStruttura = idStruttura;</span>
+<span class="fc" id="L31">    }</span>
+
+    public String getNome() {
+<span class="fc" id="L34">        return nome;</span>
+    }
+    public void setNome(String nome) {
+<span class="fc" id="L37">        this.nome = nome;</span>
+<span class="fc" id="L38">    }</span>
+    public String getIndirizzo() {
+<span class="fc" id="L40">        return indirizzo;</span>
+    }
+    public void setIndirizzo(String indirizzo) {
+<span class="fc" id="L43">        this.indirizzo = indirizzo;</span>
+<span class="fc" id="L44">    }</span>
+    public String getDescrizione() {
+<span class="fc" id="L46">        return descrizione;</span>
+    }
+    public void setDescrizione(String descrizione) {
+<span class="fc" id="L49">        this.descrizione = descrizione;</span>
+<span class="fc" id="L50">    }</span>
+    public String getCategoria() {
+<span class="fc" id="L52">        return categoria;</span>
+    }
+    public void setCategoria(String categoria) {
+<span class="fc" id="L55">        this.categoria = categoria;</span>
+<span class="fc" id="L56">    }</span>
+    public int getNumeroSpogliatoi() {
+<span class="fc" id="L58">        return numeroSpogliatoi;</span>
+    }
+    public void setNumeroSpogliatoi(int numeroSpogliatoi) {
+<span class="fc" id="L61">        this.numeroSpogliatoi = numeroSpogliatoi;</span>
+<span class="fc" id="L62">    }</span>
+<span class="fc" id="L63">    public String getTelefono() { return telefono; }</span>
+    public void setTelefono(String telefono) {
+<span class="fc" id="L65">        this.telefono = telefono;</span>
+<span class="fc" id="L66">    }</span>
+    public int getCapienza() {
+<span class="fc" id="L68">        return capienza;</span>
+    }
+    public void setCapienza(int capienza) {
+<span class="fc" id="L71">        this.capienza = capienza;</span>
+<span class="fc" id="L72">    }</span>
+    public boolean isParcheggio() {
+<span class="fc" id="L74">        return parcheggio;</span>
+    }
+
+    public void setParcheggio(boolean parcheggio) {
+<span class="fc" id="L78">        this.parcheggio = parcheggio;</span>
+<span class="fc" id="L79">    }</span>
+    public int getIdStruttura() {
+<span class="fc" id="L81">        return idStruttura;</span>
+    }
+    public void setIdStruttura(int idStruttura) {
+<span class="fc" id="L84">        this.idStruttura = idStruttura;</span>
+<span class="fc" id="L85">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L89">        return &quot;Struttura{&quot; +</span>
+                &quot;nome='&quot; + nome + '\'' +
+                &quot;, indirizzo='&quot; + indirizzo + '\'' +
+                &quot;, descrizione='&quot; + descrizione + '\'' +
+                &quot;, categoria='&quot; + categoria + '\'' +
+                &quot;, numeroSpogliatoi=&quot; + numeroSpogliatoi +
+                &quot;, telefono=&quot; + telefono +
+                &quot;, capienza=&quot; + capienza +
+                &quot;, parcheggio=&quot; + parcheggio +
+                &quot;, idStruttura=&quot; + idStruttura +
+                '}';
+    }
+
+    private String nome;
+    private String indirizzo;
+    private String descrizione;
+    private String categoria;
+    private int numeroSpogliatoi;
+    private String telefono;
+    private int capienza;
+    private boolean parcheggio;
+    private int idStruttura;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

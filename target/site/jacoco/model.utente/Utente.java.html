@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Utente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.utente</a> &gt; <span class="el_source">Utente.java</span></div><h1>Utente.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe modella un Utente. Un utente può creare un evento, partecipare ad un evento
+ * e può lasciare una recensione
+ */
+
+package model.utente;
+
+
+import model.evento.Evento;
+
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
+public class Utente {
+<span class="fc" id="L18">    public Utente(){ }</span>
+
+    /**
+     * Crea un nuovo Utente settando gli opportuni parametri
+     * @param nome  il nome dell'utente
+     * @param cognome il cognome dell'utente
+     * @param email l'email dell'utente
+     * @param username l'username dell'utente
+     * @param password la password dell'utente
+     * @param numeroTelefono il numero di telefono dell'utente
+     * @param isAdmin specifica se l'utente sia admin
+     * @param autovalutazione l'autovalutazione delle abilita' sportive dell'utente
+     * @param idUtente l'identificativo dell'utente
+     */
+<span class="fc" id="L32">    public Utente(String nome, String cognome, String email, String username, String password, String numeroTelefono, boolean isAdmin, int autovalutazione, int idUtente) {</span>
+<span class="fc" id="L33">        this.nome = nome;</span>
+<span class="fc" id="L34">        this.cognome = cognome;</span>
+<span class="fc" id="L35">        this.email = email;</span>
+<span class="fc" id="L36">        this.username = username;</span>
+<span class="fc" id="L37">        this.password = password;</span>
+<span class="fc" id="L38">        this.numeroTelefono = numeroTelefono;</span>
+<span class="fc" id="L39">        this.isAdmin = isAdmin;</span>
+<span class="fc" id="L40">        this.autovalutazione = autovalutazione;</span>
+<span class="fc" id="L41">        this.idUtente = idUtente;</span>
+<span class="fc" id="L42">    }</span>
+<span class="nc" id="L43">    public Utente(String nome, String cognome, String email, String username, String password, String numeroTelefono, boolean isAdmin, int autovalutazione, int idUtente, ArrayList&lt;Evento&gt; listaEventi) {</span>
+<span class="nc" id="L44">        this.nome = nome;</span>
+<span class="nc" id="L45">        this.cognome = cognome;</span>
+<span class="nc" id="L46">        this.email = email;</span>
+<span class="nc" id="L47">        this.username = username;</span>
+<span class="nc" id="L48">        this.password = password;</span>
+<span class="nc" id="L49">        this.numeroTelefono = numeroTelefono;</span>
+<span class="nc" id="L50">        this.isAdmin = isAdmin;</span>
+<span class="nc" id="L51">        this.autovalutazione = autovalutazione;</span>
+<span class="nc" id="L52">        this.idUtente = idUtente;</span>
+<span class="nc" id="L53">        this.listaEventi = listaEventi;</span>
+<span class="nc" id="L54">    }</span>
+
+    public String getNome() {
+<span class="fc" id="L57">        return nome;</span>
+    }
+    public void setNome(String nome) {
+<span class="fc" id="L60">        this.nome = nome;</span>
+<span class="fc" id="L61">    }</span>
+    public String getCognome() {
+<span class="fc" id="L63">        return cognome;</span>
+    }
+    public void setCognome(String cognome) {
+<span class="fc" id="L66">        this.cognome = cognome;</span>
+<span class="fc" id="L67">    }</span>
+    public String getEmail() {
+<span class="fc" id="L69">        return email;</span>
+    }
+    public void setEmail(String email) {
+<span class="fc" id="L72">        this.email = email;</span>
+<span class="fc" id="L73">    }</span>
+    public String getUsername() {
+<span class="fc" id="L75">        return username;</span>
+    }
+    public void setUsername(String username) {
+<span class="fc" id="L78">        this.username = username;</span>
+<span class="fc" id="L79">    }</span>
+    public String getPassword() {
+<span class="fc" id="L81">        return password;</span>
+    }
+    public void setPassword(String password) {
+        try {
+<span class="fc" id="L85">            MessageDigest digest = MessageDigest.getInstance(&quot;SHA-1&quot;);</span>
+<span class="fc" id="L86">            digest.reset();</span>
+<span class="fc" id="L87">            digest.update(password.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L88">            this.password = String.format(&quot;%040x&quot;, new BigInteger(1, digest.digest()));</span>
+<span class="nc" id="L89">        } catch (NoSuchAlgorithmException e) {</span>
+<span class="nc" id="L90">            throw new RuntimeException(e);</span>
+<span class="fc" id="L91">        }</span>
+<span class="fc" id="L92">    }</span>
+    public void setPasswordNOSHA(String password) {
+<span class="fc" id="L94">        this.password=password;</span>
+<span class="fc" id="L95">    }</span>
+    public String getNumeroTelefono() {
+<span class="fc" id="L97">        return numeroTelefono;</span>
+    }
+    public void setNumeroTelefono(String numeroTelefono) {
+<span class="fc" id="L100">        this.numeroTelefono = numeroTelefono;</span>
+<span class="fc" id="L101">    }</span>
+    public boolean isAdmin() {
+<span class="fc" id="L103">        return isAdmin;</span>
+    }
+    public void setAdmin(boolean admin) {
+<span class="fc" id="L106">        isAdmin = admin;</span>
+<span class="fc" id="L107">    }</span>
+    public int getAutovalutazione() {
+<span class="fc" id="L109">        return autovalutazione;</span>
+    }
+    public void setAutovalutazione(int autovalutazione) {
+<span class="fc" id="L112">        this.autovalutazione = autovalutazione;</span>
+<span class="fc" id="L113">    }</span>
+    public int getIdUtente() {
+<span class="fc" id="L115">        return idUtente;</span>
+    }
+    public void setIdUtente(int idUtente) {
+<span class="fc" id="L118">        this.idUtente = idUtente;</span>
+<span class="fc" id="L119">    }</span>
+    public ArrayList&lt;Evento&gt; getListaEventi() {
+<span class="nc" id="L121">        return listaEventi;</span>
+    }
+    public void setListaEventi(ArrayList&lt;Evento&gt; listaEventi) {
+<span class="nc" id="L124">        this.listaEventi = listaEventi;</span>
+<span class="nc" id="L125">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L129">        return &quot;Utente{&quot; +</span>
+                &quot;nome='&quot; + nome + '\'' +
+                &quot;, cognome='&quot; + cognome + '\'' +
+                &quot;, email='&quot; + email + '\'' +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, password='&quot; + password + '\'' +
+                &quot;, numeroTelefono='&quot; + numeroTelefono + '\'' +
+                &quot;, isAdmin=&quot; + isAdmin +
+                &quot;, autovalutazione=&quot; + autovalutazione +
+                &quot;, idUtente=&quot; + idUtente +
+                &quot;, listaEventi=&quot; + listaEventi +
+                '}';
+    }
+
+    private String nome;
+    private String cognome;
+    private String email;
+    private String username;
+    private String password;
+    private String numeroTelefono;
+    private boolean isAdmin;
+    private int autovalutazione;
+    private int idUtente;
+    private ArrayList&lt;Evento&gt; listaEventi;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

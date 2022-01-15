@@ -1,0 +1,12 @@
+application.Autenticazione
+application.GestioneEventi
+application.GestioneRecensioni
+application.GestioneStrutture
+application.GestioneUtenti
+model.evento
+model.evento_utente
+model.eventoutente
+model.recensione
+model.struttura
+model.utente
+model.utils

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecensioneDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.recensione</a> &gt; <span class="el_source">RecensioneDAO.java</span></div><h1>RecensioneDAO.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe modella le interazioni tra la classe Recensione e la base di dati. Sono previsti i metodi
+ * principali delle operazioni CRUD
+ */
+
+package model.recensione;
+
+import model.struttura.Struttura;
+import model.utente.Utente;
+import model.utils.ConPool;
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+
+<span class="fc" id="L15">public class RecensioneDAO {</span>
+    /**
+     * Inserisce una recensione all'interno della base di dati
+     * @param r la recensione da inserire
+     */
+    public void addRecensione(Recensione r){
+<span class="fc" id="L21">        Struttura s=r.getStruttura();</span>
+<span class="fc" id="L22">        Utente u=r.getUtente();</span>
+<span class="fc" id="L23">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L24">            PreparedStatement ps = con.prepareStatement(</span>
+                    &quot;INSERT INTO recensione (idRecensione, titolo, testo, numeroStelle, ute_fk, str_fk) VALUES(?,?,?,?,?,?)&quot;);
+<span class="fc" id="L26">            ps.setInt(1,r.getIdRecensione());</span>
+<span class="fc" id="L27">            ps.setString(2,r.getTitolo());</span>
+<span class="fc" id="L28">            ps.setString(3,r.getTesto());</span>
+<span class="fc" id="L29">            ps.setInt(4, r.getNumeroStelle());</span>
+<span class="fc" id="L30">            ps.setInt(5, u.getIdUtente() );</span>
+<span class="fc" id="L31">            ps.setInt(6, s.getIdStruttura());</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L33">                throw new RuntimeException(&quot;INSERT error.&quot;);</span>
+            }
+<span class="nc" id="L35">        } catch (SQLException ex) {</span>
+<span class="nc" id="L36">            throw new RuntimeException(ex);</span>
+<span class="fc" id="L37">        }</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Recupera tutte le recensioni dalla base di dati
+     * @return la lista di recensioni
+     */
+    public ArrayList&lt;Recensione&gt; doRetrieveAll(){
+<span class="fc" id="L45">        ArrayList&lt;Recensione&gt; result=new ArrayList&lt;Recensione&gt;();</span>
+<span class="fc" id="L46">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L47">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM recensione AS rec&quot;);</span>
+<span class="fc" id="L48">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc" id="L49">            RecensioneExtractor recExt = new RecensioneExtractor();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            while(rs.next()) {</span>
+<span class="fc" id="L51">                result.add(recExt.extract(rs));</span>
+            }
+<span class="fc" id="L53">            return result;</span>
+<span class="nc" id="L54">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L55">            throw new RuntimeException(ex);</span>
+        }
+    }
+
+    /**
+     * Recupera una recensione a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return la recensione
+     */
+    public Recensione doRetrieveById(int id){
+<span class="fc" id="L65">        Recensione r= new Recensione();</span>
+<span class="fc" id="L66">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L67">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM recensione AS rec WHERE idRecensione=?&quot;);</span>
+<span class="fc" id="L68">            ps.setInt(1, id);</span>
+<span class="fc" id="L69">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc" id="L70">            RecensioneExtractor recExt= new RecensioneExtractor();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            if (rs.next())</span>
+<span class="fc" id="L72">                r=recExt.extract(rs);</span>
+<span class="nc" id="L73">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L74">            throw new RuntimeException(ex);</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">        return r;</span>
+    }
+
+    /**
+     * Apporta delle modifiche alla recensione selezionata
+     * @param r la recensione da modificare
+     */
+    public void doChanges(Recensione r){
+<span class="fc" id="L84">        Utente r1= r.getUtente();</span>
+<span class="fc" id="L85">        Struttura r2= r.getStruttura();</span>
+<span class="fc" id="L86">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L87">            Statement st = con.createStatement();</span>
+<span class="fc" id="L88">            String query = &quot;UPDATE recensione rec SET rec.titolo='&quot; + r.getTitolo() + &quot;', &quot; + &quot;rec.testo='&quot;+r.getTesto() + &quot;', rec.numeroStelle='&quot;+r.getNumeroStelle() +&quot;',&quot; +</span>
+<span class="fc" id="L89">                    &quot;rec.ute_fk='&quot;+r1.getIdUtente()+&quot;', rec.str_fk='&quot;+r2.getIdStruttura()+&quot;' WHERE rec.idRecensione=&quot; + r.getIdRecensione() + &quot;;&quot;;</span>
+<span class="fc" id="L90">            st.executeUpdate(query);</span>
+        }
+<span class="nc" id="L92">        catch (SQLException e) {</span>
+<span class="nc" id="L93">            throw new RuntimeException(e);</span>
+<span class="fc" id="L94">        }</span>
+<span class="fc" id="L95">    }</span>
+
+    /**
+     * Elimina una recensione dalla base di dati
+     * @param id l'identificativo della recensione da eliminare
+     */
+    public void deleteById(int id){
+<span class="fc" id="L102">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L103">            String query =&quot;DELETE FROM recensione AS rec WHERE rec.idRecensione = (?);&quot;;</span>
+<span class="fc" id="L104">            PreparedStatement ps = con.prepareStatement(query);</span>
+<span class="fc" id="L105">            ps.setInt(1, id);</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L107">                throw new RuntimeException(&quot;DELETE error.&quot;);</span>
+            }
+<span class="nc" id="L109">        } catch (SQLException throwable) {</span>
+<span class="nc" id="L110">            throwable.printStackTrace();</span>
+<span class="fc" id="L111">        }</span>
+<span class="fc" id="L112">    }</span>
+
+    /**
+     * Recupera le recensioni a partire da una struttura
+     * @param s la struttura di cui si desidera conoscere le recensioni
+     * @return la lista di recensioni della struttura
+     */
+    public ArrayList&lt;Recensione&gt; doRetrieveRecensioniWithIdStruttura(Struttura s){
+<span class="nc" id="L120">        ArrayList&lt;Recensione&gt; result=new ArrayList&lt;Recensione&gt;();</span>
+<span class="nc" id="L121">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="nc" id="L122">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM recensione AS rec WHERE rec.str_fk=(?);&quot;);</span>
+<span class="nc" id="L123">            ps.setInt(1, s.getIdStruttura());</span>
+<span class="nc" id="L124">            ResultSet rs = ps.executeQuery();</span>
+<span class="nc" id="L125">            RecensioneExtractor recExt = new RecensioneExtractor();</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            while(rs.next()) {</span>
+<span class="nc" id="L127">                result.add(recExt.extract(rs));</span>
+            }
+<span class="nc" id="L129">            return result;</span>
+<span class="nc" id="L130">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L131">            throw new RuntimeException(ex);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

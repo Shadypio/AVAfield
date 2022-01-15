@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UtenteServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.utente</a> &gt; <span class="el_source">UtenteServiceImpl.java</span></div><h1>UtenteServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe funge da intermediario tra le servlet e gli oggetti DAO
+ */
+
+package model.utente;
+
+import java.util.ArrayList;
+
+public class UtenteServiceImpl implements UtenteService{
+    private UtenteDAO uteDAO;
+
+<span class="nc" id="L12">    public UtenteServiceImpl(UtenteDAO uteDAO) {</span>
+<span class="nc" id="L13">        this.uteDAO = uteDAO;</span>
+<span class="nc" id="L14">    }</span>
+<span class="fc" id="L15">    public UtenteServiceImpl(){</span>
+<span class="fc" id="L16">        this.uteDAO=new UtenteDAO();</span>
+<span class="fc" id="L17">    }</span>
+
+    /**
+     * Invoca il metodo DAO che recupera l'utente a partire da
+     * email e password
+     * @param email l'email dell'utente
+     * @param pass la password dell'utente
+     * @return l'utente con email e password corretti
+     */
+    @Override
+    public Utente login(String email, String pass) {
+<span class="nc" id="L28">        Utente x= uteDAO.doRetrieveUtenteByEmailPassword(email,pass);</span>
+<span class="nc" id="L29">        return x;</span>
+    }
+
+    /**
+     * Invoca il metodo DAO che modifica l'utente nella base di dati
+     * @param u l'utente da modificare
+     */
+    @Override
+    public void modificaDati(Utente u) {
+<span class="nc" id="L38">        uteDAO.doChanges(u);</span>
+<span class="nc" id="L39">    }</span>
+
+    /**
+     * Invoca il metodo DAO che modifica l'utente nella base di dati
+     * @param u l'utente da modificare
+     */
+    public void modificaDati2(Utente u) {
+<span class="nc" id="L46">        uteDAO.doChangesWithPass(u);</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * Invoca il metodo DAO che elimina l'utente dalla base di dati
+     * @param u l'utente da eliminare
+     */
+    @Override
+    public void cancellazioneAccount(Utente u) {
+<span class="nc" id="L55">        uteDAO.deleteById(u.getIdUtente());</span>
+<span class="nc" id="L56">    }</span>
+
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di tutti gli utenti
+     * @return la lista degli utenti
+     */
+    @Override
+    public ArrayList&lt;Utente&gt; visualizzaUtenti() {
+<span class="fc" id="L64">        return uteDAO.doRetrieveAll();</span>
+    }
+
+    /**
+     * Invoca il metodo DAO che inserisce l'utente nella base di dati
+     * @param u l'utente da inserire nella base di dati
+     */
+    @Override
+    public void registrazione(Utente u) {
+<span class="nc" id="L73">        uteDAO.addUtente(u);</span>
+<span class="nc" id="L74">    }</span>
+
+    /**
+     * Invoca il metodo DAO che si occupa del recupero di un utente a partire da un identificativo
+     * @param id l'identificativo dell'utente
+     * @return l'utente recuperato
+     */
+    @Override
+    public Utente trovaUtente (int id){
+<span class="nc" id="L83">        return uteDAO.doRetrieveById(id);</span>
+    }
+
+
+    /**
+     * Controlla se c'è un utente con la mail specificata
+     * @param email la mail da considerare
+     * @return l'esito della ricerca
+     */
+    public Boolean checkEmail (String email){
+<span class="nc" id="L93">            ArrayList&lt;Utente&gt; result=uteDAO.doRetrieveAll();</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            for (Utente u: result){</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                if (u.getEmail().equals(email))</span>
+<span class="nc" id="L96">                    return true;</span>
+<span class="nc" id="L97">            }</span>
+<span class="nc" id="L98">            return false;</span>
+    }
+    }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

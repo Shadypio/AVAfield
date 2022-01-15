@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EventoDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.evento</a> &gt; <span class="el_source">EventoDAO.java</span></div><h1>EventoDAO.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe modella le interazioni tra la classe Evento e la base di dati. Sono previsti i metodi
+ * principali delle operazioni CRUD
+ */
+
+package model.evento;
+
+import model.utils.ConPool;
+import model.struttura.Struttura;
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+
+<span class="fc" id="L14">public class EventoDAO {</span>
+
+    /**
+     * Inserisce un evento all'interno della base di dati
+     * @param e l'evento da inserire
+     */
+    public void addEvento(Evento e){
+<span class="fc" id="L21">        Struttura s=e.getStruttura();</span>
+<span class="fc" id="L22">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L23">            PreparedStatement ps = con.prepareStatement(</span>
+                    &quot;INSERT INTO evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, str_fk) VALUES(?,?,?,?,?,?)&quot;);
+<span class="fc" id="L25">            ps.setInt(1,e.getIdEvento());</span>
+<span class="fc" id="L26">            ps.setString(2,e.getNome());</span>
+<span class="fc" id="L27">            ps.setInt(3,e.getNumeroPartecipanti());</span>
+<span class="fc" id="L28">            ps.setDate(4, (Date) e.getDataEvento());</span>
+<span class="fc" id="L29">            ps.setTime(5, (Time) e.getOrario());</span>
+<span class="fc" id="L30">            ps.setInt(6, s.getIdStruttura());</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L32">                throw new RuntimeException(&quot;INSERT error.&quot;);</span>
+            }
+<span class="nc" id="L34">        } catch (SQLException ex) {</span>
+<span class="nc" id="L35">            throw new RuntimeException(ex);</span>
+<span class="fc" id="L36">        }</span>
+<span class="fc" id="L37">    }</span>
+
+    /**
+     * Apporta delle modifiche all'evento selezionato
+     * @param e l'evento da modificare
+     * @return l'esito della modifica
+     */
+    public boolean doChanges(Evento e){
+<span class="fc" id="L45">        Struttura s=e.getStruttura();</span>
+<span class="fc" id="L46">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L47">            PreparedStatement ps = con.prepareStatement(&quot;UPDATE evento e SET e.nome = (?), e.numeroPartecipanti = (?), e.dataEvento =(?), e.orario=(?), e.str_fk=(?) WHERE e.idEvento = (?);&quot;);</span>
+<span class="fc" id="L48">            ps.setString(1,e.getNome());</span>
+<span class="fc" id="L49">            ps.setInt(2,e.getNumeroPartecipanti());</span>
+<span class="fc" id="L50">            ps.setDate(3, (Date) e.getDataEvento());</span>
+<span class="fc" id="L51">            ps.setTime(4, (Time) e.getOrario());</span>
+<span class="fc" id="L52">            ps.setInt(5, s.getIdStruttura());</span>
+<span class="fc" id="L53">            ps.setInt(6,e.getIdEvento());</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L55">                throw new RuntimeException(&quot;INSERT error.&quot;);</span>
+            }
+<span class="fc" id="L57">            return true;</span>
+<span class="nc" id="L58">        } catch(SQLException ex){</span>
+<span class="nc" id="L59">            return false;</span>
+        }
+    }
+
+    /**
+     * Recupera tutti gli eventi dalla base di dati
+     * @return la lista di eventi
+     */
+    public ArrayList&lt;Evento&gt; doRetrieveAll(){
+<span class="fc" id="L68">        ArrayList&lt;Evento&gt; result=new ArrayList&lt;Evento&gt;();</span>
+<span class="fc" id="L69">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L70">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM evento as eve&quot;);</span>
+<span class="fc" id="L71">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc" id="L72">            EventoExtractor eveExt = new EventoExtractor();</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            while(rs.next()) {</span>
+<span class="fc" id="L74">                result.add(eveExt.extract(rs));</span>
+            }
+<span class="fc" id="L76">            return result;</span>
+<span class="nc" id="L77">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L78">            throw new RuntimeException(ex);</span>
+        }
+    }
+
+    /**
+     * Recupera un evento a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return l'evento
+     */
+    public Evento doRetrieveById(int id){
+<span class="fc" id="L88">        Evento e = new Evento();</span>
+<span class="fc" id="L89">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L90">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM evento as eve WHERE idEvento=?&quot;);</span>
+<span class="fc" id="L91">            ps.setInt(1, id);</span>
+<span class="fc" id="L92">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc" id="L93">            EventoExtractor eveExt= new EventoExtractor();</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (rs.next())</span>
+<span class="fc" id="L95">                e=eveExt.extract(rs);</span>
+<span class="nc" id="L96">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L97">            throw new RuntimeException(ex);</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        return e;</span>
+    }
+
+    /**
+     * Recupera tutti gli eventi ospitati dalla struttura desiderata
+     * @param id l'identificativo della struttura
+     * @return gli eventi ospitati dalla struttura
+     */
+    public ArrayList&lt;Evento&gt; doRetrieveByIdStruttura(int id){
+<span class="fc" id="L108">        ArrayList&lt;Evento&gt; result = new ArrayList&lt;Evento&gt;();</span>
+<span class="fc" id="L109">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L110">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM evento as eve WHERE eve.str_fk=?&quot;);</span>
+<span class="fc" id="L111">            ps.setInt(1,id);</span>
+<span class="fc" id="L112">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            while(rs.next()) {</span>
+<span class="fc" id="L114">                EventoExtractor eveExtractor = new EventoExtractor();</span>
+<span class="fc" id="L115">                result.add(eveExtractor.extract(rs));</span>
+<span class="fc" id="L116">            }</span>
+<span class="fc" id="L117">            return result;</span>
+<span class="nc" id="L118">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L119">            throw new RuntimeException(ex);</span>
+        }
+    }
+
+    /**
+     * Elimina un evento dalla base di dati
+     * @param id l'identificativo dell'evento da eliminare
+     */
+    public void deleteById(int id){
+<span class="fc" id="L128">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L129">            String query =&quot;DELETE FROM evento as eve WHERE eve.idEvento = (?);&quot;;</span>
+<span class="fc" id="L130">            PreparedStatement ps = con.prepareStatement(query);</span>
+<span class="fc" id="L131">            ps.setInt(1, id);</span>
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L133">                throw new RuntimeException(&quot;DELETE error.&quot;);</span>
+            }
+<span class="nc" id="L135">        } catch (SQLException throwable) {</span>
+<span class="nc" id="L136">            throwable.printStackTrace();</span>
+<span class="fc" id="L137">        }</span>
+<span class="fc" id="L138">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

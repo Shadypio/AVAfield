@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StrutturaDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.struttura</a> &gt; <span class="el_source">StrutturaDAO.java</span></div><h1>StrutturaDAO.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe modella le interazioni tra la classe Struttura e la base di dati. Sono previsti i metodi
+ * principali delle operazioni CRUD
+ */
+
+package model.struttura;
+
+
+
+import model.utils.ConPool;
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+
+<span class="fc" id="L15">public class StrutturaDAO {</span>
+    /**
+     * Inserisce una struttura all'interno della base di dati
+     * @param s la struttura da inserire
+     */
+    public void addStruttura(Struttura s) {
+<span class="fc" id="L21">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L22">            PreparedStatement ps = con.prepareStatement(</span>
+                    &quot;INSERT INTO struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) VALUES(?,?,?,?,?,?,?,?,?)&quot;);
+<span class="fc" id="L24">            ps.setInt(1, s.getIdStruttura());</span>
+<span class="fc" id="L25">            ps.setString(2, s.getNome());</span>
+<span class="fc" id="L26">            ps.setString(3, s.getIndirizzo());</span>
+<span class="fc" id="L27">            ps.setString(4, s.getTelefono());</span>
+<span class="fc" id="L28">            ps.setString(5, s.getDescrizione());</span>
+<span class="fc" id="L29">            ps.setInt(6, s.getCapienza());</span>
+<span class="fc" id="L30">            ps.setString(7, s.getCategoria());</span>
+<span class="fc" id="L31">            ps.setInt(8, s.getNumeroSpogliatoi());</span>
+<span class="fc" id="L32">            ps.setBoolean(9, s.isParcheggio());</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L34">                throw new RuntimeException(&quot;INSERT error.&quot;);</span>
+            }
+<span class="nc" id="L36">        } catch (SQLException ex) {</span>
+<span class="nc" id="L37">            throw new RuntimeException(ex);</span>
+<span class="fc" id="L38">        }</span>
+<span class="fc" id="L39">    }</span>
+
+    /**
+     * Apporta delle modifiche alla struttura selezionata
+     * @param s la struttura da modificare
+     * @return l'esito della modifica
+     */
+    public boolean doChanges(Struttura s){
+<span class="fc" id="L47">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L48">            PreparedStatement ps = con.prepareStatement(&quot;UPDATE struttura s SET s.nome = (?), s.indirizzo = (?), s.telefono =(?), s.descrizione=(?), s.capienza=(?), s.categoria=(?), s.numeroSpogliatoi=(?), s.parcheggio=(?) WHERE s.idStruttura=(?);&quot;);</span>
+<span class="fc" id="L49">            ps.setString(1,s.getNome());</span>
+<span class="fc" id="L50">            ps.setString(2,s.getIndirizzo());</span>
+<span class="fc" id="L51">            ps.setString(3, s.getTelefono());</span>
+<span class="fc" id="L52">            ps.setString(4, s.getDescrizione());</span>
+<span class="fc" id="L53">            ps.setInt(5, s.getCapienza());</span>
+<span class="fc" id="L54">            ps.setString(6,s.getCategoria());</span>
+<span class="fc" id="L55">            ps.setInt(7,s.getNumeroSpogliatoi());</span>
+<span class="fc" id="L56">            ps.setBoolean(8,s.isParcheggio());</span>
+<span class="fc" id="L57">            ps.setInt(9,s.getIdStruttura());</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L59">                throw new RuntimeException(&quot;INSERT error.&quot;);</span>
+            }
+<span class="fc" id="L61">            return true;</span>
+<span class="nc" id="L62">        } catch(SQLException ex){</span>
+<span class="nc" id="L63">            return false;</span>
+        }
+    }
+
+    /**
+     * Recupera tutte le strutture dalla base di dati
+     * @return la lista delle strutture
+     */
+    public ArrayList&lt;Struttura&gt; doRetrieveAll() {
+<span class="fc" id="L72">        ArrayList&lt;Struttura&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L73">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L74">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM struttura as str&quot;);</span>
+<span class="fc" id="L75">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc" id="L76">            StrutturaExtractor strExt = new StrutturaExtractor();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L78">                result.add(strExt.extract(rs));</span>
+            }
+<span class="nc" id="L80">        } catch (SQLException | IOException throwables) {</span>
+<span class="nc" id="L81">            throwables.printStackTrace();</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">        return result;</span>
+    }
+
+    /**
+     * Recupera una struttura a partire da un identificativo
+     * @param id l'identificativo da considerare
+     * @return la struttura
+     */
+    public Struttura doRetrieveById(int id){
+<span class="fc" id="L92">        Struttura s = new Struttura();</span>
+<span class="fc" id="L93">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L94">            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM struttura AS str WHERE idStruttura=?&quot;);</span>
+<span class="fc" id="L95">            ps.setInt(1, id);</span>
+<span class="fc" id="L96">            ResultSet rs = ps.executeQuery();</span>
+<span class="fc" id="L97">            StrutturaExtractor strExt= new StrutturaExtractor();</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (rs.next())</span>
+<span class="fc" id="L99">                s=strExt.extract(rs);</span>
+<span class="nc" id="L100">        } catch (SQLException | IOException ex) {</span>
+<span class="nc" id="L101">            throw new RuntimeException(ex);</span>
+<span class="fc" id="L102">        }</span>
+<span class="fc" id="L103">        return s;</span>
+    }
+
+    /**
+     * Elimina una struttura dalla base di dati
+     * @param id l'identificativo della struttura da considerare
+     */
+    public void deleteById(int id){
+<span class="fc" id="L111">        try (Connection con = ConPool.getConnection()) {</span>
+<span class="fc" id="L112">            String query =&quot;DELETE FROM struttura as str WHERE str.idStruttura = (?);&quot;;</span>
+<span class="fc" id="L113">            PreparedStatement ps = con.prepareStatement(query);</span>
+<span class="fc" id="L114">            ps.setInt(1, id);</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            if (ps.executeUpdate() != 1) {</span>
+<span class="nc" id="L116">                throw new RuntimeException(&quot;DELETE error.&quot;);</span>
+            }
+<span class="nc" id="L118">        } catch (SQLException throwable) {</span>
+<span class="nc" id="L119">            throwable.printStackTrace();</span>
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

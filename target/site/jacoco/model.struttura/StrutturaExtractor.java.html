@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StrutturaExtractor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">model.struttura</a> &gt; <span class="el_source">StrutturaExtractor.java</span></div><h1>StrutturaExtractor.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe di utility evita ridondanze nel codice di StrutturaDAO
+ */
+
+package model.struttura;
+
+import model.utils.ResultSetExtractor;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+<span class="fc" id="L12">public class StrutturaExtractor implements ResultSetExtractor&lt;Struttura&gt; {</span>
+    /**
+     * Estrae i dati della struttura dalla base di dati e li inserisce in un oggetto Struttura
+     * @param rs il risultato della query
+     * @return la struttura della base di dati sotto forma di oggetto
+     * @throws SQLException
+     * @throws IOException
+     */
+    @Override
+    public Struttura extract(ResultSet rs) throws SQLException, IOException {
+<span class="fc" id="L22">        Struttura s=new Struttura();</span>
+<span class="fc" id="L23">        s.setIdStruttura(rs.getInt(&quot;str.idStruttura&quot;));</span>
+<span class="fc" id="L24">        s.setNome(rs.getString(&quot;str.nome&quot;));</span>
+<span class="fc" id="L25">        s.setIndirizzo(rs.getString(&quot;str.indirizzo&quot;));</span>
+<span class="fc" id="L26">        s.setTelefono(rs.getString(&quot;str.telefono&quot;));</span>
+<span class="fc" id="L27">        s.setDescrizione(rs.getString(&quot;str.descrizione&quot;));</span>
+<span class="fc" id="L28">        s.setCapienza(rs.getInt(&quot;str.capienza&quot;));</span>
+<span class="fc" id="L29">        s.setCategoria(rs.getString(&quot;str.categoria&quot;));</span>
+<span class="fc" id="L30">        s.setNumeroSpogliatoi(rs.getInt(&quot;str.numeroSpogliatoi&quot;));</span>
+<span class="fc" id="L31">        s.setParcheggio(rs.getBoolean(&quot;str.parcheggio&quot;));</span>
+<span class="fc" id="L32">        return s;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StrutturaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AVAfield</a> &gt; <a href="index.source.html" class="el_package">application.GestioneStrutture</a> &gt; <span class="el_source">StrutturaController.java</span></div><h1>StrutturaController.java</h1><pre class="source lang-java linenums">/**
+ * Questa classe si occupa di modellare tutte le operazioni
+ * inerenti alle strutture
+ */
+
+package application.GestioneStrutture;
+
+import model.recensione.Recensione;
+import model.recensione.RecensioneServiceImpl;
+import model.struttura.Struttura;
+import model.struttura.StrutturaServiceImpl;
+import model.utente.Utente;
+import model.utente.UtenteServiceImpl;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
+@WebServlet(name = &quot;StrutturaController&quot;, value = &quot;/gs/*&quot;)
+public class StrutturaController extends HttpServlet {
+    private StrutturaServiceImpl ss;
+    private RecensioneServiceImpl rs;
+    private UtenteServiceImpl us;
+<span class="nc" id="L25">    public StrutturaController(){</span>
+<span class="nc" id="L26">        us=new UtenteServiceImpl();</span>
+<span class="nc" id="L27">        ss=new StrutturaServiceImpl();</span>
+<span class="nc" id="L28">        rs=new RecensioneServiceImpl();</span>
+<span class="nc" id="L29">    }</span>
+
+<span class="nc" id="L31">    public StrutturaController(StrutturaServiceImpl ss){</span>
+<span class="nc" id="L32">        this.ss=ss;</span>
+<span class="nc" id="L33">        us=new UtenteServiceImpl();</span>
+<span class="nc" id="L34">        rs=new RecensioneServiceImpl();</span>
+<span class="nc" id="L35">    }</span>
+
+<span class="nc" id="L37">    public StrutturaController(StrutturaServiceImpl ss,UtenteServiceImpl us){</span>
+<span class="nc" id="L38">        this.ss=ss;</span>
+<span class="nc" id="L39">        this.us=us;</span>
+<span class="nc" id="L40">        rs=new RecensioneServiceImpl();</span>
+<span class="nc" id="L41">    }</span>
+
+<span class="fc" id="L43">    public StrutturaController(StrutturaServiceImpl ss,UtenteServiceImpl us,RecensioneServiceImpl rs){</span>
+<span class="fc" id="L44">        this.ss=ss;</span>
+<span class="fc" id="L45">        this.us=us;</span>
+<span class="fc" id="L46">        this.rs=rs;</span>
+<span class="fc" id="L47">    }</span>
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L51">        doPost(request,response);</span>
+<span class="nc" id="L52">    }</span>
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L56">        HttpSession session=request.getSession();</span>
+<span class="fc" id="L57">        String address=request.getServletContext().getContextPath();</span>
+<span class="fc" id="L58">        Struttura s=new Struttura(); // oggetto di appoggio;</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        String path=(request.getPathInfo() != null) ? request.getPathInfo(): &quot;/&quot;;</span>
+<span class="pc bpc" id="L60" title="1 of 7 branches missed.">        switch (path) {</span>
+            /**
+             * Raccoglie tutte le strutture disponibili
+             * e reindirizza alla pagina che le mostra a schermo
+             */
+            case &quot;/viewStructures&quot;:
+<span class="fc" id="L66">                session.setAttribute(&quot;listaStrutture&quot;,ss.visualizzaStrutture());</span>
+<span class="fc" id="L67">                request.getRequestDispatcher(&quot;/WEB-INF/interface/area_riservata/structures.jsp&quot;).forward(request, response);</span>
+<span class="fc" id="L68">                break;</span>
+
+            /**
+             * Raccoglie l'identificativo della struttura scelta dall'utente
+             * e la elimina dalla base di dati
+             */
+            case &quot;/deleteStruttura&quot;:
+<span class="fc" id="L75">                String idDelete=request.getParameter(&quot;selezioneDelete&quot;);</span>
+<span class="fc" id="L76">                s.setIdStruttura(Integer.parseInt(idDelete));</span>
+<span class="fc" id="L77">                ss.eliminaStruttura(s);</span>
+<span class="fc" id="L78">                response.sendRedirect(address+&quot;/gs/viewStructures&quot;);</span>
+<span class="fc" id="L79">                break;</span>
+
+            /**
+             * Raccoglie i parametri inseriti dall'utente per la modifica
+             * di una struttura e la modifica come richiesto
+             */
+            case &quot;/updateStruttura&quot;:
+<span class="fc" id="L86">                String idUpdate=request.getParameter(&quot;selezioneMod&quot;);</span>
+<span class="fc" id="L87">                s.setIdStruttura(Integer.parseInt(idUpdate));</span>
+<span class="fc" id="L88">                s.setNome(request.getParameter(&quot;nome&quot;));</span>
+<span class="fc" id="L89">                s.setCategoria(request.getParameter(&quot;cat&quot;));</span>
+<span class="fc" id="L90">                s.setDescrizione(request.getParameter(&quot;desc&quot;));</span>
+<span class="fc" id="L91">                s.setIndirizzo(request.getParameter(&quot;indirizzo&quot;));</span>
+<span class="fc" id="L92">                s.setTelefono(request.getParameter(&quot;tel&quot;));</span>
+<span class="fc" id="L93">                s.setCapienza(Integer.parseInt(request.getParameter(&quot;capienza&quot;)));</span>
+<span class="fc" id="L94">                s.setNumeroSpogliatoi(Integer.parseInt(request.getParameter(&quot;numSpo&quot;)));</span>
+<span class="fc" id="L95">                String park=request.getParameter(&quot;park&quot;);</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">                if (park!=null)</span>
+<span class="fc" id="L97">                    s.setParcheggio(true);</span>
+                else
+<span class="nc" id="L99">                    s.setParcheggio(false);</span>
+<span class="fc" id="L100">                ss.modificaStruttura(s);</span>
+<span class="fc" id="L101">                response.sendRedirect(address+&quot;/gs/viewStructures&quot;);</span>
+<span class="fc" id="L102">                break;</span>
+
+            /**
+             * Raccoglie i parametri inseriti per la creazione di una
+             * nuova struttura e la aggiunge alla base di dati
+             */
+            case &quot;/addStruttura&quot;:
+<span class="fc" id="L109">                s.setIdStruttura(ss.visualizzaStrutture().size()+1);</span>
+<span class="fc" id="L110">                s.setNome(request.getParameter(&quot;nome&quot;));</span>
+<span class="fc" id="L111">                s.setCategoria(request.getParameter(&quot;cat&quot;));</span>
+<span class="fc" id="L112">                s.setDescrizione(request.getParameter(&quot;desc&quot;));</span>
+<span class="fc" id="L113">                s.setIndirizzo(request.getParameter(&quot;indirizzo&quot;));</span>
+<span class="fc" id="L114">                s.setTelefono(request.getParameter(&quot;tel&quot;));</span>
+<span class="fc" id="L115">                s.setCapienza(Integer.parseInt(request.getParameter(&quot;capienza&quot;)));</span>
+<span class="fc" id="L116">                s.setNumeroSpogliatoi(Integer.parseInt(request.getParameter(&quot;numSpo&quot;)));</span>
+<span class="fc" id="L117">                park=request.getParameter(&quot;park&quot;);</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                if (park.equals(&quot;on&quot;))</span>
+<span class="fc" id="L119">                    s.setParcheggio(true);</span>
+                else
+<span class="fc" id="L121">                    s.setParcheggio(false);</span>
+<span class="fc" id="L122">                ss.inserisciStruttura(s);</span>
+<span class="fc" id="L123">                response.sendRedirect(address+&quot;/gs/viewStructures&quot;);</span>
+<span class="fc" id="L124">                break;</span>
+
+                /**
+                 * Reindirizza alla pagina di una singola struttura mostrandone
+                 * anche le recensioni
+                 */
+            case &quot;/singleStructure&quot;:
+<span class="fc" id="L131">                int idStruttura=Integer.parseInt(request.getParameter(&quot;idStruttura&quot;));</span>
+<span class="fc" id="L132">                s=ss.trovaStruttura(idStruttura);</span>
+<span class="fc" id="L133">                ArrayList&lt;Recensione&gt; listaRecensioni=rs.visualizzaRecensioniByIdStruttura(s);</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">                for (Recensione r:listaRecensioni){</span>
+<span class="fc" id="L135">                    Utente x=r.getUtente();</span>
+<span class="fc" id="L136">                    r.setUtente(us.trovaUtente(x.getIdUtente()));</span>
+<span class="fc" id="L137">                }</span>
+<span class="fc" id="L138">                session.setAttribute(&quot;struttura&quot;, s);</span>
+<span class="fc" id="L139">                session.setAttribute(&quot;listaRecensioni&quot;,listaRecensioni);</span>
+<span class="fc" id="L140">                request.getRequestDispatcher(&quot;/WEB-INF/interface/site/single_structure.jsp&quot;).forward(request, response);</span>
+<span class="fc" id="L141">                break;</span>
+
+            /**
+             * Visualizza le strutture appartenenti alla categoria selezionata dall'utente
+             */
+            case &quot;/viewStructuresUser&quot;:
+<span class="fc" id="L147">                String categoria=request.getParameter(&quot;categoria&quot;);</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">                if (categoria==null) {</span>
+<span class="fc" id="L149">                    session.setAttribute(&quot;listaStrutture&quot;, ss.visualizzaStrutture());</span>
+<span class="fc" id="L150">                    request.getRequestDispatcher(&quot;/WEB-INF/interface/site/showStructures.jsp&quot;).forward(request, response);</span>
+                } else{
+<span class="fc" id="L152">                    ArrayList&lt;Struttura&gt; listaStrutture=ss.visualizzaStrutture();</span>
+<span class="fc" id="L153">                    ArrayList&lt;Struttura&gt; result=new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                    for (Struttura x: listaStrutture){</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">                        if (x.getCategoria().equals(categoria))</span>
+<span class="nc" id="L156">                            result.add(x);</span>
+<span class="fc" id="L157">                    }</span>
+<span class="fc" id="L158">                    session.setAttribute(&quot;listaStrutture&quot;, result);</span>
+<span class="fc" id="L159">                    request.getRequestDispatcher(&quot;/WEB-INF/interface/site/showStructures.jsp&quot;).forward(request, response);</span>
+                }
+                break;
+
+        }
+<span class="fc" id="L164">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
