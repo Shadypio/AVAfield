@@ -246,7 +246,7 @@
 <!-- copyright section start -->
 <div class="copyright_section">
     <div class="container">
-        <p class="copyright_text">© 2021 All Rights Reserved. Design by <a>AVATeam</a></p>
+        <p class="copyright_text">© 2021 All Rights Reserved. Design by <a>AVAteam</a></p>
     </div>
 </div>
 <!-- copyright section end -->
