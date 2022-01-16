@@ -57,6 +57,23 @@
         padding: 1rem;
         background-color: lightblue;
     }
+/*#007bff*/
+    .inner{
+        background-color: #007bff;
+        border:5px solid black;
+        margin:25px;
+        padding:25px;
+        width: 300px;
+        display: none;
+        position: absolute;
+        right: 100%;
+    }
+
+    #info {
+        display: none;
+        font-size: 15px;
+        color: #1f1f1f;
+    }
 
 </style>
 <c:if test="${failedUtente}">
