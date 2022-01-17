@@ -85,7 +85,12 @@
                         <td class="labels">${evento.dataEvento}</td>
                         <td class="labels">${(evento.struttura).nome}</td>
                         <td class="labels">${(evento.struttura).indirizzo}</td>
-                        <td class="labels">${(evento.struttura).parcheggio}</td>
+                            <c:if test = "${(evento.struttura).parcheggio}">
+                                <td class="labels">Sì</td>
+                            </c:if>
+                            <c:if test = "${!(evento.struttura).parcheggio}">
+                                <td class="labels">No</td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </table>
