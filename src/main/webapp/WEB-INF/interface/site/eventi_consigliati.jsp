@@ -2,9 +2,6 @@
 <%@ page import="model.evento.Evento" %>
 <%@ page import="java.util.ArrayList" %>
 
-
-<%-- PAGINA CON LISTA DI EVENTI GIA PRESENTI VISUALIZZABILE DA TUTTI
-     OGNI EVENTO PERò è PRENOTABILE DA REGISTRATI SOLAMENTE--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Eventi</title>
+    <title>Eventi consigliati</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -47,15 +44,14 @@
 </head>
 <body>
 <a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
-<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/ge/consigliaEventi">Consigliami</a>
 <section>
     <section class="section-products">
         <div class="container">
             <div class="row justify-content-center text-center">
                 <div class="col-md-8 col-lg-6">
                     <div class="header">
-                        <h3>Dai un'occhiata</h3>
-                        <h2>Eventi disponibili</h2>
+                        <h3>Eventi consigliati</h3>
+                        <h2>in base al tuo livello atletico</h2>
                     </div>
                 </div>
             </div>

@@ -165,6 +165,25 @@ public class EventoController extends HttpServlet {
                     }
                 }
                 break;
+
+            /**
+             * Modulo FIA
+             * Si occupa di consigliare all'utente gli eventi migliori in base alla propria
+             * autovalutazione
+             */
+            case "/consigliaEventi":
+                verifica = (Boolean) session.getAttribute("loggato");
+                if (verifica == null)
+                    response.sendRedirect(address + "/ac/signin");
+                else {
+                    /**
+                     * Da completare con implementazione algoritmo
+                     */
+                    session.setAttribute("listaEventi", es.visualizzaEventi());
+                    session.setAttribute("listaStrutture", ss.visualizzaStrutture());
+                    request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);
+                }
+                break;
         }
     }
 
