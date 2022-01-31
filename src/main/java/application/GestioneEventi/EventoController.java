@@ -15,6 +15,8 @@ import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
 import model.utente.UtenteDAO;
+import moduloFIA.LinearSearch;
+import moduloFIA.UniformCostSearch;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,6 +28,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @WebServlet(name = "EventoController", value = "/ge/*")
 public class EventoController extends HttpServlet {
@@ -176,10 +179,25 @@ public class EventoController extends HttpServlet {
                 if (verifica == null)
                     response.sendRedirect(address + "/ac/signin");
                 else {
+                    ArrayList<Evento> listaEventi=es.visualizzaEventi();
+                    HashMap<Evento,Double> all=new HashMap<>();
+                    for (Evento event:listaEventi){
+                        Double media=es.calcolaMedia(event);
+                        all.put(event,media);
+                    }
+                    Utente utente1 = (Utente) session.getAttribute("profilo");
+                    LinearSearch ls = new LinearSearch();
+                    //start
+                    ls.search(listaEventi,utente1.getAutovalutazione());
+                    //end
+                    UniformCostSearch ucs=new UniformCostSearch();
+                    //start
+                    ucs.search(listaEventi,utente1.getAutovalutazione());
+                    //end
                     /**
                      * Da completare con implementazione algoritmo
                      */
-                    session.setAttribute("listaEventi", es.visualizzaEventi());
+                    session.setAttribute("listaEventi", listaEventi);
                     session.setAttribute("listaStrutture", ss.visualizzaStrutture());
                     request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);
                 }

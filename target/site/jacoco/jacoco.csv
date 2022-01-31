@@ -4,7 +4,7 @@ AVAfield,model.evento,EventoServiceImpl,134,24,4,0,36,7,12,2,10,2
 AVAfield,model.evento,EventoExtractor,0,48,0,0,0,12,0,2,0,2
 AVAfield,model.evento,Evento,47,45,0,0,13,20,4,13,4,13
 AVAfield,application.GestioneRecensioni,RecensioneController,59,139,3,5,18,33,7,3,4,2
-AVAfield,application.Autenticazione,AutenticazioneController,106,343,9,28,29,79,12,15,4,2
+AVAfield,application.Autenticazione,AutenticazioneController,98,361,8,31,28,83,11,17,4,2
 AVAfield,model.struttura,StrutturaDAO,36,198,3,7,13,54,3,8,0,6
 AVAfield,model.struttura,StrutturaServiceImpl,28,12,0,0,10,4,5,2,5,2
 AVAfield,model.struttura,StrutturaExtractor,0,54,0,0,0,12,0,2,0,2
@@ -13,7 +13,7 @@ AVAfield,model.utente,UtenteExtractor,0,54,0,0,0,12,0,2,0,2
 AVAfield,model.utente,UtenteServiceImpl,67,12,4,0,20,4,10,2,8,2
 AVAfield,model.utente,Utente,68,123,0,0,18,45,4,21,4,21
 AVAfield,model.utente,UtenteDAO,80,204,3,7,24,58,4,9,1,7
-AVAfield,application.GestioneStrutture,StrutturaController,61,306,4,17,19,71,8,11,4,2
+AVAfield,application.GestioneStrutture,StrutturaController,64,301,5,16,20,70,9,10,4,2
 AVAfield,model.recensione,RecensioneDAO,79,162,4,6,23,48,4,8,1,6
 AVAfield,model.recensione,Recensione,14,66,0,0,1,27,1,14,1,14
 AVAfield,model.recensione,RecensioneServiceImpl,27,12,0,0,10,4,5,2,5,2

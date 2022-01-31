@@ -148,6 +148,11 @@ public class EventoControllerTest {
         ec.doPost(request,response);
     }
 
+
+
+
+
+
    /* @Test
     public void partecipaEventoTest() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);

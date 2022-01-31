@@ -83,6 +83,10 @@ public class EventoServiceImpl implements EventoService{
     @Override
     public ArrayList<Evento> visualizzaEventi() {
         ArrayList<Evento> result=eveDAO.doRetrieveAll();
+        for (Evento e:result){
+            ArrayList<Utente> partecipanti=this.findAllUtenti(e);
+            e.setListaUtenti(partecipanti);
+        }
         return result;
     }
 
@@ -125,5 +129,17 @@ public class EventoServiceImpl implements EventoService{
     public Evento trovaEvento(int id){
         return eveDAO.doRetrieveById(id);
     }
+
+
+    public Double calcolaMedia(Evento e){
+        Double media,somma = 0.0;
+        ArrayList<Utente> partecipanti=this.findAllUtenti(e);
+        for (Utente u:partecipanti){
+            somma+=u.getAutovalutazione();
+        }
+        media=somma/partecipanti.size();
+        return media;
+    }
+
 
 }

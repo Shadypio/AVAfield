@@ -219,7 +219,6 @@ public class AutenticazioneControllerTest {
         when(request.getPathInfo()).thenReturn("/signin");
         when(request.getServletContext()).thenReturn(context);
         when(context.getContextPath()).thenReturn("ciao2");
-
         when(request.getParameter("email")).thenReturn("ciao3");
         when(request.getParameter("password")).thenReturn("ciao4");
 

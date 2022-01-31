@@ -162,9 +162,9 @@
                 "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
                 "<span> Telefono: </span> <input type='text' name='tel' id='tel1' placeholder='Telefono' required> <br>" +
                 "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
-                "<span> Capienza: <input type='number' name='capienza' id='capienza1' placeholder='Capienza' required> <br>" +
+                "<span> Capienza: <input min='0' type='number' name='capienza' id='capienza1' placeholder='Capienza' required> <br>" +
                 "<span> Categoria: </span> <input type='text' name='cat' id='cat1' placeholder='Categoria' required> <br>" +
-                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo1' placeholder='Numero Spogliatoi' required> <br>" +
+                "<span> Numero Spogliatoi: <input min='0' type='number' name='numSpo' id='numSpo1' placeholder='Numero Spogliatoi' required> <br>" +
                 "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio'> <br>" +
                 "<button class='btn primary' type='submit' id='bottonesalva' onclick='return'>Salva</button> " +
                 "<button class='btn primary' type='button' id='annulla'>Annulla</button> </fieldset>");
@@ -177,9 +177,9 @@
                 "<span> Indirizzo: </span> <input type='text' name='indirizzo' id='indirizzo' placeholder='Indirizzo' required> <br>" +
                 "<span> Telefono: </span> <input type='text' name='tel' id='tel' placeholder='Telefono' required> <br>" +
                 "<span> Descrizione: </span> <input type='text' name='desc' id='desc' placeholder='Descrizione' required> <br>" +
-                "<span> Capienza: <input type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
+                "<span> Capienza: <input min='0' type='number' name='capienza' id='capienza' placeholder='Capienza' required> <br>" +
                 "<span> Categoria: </span> <input type='text' name='cat' id='cat' placeholder='Categoria' required> <br>" +
-                "<span> Numero Spogliatoi: <input type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
+                "<span> Numero Spogliatoi: <input min='0' type='number' name='numSpo' id='numSpo' placeholder='Numero Spogliatoi' required> <br>" +
                 "<span> Parcheggio: <input type='checkbox' name='park' id='park' placeholder='Parcheggio'> <br>" +
                 "<button class='btn primary' type='submit'>Salva</button> " +
                 "<button class='btn primary' type='button' id='annulla2'>Annulla</button> </fieldset>")

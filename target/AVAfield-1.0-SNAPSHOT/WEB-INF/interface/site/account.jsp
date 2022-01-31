@@ -46,7 +46,7 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn2.iconfinder.com/data/icons/people-flat-design/64/Sport-Athlete-Sportsman-Player-Exercise-Fitness-Avatar-1024.png"><span class="font-weight-bold"><%=u.getNome()%></span><span class="text-black-50"><%=u.getEmail()%></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/index.jsp" style="margin-top: 20px">Torna alla Home</a></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/ac/logout" style="margin-top: 10px">Logout</a></span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn2.iconfinder.com/data/icons/people-flat-design/64/Sport-Athlete-Sportsman-Player-Exercise-Fitness-Avatar-1024.png"><span class="font-weight-bold"><%=u.getUsername()%></span><span class="text-black-50"><%=u.getEmail()%></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/index.jsp" style="margin-top: 20px">Torna alla Home</a></span><span><a class="btn btn-primary profile-button" href="<%=request.getContextPath()%>/ac/logout" style="margin-top: 10px">Logout</a></span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
             <form class="p-3 py-5" action="${pageContext.request.contextPath}/gu/updateUtente" method="post"> <!-- onsubmit="return validatePass()" -->
@@ -85,7 +85,12 @@
                         <td class="labels">${evento.dataEvento}</td>
                         <td class="labels">${(evento.struttura).nome}</td>
                         <td class="labels">${(evento.struttura).indirizzo}</td>
-                        <td class="labels">${(evento.struttura).parcheggio}</td>
+                            <c:if test = "${(evento.struttura).parcheggio}">
+                                <td class="labels">Sì</td>
+                            </c:if>
+                            <c:if test = "${!(evento.struttura).parcheggio}">
+                                <td class="labels">No</td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </table>

@@ -115,10 +115,10 @@ public class StrutturaController extends HttpServlet {
 <span class="fc" id="L115">                s.setCapienza(Integer.parseInt(request.getParameter(&quot;capienza&quot;)));</span>
 <span class="fc" id="L116">                s.setNumeroSpogliatoi(Integer.parseInt(request.getParameter(&quot;numSpo&quot;)));</span>
 <span class="fc" id="L117">                park=request.getParameter(&quot;park&quot;);</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">                if (park.equals(&quot;on&quot;))</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">                if (park!=null)</span>
 <span class="fc" id="L119">                    s.setParcheggio(true);</span>
                 else
-<span class="fc" id="L121">                    s.setParcheggio(false);</span>
+<span class="nc" id="L121">                    s.setParcheggio(false);</span>
 <span class="fc" id="L122">                ss.inserisciStruttura(s);</span>
 <span class="fc" id="L123">                response.sendRedirect(address+&quot;/gs/viewStructures&quot;);</span>
 <span class="fc" id="L124">                break;</span>

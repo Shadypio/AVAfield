@@ -1,1 +1,10 @@
+application\Autenticazione\AutenticazioneControllerTest.class
+application\GestioneRecensioni\RecensioneControllerTest.class
+application\GestioneUtenti\UtenteControllerTest.class
+model\evento\EventoDAOTest.class
+model\recensione\RecensioneDAOTest.class
+application\GestioneEventi\EventoControllerTest.class
+model\utente\UtenteDAOTest.class
+application\GestioneStrutture\StrutturaControllerTest.class
 model\eventoutente\EventoUtenteDAOTest.class
+model\struttura\StrutturaDAOTest.class
