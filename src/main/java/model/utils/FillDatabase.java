@@ -54,7 +54,7 @@ public class FillDatabase {
                 ps.setString(6, "password" + i);
                 ps.setBoolean(7, false);
                 ps.setString(8, "3334445556");
-                ps.setInt(9, random.nextInt(4) + 1);
+                ps.setInt(9, random.nextInt(5) + 1);
                 if (ps.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }
@@ -97,9 +97,10 @@ public class FillDatabase {
                 ps.setInt(1, i);
                 ps.setString(2, "evento" + i);
                 ps.setInt(3, random.nextInt(50)+15);
-                ps.setDate(4, Date.valueOf("2022-2-11"));
-                ps.setTime(5, Time.valueOf("13:20:00"));
-                ps.setInt(6, random.nextInt(8) + 1);
+                ps.setDate(4, Date.valueOf("2022-"+((random.nextInt(12) + 1))+"-"+((random.nextInt(28)+1))));
+                //ps.setDate(4, Date.valueOf("2022-2-11"));
+                ps.setTime(5, Time.valueOf(random.nextInt(13)+7+":00:00"));
+                ps.setInt(6, random.nextInt(20) + 1);
                 if (ps.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }
