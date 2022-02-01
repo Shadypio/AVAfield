@@ -21,10 +21,10 @@ public class ConPool {
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
             p.setUsername("root");
             p.setPassword("totti100");
-            p.setMaxActive(100);
+            p.setMaxActive(10000);
             p.setInitialSize(10);
             p.setMinIdle(10);
-            p.setRemoveAbandonedTimeout(60);
+            p.setRemoveAbandonedTimeout(6000);
             p.setRemoveAbandoned(true);
             datasource = new DataSource();
             datasource.setPoolProperties(p);

@@ -183,10 +183,10 @@ public class EventoController extends HttpServlet {
                     Utente utente1 = (Utente) session.getAttribute("profilo");
                     UniformCostSearch ucs=new UniformCostSearch();
                     //start
-                    final long startTime = System.currentTimeMillis();
+                    final long startTime = System.nanoTime();
                     ArrayList<Evento> result=ucs.search(listaEventi,utente1.getAutovalutazione());
                     //end
-                    final long endTime = System.currentTimeMillis();
+                    final long endTime = System.nanoTime();
                     //Report
                     System.out.println("Execution time: " + (endTime - startTime)+"\n\n" );
                     session.setAttribute("listaEventi", result);
@@ -208,10 +208,10 @@ public class EventoController extends HttpServlet {
                     Utente utente1 = (Utente) session.getAttribute("profilo");
                     LinearSearch ls = new LinearSearch();
                     //start
-                    final long startTime = System.currentTimeMillis();
+                    final long startTime = System.nanoTime();
                     ArrayList<Evento> result=ls.search(listaEventi,utente1.getAutovalutazione());
                     //end
-                    final long endTime = System.currentTimeMillis();
+                    final long endTime = System.nanoTime();
                     //Report
                     System.out.println("Execution time: " + (endTime - startTime)+"\n\n" );
                     session.setAttribute("listaEventi", result);

@@ -17,6 +17,7 @@ public class UniformCostSearch {
         Double intornoMin=k-0.5;
         Double intornoMax=k+0.5;
         int i=0;
+
         System.out.println("Ricerca a Costo Uniforme:\nIntorno Max: "+intornoMax+" Intorno Min: "+intornoMin);
         boolean outRange=false;
         while(i<all.size() && !outRange){

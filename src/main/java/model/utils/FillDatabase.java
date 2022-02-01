@@ -8,7 +8,7 @@ import java.util.Random;
 public class FillDatabase {
 
     private static Random random = new Random();
-    private static int size=200;
+    private static int size=2000;
     private static int sizeStrutture=10;
 
     public static void main(String[] args) {
@@ -113,7 +113,7 @@ public class FillDatabase {
                 ps.setString(6, "password" + i);
                 ps.setBoolean(7, false);
                 ps.setString(8, "3334445556");
-                ps.setInt(9, random.nextInt(4) + 1);
+                ps.setInt(9, random.nextInt(5) + 1);
                 if (ps.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }
@@ -190,41 +190,25 @@ public class FillDatabase {
 
     private static void generateUsersEvents() {
         try (Connection con = ConPool.getConnection()) {
-            ArrayList<Integer> riserve=new ArrayList<>();
-            riserve.add(101);
-            riserve.add(102);
-            riserve.add(103);
-            int r=0;
             ArrayList<Integer> quanti=new ArrayList<>();
             quanti.add(5);
             quanti.add(7);
             quanti.add(10);
-            ArrayList<Integer> users=new ArrayList<>();
+            int countUser=0;
             for (int i = 1; i < size; i++) {
                 int partecipanti=random.nextInt(3);
+                if ((countUser+partecipanti)>size-1)
+                    countUser=0;
                 for (int j=0; j<quanti.get(partecipanti); j++) {
-                    System.out.println(users.size());
                     PreparedStatement ps = con.prepareStatement(
                             "INSERT INTO evento_utente (eve_fk,ute_fk) VALUES(?,?)");
                     ps.setInt(1, i);
-                    Integer utenteRandom= random.nextInt(size)+1;
-                    if (users.size()>0) {
-                        for (Integer x : users) {
-                            if (x == utenteRandom) {
-                                utenteRandom = riserve.get(r);
-                                if (r == 2)
-                                    r = 0;
-                                r++;
-                            }
-                        }
-                    }
-                    users.add(utenteRandom);
-                    ps.setInt(2, utenteRandom);
+                    ps.setInt(2, countUser++);
                     if (ps.executeUpdate() != 1) {
                         throw new RuntimeException("INSERT error.");
                     }
                 }
-                users.clear();
+                countUser+=(partecipanti/2);
             }
         }catch (SQLException throwables) {
             throwables.printStackTrace();
