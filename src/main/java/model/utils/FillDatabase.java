@@ -8,10 +8,13 @@ import java.util.Random;
 public class FillDatabase {
 
     private static Random random = new Random();
-    private static int size=50;
+    private static int size=200;
     private static int sizeStrutture=10;
 
     public static void main(String[] args) {
+        generateRiserva1();
+        generateRiserva2();
+        generateRiserva3();
         generateAdmin();
         generateUsers();
         generateStructures();
@@ -19,10 +22,67 @@ public class FillDatabase {
         generateReviews();
         generateUsersEvents();
     }
+    private static void generateRiserva1() {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("insert into avafieldbase.utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) values (?,?,?,?,?,SHA1(?),?,?,?);");
+            ps.setInt(1, size+1);
+            ps.setString(2, "Alex");
+            ps.setString(3, "Rusciano");
+            ps.setString(4, "alex.sa4ever@hotmail.it");
+            ps.setString(5, "arusc");
+            ps.setString(6, "arusc");
+            ps.setBoolean(7, false);
+            ps.setString(8, "3334445556");
+            ps.setInt(9, 3);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
+    private static void generateRiserva2() {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("insert into avafieldbase.utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) values (?,?,?,?,?,SHA1(?),?,?,?);");
+            ps.setInt(1, size+2);
+            ps.setString(2, "Alessio");
+            ps.setString(3, "Alfieri");
+            ps.setString(4, "alfio00@hotmail.it");
+            ps.setString(5, "alfio");
+            ps.setString(6, "alfio");
+            ps.setBoolean(7, false);
+            ps.setString(8, "3334445556");
+            ps.setInt(9, 3);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static void generateRiserva3() {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("insert into avafieldbase.utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) values (?,?,?,?,?,SHA1(?),?,?,?);");
+            ps.setInt(1, size+3);
+            ps.setString(2, "Vincenzopio");
+            ps.setString(3, "Amendola");
+            ps.setString(4, "vinci@hotmail.it");
+            ps.setString(5, "shady");
+            ps.setString(6, "shady");
+            ps.setBoolean(7, false);
+            ps.setString(8, "3334445556");
+            ps.setInt(9, 3);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
     private static void generateAdmin() {
         try (Connection con = ConPool.getConnection()) {
-
             PreparedStatement ps = con.prepareStatement("insert into avafieldbase.utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) values (?,?,?,?,?,SHA1(?),?,?,?);");
             ps.setInt(1, 1);
             ps.setString(2, "Mina");
@@ -143,6 +203,7 @@ public class FillDatabase {
             for (int i = 1; i < size; i++) {
                 int partecipanti=random.nextInt(3);
                 for (int j=0; j<quanti.get(partecipanti); j++) {
+                    System.out.println(users.size());
                     PreparedStatement ps = con.prepareStatement(
                             "INSERT INTO evento_utente (eve_fk,ute_fk) VALUES(?,?)");
                     ps.setInt(1, i);

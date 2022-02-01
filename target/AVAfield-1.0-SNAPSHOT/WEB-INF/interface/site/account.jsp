@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.utente.Utente" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.evento.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- PAGINA GESTIONE DEI DATI DELL'ACCOUNT DI UN UTENTE LOGGATO
      VISUALIZZARE ANCHE GLI EVENTI LEGATI ALL'UTENTE CHE è ENTRATO --%>
@@ -79,6 +81,10 @@
                         <th class="labels">Indirizzo Struttura</th>
                         <th class="labels">Parcheggio</th>
                     </tr>
+                    <%  HttpSession s= request.getSession();
+                        ArrayList<Evento> lista= (ArrayList<Evento>) s.getAttribute("listaEventi");
+                        System.out.println(lista.size());
+                    %>
                     <c:forEach var="evento" items="${listaEventi}">
                         <tr>
                         <td class="labels">${evento.idEvento}</td>
