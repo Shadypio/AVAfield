@@ -10,6 +10,7 @@ import model.utente.Utente;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Evento {
 
@@ -17,7 +18,6 @@ public class Evento {
     public Evento(){
 
     }
-
 
     /**
      * Crea un nuovo Evento settando gli opportuni parametri
@@ -77,6 +77,8 @@ public class Evento {
     public void setListaUtenti(ArrayList<Utente> listaUtenti) {
         this.listaUtenti = listaUtenti;
     }
+    public Double getMedia() { return media; }
+    public void setMedia(Double media) { this.media = media; }
 
     @Override
     public String toString() {
@@ -91,11 +93,21 @@ public class Evento {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return idEvento == evento.idEvento && numeroPartecipanti == evento.numeroPartecipanti && Objects.equals(nome, evento.nome) && Objects.equals(dataEvento, evento.dataEvento) && Objects.equals(orario, evento.orario) && Objects.equals(media, evento.media) && Objects.equals(struttura, evento.struttura) && Objects.equals(listaUtenti, evento.listaUtenti);
+    }
+
+
     private int idEvento;
     private String nome;
     private int numeroPartecipanti;
     private Date dataEvento;
     private Time orario;
+    private Double media;
     private Struttura struttura;
     private ArrayList<Utente> listaUtenti;
 

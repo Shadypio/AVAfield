@@ -84,8 +84,15 @@ public class EventoServiceImpl implements EventoService{
     public ArrayList<Evento> visualizzaEventi() {
         ArrayList<Evento> result=eveDAO.doRetrieveAll();
         for (Evento e:result){
+            Double somma = 0.0,media=0.0;
             ArrayList<Utente> partecipanti=this.findAllUtenti(e);
             e.setListaUtenti(partecipanti);
+            for(Utente u:partecipanti)
+                somma+=u.getAutovalutazione();
+
+            media=somma/partecipanti.size();
+            e.setMedia(media);
+            this.modificaEvento(e);
         }
         return result;
     }

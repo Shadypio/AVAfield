@@ -21,13 +21,14 @@ public class EventoDAO {
         Struttura s=e.getStruttura();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, str_fk) VALUES(?,?,?,?,?,?)");
+                    "INSERT INTO evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, media, str_fk) VALUES(?,?,?,?,?,?,?)");
             ps.setInt(1,e.getIdEvento());
             ps.setString(2,e.getNome());
             ps.setInt(3,e.getNumeroPartecipanti());
             ps.setDate(4, (Date) e.getDataEvento());
             ps.setTime(5, (Time) e.getOrario());
-            ps.setInt(6, s.getIdStruttura());
+            ps.setDouble(6,e.getMedia());
+            ps.setInt(7, s.getIdStruttura());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
@@ -44,13 +45,14 @@ public class EventoDAO {
     public boolean doChanges(Evento e){
         Struttura s=e.getStruttura();
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE evento e SET e.nome = (?), e.numeroPartecipanti = (?), e.dataEvento =(?), e.orario=(?), e.str_fk=(?) WHERE e.idEvento = (?);");
+            PreparedStatement ps = con.prepareStatement("UPDATE evento e SET e.nome = (?), e.numeroPartecipanti = (?), e.dataEvento =(?), e.orario=(?), e.media=(?), e.str_fk=(?) WHERE e.idEvento = (?);");
             ps.setString(1,e.getNome());
             ps.setInt(2,e.getNumeroPartecipanti());
             ps.setDate(3, (Date) e.getDataEvento());
             ps.setTime(4, (Time) e.getOrario());
-            ps.setInt(5, s.getIdStruttura());
-            ps.setInt(6,e.getIdEvento());
+            ps.setDouble(5,e.getMedia());
+            ps.setInt(6, s.getIdStruttura());
+            ps.setInt(7,e.getIdEvento());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }

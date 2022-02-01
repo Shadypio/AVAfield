@@ -13,11 +13,13 @@ public class LinearSearch {
         Double intornoMin=k-0.5;
         Double intornoMax=k+0.5;
         int i=0;
+        System.out.println("Intorno Max: "+intornoMax+" Intorno Min: "+intornoMin);
         while(i<all.size()){
-            //if(all.get(i).getMedia() <= intornoMax || all.get(i).getMedia())
+            if(all.get(i).getMedia() <= intornoMax && all.get(i).getMedia()>= intornoMin)
                 result.add(all.get(i));
             i++;
         }
+        System.out.println(result.size());
         return result;
     }
 

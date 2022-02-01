@@ -1,22 +1,23 @@
 package model.utils;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FillDatabase {
 
     private static Random random = new Random();
+    private static int size=50;
+    private static int sizeStrutture=10;
 
     public static void main(String[] args) {
-
         generateAdmin();
         generateUsers();
         generateStructures();
         generateEvents();
         generateReviews();
         generateUsersEvents();
-
-
     }
 
     private static void generateAdmin() {
@@ -41,10 +42,8 @@ public class FillDatabase {
     }
 
     private static void generateUsers() {
-
         try (Connection con = ConPool.getConnection()) {
-
-            for (int i = 2; i < 102; i++) {
+            for (int i = 2; i < size; i++) {
                 PreparedStatement ps = con.prepareStatement("insert into avafieldbase.utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) values (?,?,?,?,?,SHA1(?),?,?,?);");
                 ps.setInt(1, i);
                 ps.setString(2, "nome" + i);
@@ -67,7 +66,7 @@ public class FillDatabase {
     private static void generateStructures() {
         String[] categories = {"Pallavolo", "Calcio", "Basket", "Tennis", "Paddle"};
         try (Connection con = ConPool.getConnection()) {
-            for (int i = 1; i < 21; i++) {
+            for (int i = 1; i < sizeStrutture; i++) {
                 PreparedStatement ps = con.prepareStatement(
                         "INSERT INTO struttura (idStruttura, nome, indirizzo, telefono, descrizione, capienza, categoria, numeroSpogliatoi, parcheggio) VALUES(?,?,?,?,?,?,?,?,?)");
                 ps.setInt(1, i);
@@ -89,17 +88,17 @@ public class FillDatabase {
     }
 
     private static void generateEvents() {
-
         try (Connection con = ConPool.getConnection()) {
-            for (int i = 1; i < 100; i++) {
+            for (int i = 1; i < size; i++) {
                 PreparedStatement ps = con.prepareStatement(
-                        "INSERT INTO evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, str_fk) VALUES(?,?,?,?,?,?)");
+                        "INSERT INTO evento (idEvento, nome, numeroPartecipanti, dataEvento, orario, media, str_fk) VALUES(?,?,?,?,?,?,?)");
                 ps.setInt(1, i);
                 ps.setString(2, "evento" + i);
                 ps.setInt(3, random.nextInt(50)+15);
                 ps.setDate(4, Date.valueOf("2022-2-11"));
                 ps.setTime(5, Time.valueOf("13:20:00"));
-                ps.setInt(6, random.nextInt(8) + 1);
+                ps.setFloat(6,0);
+                ps.setInt(7, random.nextInt(9) + 1);
                 if (ps.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }
@@ -118,8 +117,8 @@ public class FillDatabase {
                 ps.setString(2, "titolo" + i);
                 ps.setString(3, "testo" + i);
                 ps.setInt(4, random.nextInt(4) + 1);
-                ps.setInt(5, random.nextInt(80) + 1);
-                ps.setInt(6, random.nextInt(20) + 1);
+                ps.setInt(5, random.nextInt(size-1) + 1);
+                ps.setInt(6, random.nextInt(9) + 1);
                 if (ps.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }
@@ -130,6 +129,44 @@ public class FillDatabase {
     }
 
     private static void generateUsersEvents() {
-
+        try (Connection con = ConPool.getConnection()) {
+            ArrayList<Integer> riserve=new ArrayList<>();
+            riserve.add(101);
+            riserve.add(102);
+            riserve.add(103);
+            int r=0;
+            ArrayList<Integer> quanti=new ArrayList<>();
+            quanti.add(5);
+            quanti.add(7);
+            quanti.add(10);
+            ArrayList<Integer> users=new ArrayList<>();
+            for (int i = 1; i < size; i++) {
+                int partecipanti=random.nextInt(3);
+                for (int j=0; j<quanti.get(partecipanti); j++) {
+                    PreparedStatement ps = con.prepareStatement(
+                            "INSERT INTO evento_utente (eve_fk,ute_fk) VALUES(?,?)");
+                    ps.setInt(1, i);
+                    Integer utenteRandom= random.nextInt(size)+1;
+                    if (users.size()>0) {
+                        for (Integer x : users) {
+                            if (x == utenteRandom) {
+                                utenteRandom = riserve.get(r);
+                                if (r == 2)
+                                    r = 0;
+                                r++;
+                            }
+                        }
+                    }
+                    users.add(utenteRandom);
+                    ps.setInt(2, utenteRandom);
+                    if (ps.executeUpdate() != 1) {
+                        throw new RuntimeException("INSERT error.");
+                    }
+                }
+                users.clear();
+            }
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

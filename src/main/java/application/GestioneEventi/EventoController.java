@@ -180,24 +180,16 @@ public class EventoController extends HttpServlet {
                     response.sendRedirect(address + "/ac/signin");
                 else {
                     ArrayList<Evento> listaEventi=es.visualizzaEventi();
-                    HashMap<Evento,Double> all=new HashMap<>();
-                    for (Evento event:listaEventi){
-                        Double media=es.calcolaMedia(event);
-                        all.put(event,media);
-                    }
                     Utente utente1 = (Utente) session.getAttribute("profilo");
                     LinearSearch ls = new LinearSearch();
                     //start
-                    ls.search(listaEventi,utente1.getAutovalutazione());
+                    //ArrayList<Evento> result=ls.search(listaEventi,utente1.getAutovalutazione());
                     //end
                     UniformCostSearch ucs=new UniformCostSearch();
                     //start
-                    ucs.search(listaEventi,utente1.getAutovalutazione());
+                    ArrayList<Evento> result=ucs.search(listaEventi,utente1.getAutovalutazione());
                     //end
-                    /**
-                     * Da completare con implementazione algoritmo
-                     */
-                    session.setAttribute("listaEventi", listaEventi);
+                    session.setAttribute("listaEventi", result);
                     session.setAttribute("listaStrutture", ss.visualizzaStrutture());
                     request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);
                 }

@@ -63,6 +63,7 @@
                     <div class="col-md-12"><label class="labels">Username</label> <input type="text" class="form-control" value="<%=u.getUsername()%>" readonly name="username"></div>
                     <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" value="<%=u.getPassword()%>" readonly name="password" id="password"></div>
                     <div class="col-md-12"><label class="labels">Telefono</label><input type="text" class="form-control" value="<%=u.getNumeroTelefono()%>" readonly name="telefono"></div>
+                    <div class="col-md-12"><label class="labels">Autovalutazione</label><input class="form-control" type="range" min="0" max="5" name="autovalutazione" id="autovalutazione">
                 </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" onclick="salva()">Salva</button> <button class="btn btn-primary profile-button" type="button" id="mod">Modifica</button></div>
             </form>
@@ -79,6 +80,7 @@
                         <th class="labels">Parcheggio</th>
                     </tr>
                     <c:forEach var="evento" items="${listaEventi}">
+
                         <tr>
                         <td class="labels">${evento.idEvento}</td>
                         <td class="labels">${evento.numeroPartecipanti}</td>

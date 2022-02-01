@@ -39,6 +39,7 @@ create table evento
     numeroPartecipanti int         not null,
     dataEvento         date        not null,
     orario             time        not null,
+    media              float       not null,
     str_fk             int         null,
     constraint str_evento_fk
         foreign key (str_fk) references struttura (idStruttura)

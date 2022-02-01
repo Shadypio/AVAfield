@@ -124,6 +124,7 @@ public class UtenteController extends HttpServlet {
                 u.setUsername(request.getParameter("username"));
                 nuovaPass=request.getParameter("password");
                 u.setNumeroTelefono(request.getParameter("telefono"));
+                u.setAutovalutazione(Integer.parseInt(request.getParameter("autovalutazione")));
                 u.setAdmin(false);
                 x= us.trovaUtente(u.getIdUtente());
                 vecchiaPass=x.getPassword();
