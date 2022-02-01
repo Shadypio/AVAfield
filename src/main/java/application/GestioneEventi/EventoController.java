@@ -172,9 +172,34 @@ public class EventoController extends HttpServlet {
             /**
              * Modulo FIA
              * Si occupa di consigliare all'utente gli eventi migliori in base alla propria
-             * autovalutazione
+             * autovalutazione attraverso l'algoritmo di Ricerca a Costo Uniforme
              */
-            case "/consigliaEventi":
+            case "/consigliaEventiUniform":
+                verifica = (Boolean) session.getAttribute("loggato");
+                if (verifica == null)
+                    response.sendRedirect(address + "/ac/signin");
+                else {
+                    ArrayList<Evento> listaEventi=es.visualizzaEventi();
+                    Utente utente1 = (Utente) session.getAttribute("profilo");
+                    UniformCostSearch ucs=new UniformCostSearch();
+                    //start
+                    final long startTime = System.currentTimeMillis();
+                    ArrayList<Evento> result=ucs.search(listaEventi,utente1.getAutovalutazione());
+                    //end
+                    final long endTime = System.currentTimeMillis();
+                    //Report
+                    System.out.println("Execution time: " + (endTime - startTime)+"\n\n" );
+                    session.setAttribute("listaEventi", result);
+                    session.setAttribute("listaStrutture", ss.visualizzaStrutture());
+                    request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);
+                }
+                break;
+            /**
+             * Modulo FIA
+             * Si occupa di consigliare all'utente gli eventi migliori in base alla propria
+             * autovalutazione attraverso l'algoritmo di Ricerca Lineare
+             */
+            case "/consigliaEventiLinear":
                 verifica = (Boolean) session.getAttribute("loggato");
                 if (verifica == null)
                     response.sendRedirect(address + "/ac/signin");
@@ -183,12 +208,12 @@ public class EventoController extends HttpServlet {
                     Utente utente1 = (Utente) session.getAttribute("profilo");
                     LinearSearch ls = new LinearSearch();
                     //start
-                    //ArrayList<Evento> result=ls.search(listaEventi,utente1.getAutovalutazione());
+                    final long startTime = System.currentTimeMillis();
+                    ArrayList<Evento> result=ls.search(listaEventi,utente1.getAutovalutazione());
                     //end
-                    UniformCostSearch ucs=new UniformCostSearch();
-                    //start
-                    ArrayList<Evento> result=ucs.search(listaEventi,utente1.getAutovalutazione());
-                    //end
+                    final long endTime = System.currentTimeMillis();
+                    //Report
+                    System.out.println("Execution time: " + (endTime - startTime)+"\n\n" );
                     session.setAttribute("listaEventi", result);
                     session.setAttribute("listaStrutture", ss.visualizzaStrutture());
                     request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);

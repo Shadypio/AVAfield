@@ -17,10 +17,13 @@ public class UniformCostSearch {
         Double intornoMin=k-0.5;
         Double intornoMax=k+0.5;
         int i=0;
+        System.out.println("Ricerca a Costo Uniforme:\nIntorno Max: "+intornoMax+" Intorno Min: "+intornoMin);
         while(all.get(i).getMedia()>=intornoMin && all.get(i).getMedia()<=intornoMax){
             result.add(all.get(i));
             i++;
         }
+        System.out.println("Numero di Eventi trovati:"+result.size());
+        System.out.println("Numero di Iterazioni effettuate:"+i);
         return result;
     }
 }

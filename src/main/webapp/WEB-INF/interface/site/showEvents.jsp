@@ -47,7 +47,8 @@
 </head>
 <body>
 <a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
-<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/ge/consigliaEventi">Consigliami</a>
+<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/ge/consigliaEventiUniform">Consigliami [Uniform]</a>
+<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/ge/consigliaEventiLinear">Consigliami [Linear]</a>
 <section>
     <section class="section-products">
         <div class="container">
