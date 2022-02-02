@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.evento.Evento" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.DecimalFormat" %>
 
 
 <%-- PAGINA CON LISTA DI EVENTI GIA PRESENTI VISUALIZZABILE DA TUTTI
@@ -64,6 +65,7 @@
                 <!-- Single Product -->
                     <%  int i=0;
                         ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
+                    <%DecimalFormat df = new DecimalFormat("#.00");%>
                 <c:forEach items="${listaEventi}" var="evento">
                         <%Evento evento = eventi.get(i++);%>
                 <div class="col-md-6 col-lg-4 col-xl-3"
@@ -78,6 +80,7 @@
                             </h4>
                             <p class="product-price"><span>Partecipanti: ${evento.numeroPartecipanti}</span></p>
                             <p class="product-price"><span>Data: ${evento.dataEvento}</span></p>
+                            <p class="product-price"><span>Media Partecipanti: <%=df.format(evento.getMedia())%></span></p>
                         </div>
                     </div>
                 </div>

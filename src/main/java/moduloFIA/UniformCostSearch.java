@@ -2,7 +2,6 @@ package moduloFIA;
 
 import model.evento.Evento;
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class UniformCostSearch {
@@ -10,16 +9,11 @@ public class UniformCostSearch {
         ArrayList<Evento> result= new ArrayList<>();
         if (all.isEmpty())
             return result;
-        if (k>2.5)
-            Collections.sort(all,new ComparatorDecrescente());
-        else
-            Collections.sort(all,new ComparatorCrescente());
         Double intornoMin=k-0.5;
         Double intornoMax=k+0.5;
         int i=0;
-
-        System.out.println("Ricerca a Costo Uniforme:\nIntorno Max: "+intornoMax+" Intorno Min: "+intornoMin);
         boolean outRange=false;
+        System.out.println("Ricerca a Costo Uniforme:\nIntorno Max: "+intornoMax+" Intorno Min: "+intornoMin);
         while(i<all.size() && !outRange){
             if (all.get(i).getMedia()>=intornoMin && all.get(i).getMedia()<=intornoMax)
                 result.add(all.get(i));

@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.evento.Evento" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="model.utente.Utente" %>
+<%@ page import="java.text.DecimalFormat" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -44,14 +46,24 @@
 </head>
 <body>
 <a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/index.jsp">Torna alla Home</a>
+<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/ge/consigliaEventiUniform">Consigliami [Uniform]</a>
+<a class="btn btn-primary btn-ghost btn-slide" href="<%=request.getContextPath()%>/ge/consigliaEventiLinear">Consigliami [Linear]</a>
 <section>
     <section class="section-products">
         <div class="container">
             <div class="row justify-content-center text-center">
                 <div class="col-md-8 col-lg-6">
                     <div class="header">
-                        <h3>Eventi consigliati</h3>
-                        <h2>in base al tuo livello atletico</h2>
+                        <c:choose>
+                            <c:when test="${uniform}">
+                                <h3>Eventi consigliati - Algoritmo Ricerca a Costo Uniforme</h3>
+                            </c:when>
+                            <c:otherwise>
+                                <h3>Eventi consigliati - Algoritmo Ricerca Lineare</h3>
+                            </c:otherwise>
+                        </c:choose>
+                        <% Utente u= (Utente) request.getSession().getAttribute("profilo");%>
+                        <h2>Livello Atletico: <%=u.getAutovalutazione()%></h2>
                     </div>
                 </div>
             </div>
@@ -59,20 +71,20 @@
                 <!-- Single Product -->
                     <%  int i=0;
                         ArrayList<Evento> eventi = (ArrayList<Evento>) request.getSession().getAttribute("listaEventi");%>
+                    <%DecimalFormat df = new DecimalFormat("#.00");%>
                 <c:forEach items="${listaEventi}" var="evento">
                         <%Evento evento = eventi.get(i++);%>
                 <div class="col-md-6 col-lg-4 col-xl-3"
                      onclick="window.open('<%=request.getContextPath()%>/ge/partecipaAdEvento?idEvento=${evento.idEvento}', '_self');">
                     <div id="product-1" class="single-product">
                         <div class="part-1">
-
                         </div>
                         <div class="part-2">
-
                             <h4 class="product-title"><%=evento.getNome() %>
                             </h4>
                             <p class="product-price"><span>Partecipanti: ${evento.numeroPartecipanti}</span></p>
                             <p class="product-price"><span>Data: ${evento.dataEvento}</span></p>
+                            <p class="product-price"><span>Media Partecipanti: <%=df.format(evento.getMedia())%></span></p>
                         </div>
                     </div>
                 </div>

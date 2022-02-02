@@ -65,12 +65,12 @@
                     <div class="col-md-12"><label class="labels">Username</label> <input type="text" class="form-control" value="<%=u.getUsername()%>" readonly name="username"></div>
                     <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" value="<%=u.getPassword()%>" readonly name="password" id="password"></div>
                     <div class="col-md-12"><label class="labels">Telefono</label><input type="text" class="form-control" value="<%=u.getNumeroTelefono()%>" readonly name="telefono"></div>
-                    <div class="col-md-12"><label class="labels">Autovalutazione</label><input class="form-control" type="range" min="0" max="5" name="autovalutazione" id="autovalutazione">
+                    <div class="col-md-12"><label class="labels">Autovalutazione</label><input class="form-control" value="<%=u.getAutovalutazione()%>" type="range" min="0" max="5" name="autovalutazione" id="autovalutazione" oninput="this.nextElementSibling.value = this.value"><output><%=u.getAutovalutazione()%></output>
                 </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" onclick="salva()">Salva</button> <button class="btn btn-primary profile-button" type="button" id="mod">Modifica</button></div>
             </form>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="p-3 py-5 scrollmenu">
                 <table>
                     <tr>
@@ -83,7 +83,6 @@
                     </tr>
                     <%  HttpSession s= request.getSession();
                         ArrayList<Evento> lista= (ArrayList<Evento>) s.getAttribute("listaEventi");
-                        System.out.println(lista.size());
                     %>
                     <c:forEach var="evento" items="${listaEventi}">
                         <tr>

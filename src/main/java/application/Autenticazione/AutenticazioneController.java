@@ -160,7 +160,6 @@ public class AutenticazioneController extends HttpServlet {
                         Struttura s=ss.trovaStruttura(e.getStruttura().getIdStruttura());
                         e.setStruttura(s);
                     }
-                    System.out.println(listaE.size());
                     session.setAttribute("listaEventi",listaE);
                     session.setAttribute("profilo", log);
                     session.setAttribute("loggato", true);

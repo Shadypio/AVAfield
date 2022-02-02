@@ -15,6 +15,8 @@ import model.struttura.StrutturaDAO;
 import model.struttura.StrutturaServiceImpl;
 import model.utente.Utente;
 import model.utente.UtenteDAO;
+import moduloFIA.ComparatorCrescente;
+import moduloFIA.ComparatorDecrescente;
 import moduloFIA.LinearSearch;
 import moduloFIA.UniformCostSearch;
 
@@ -28,6 +30,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 @WebServlet(name = "EventoController", value = "/ge/*")
@@ -182,6 +185,13 @@ public class EventoController extends HttpServlet {
                     ArrayList<Evento> listaEventi=es.visualizzaEventi();
                     Utente utente1 = (Utente) session.getAttribute("profilo");
                     UniformCostSearch ucs=new UniformCostSearch();
+                    final long startSortTime = System.nanoTime();
+                    if (utente1.getAutovalutazione()>2.5)
+                        Collections.sort(listaEventi,new ComparatorDecrescente());
+                    else
+                        Collections.sort(listaEventi,new ComparatorCrescente());
+                    final long endSortTime = System.nanoTime();
+                    System.out.println("Sort time: " + (endSortTime - startSortTime)+"\n\n" );
                     //start
                     final long startTime = System.nanoTime();
                     ArrayList<Evento> result=ucs.search(listaEventi,utente1.getAutovalutazione());
@@ -189,6 +199,7 @@ public class EventoController extends HttpServlet {
                     final long endTime = System.nanoTime();
                     //Report
                     System.out.println("Execution time: " + (endTime - startTime)+"\n\n" );
+                    session.setAttribute("uniform",true);
                     session.setAttribute("listaEventi", result);
                     session.setAttribute("listaStrutture", ss.visualizzaStrutture());
                     request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);
@@ -214,6 +225,7 @@ public class EventoController extends HttpServlet {
                     final long endTime = System.nanoTime();
                     //Report
                     System.out.println("Execution time: " + (endTime - startTime)+"\n\n" );
+                    session.setAttribute("uniform",false);
                     session.setAttribute("listaEventi", result);
                     session.setAttribute("listaStrutture", ss.visualizzaStrutture());
                     request.getRequestDispatcher("/WEB-INF/interface/site/eventi_consigliati.jsp").forward(request, response);
