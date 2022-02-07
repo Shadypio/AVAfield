@@ -1,6 +1,5 @@
 package model.utils;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,7 +7,7 @@ import java.util.Random;
 public class FillDatabase {
 
     private static Random random = new Random();
-    private static int size=2000;
+    private static int size=1000;
     private static int sizeStrutture=10;
 
     public static void main(String[] args) {
@@ -22,6 +21,7 @@ public class FillDatabase {
         generateReviews();
         generateUsersEvents();
     }
+
     private static void generateRiserva1() {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("insert into avafieldbase.utente (idUtente, nome, cognome, email, username, password, isAdmin, telefono, autovalutazione) values (?,?,?,?,?,SHA1(?),?,?,?);");

@@ -1,9 +1,7 @@
 package moduloFIA;
 
 import model.evento.Evento;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LinearSearch {
     public ArrayList<Evento> search(ArrayList<Evento> all,int k){
@@ -23,6 +21,4 @@ public class LinearSearch {
         System.out.println("Numero di Iterazioni effettuate:"+i);
         return result;
     }
-
-
 }
